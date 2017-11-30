@@ -9,7 +9,7 @@ import {Link} from "react-router-dom";
 
 export const NavBarComponent = (props) => {
     return (
-        <Toolbar>
+        <Toolbar className="NavBar">
            <ToolbarGroup>
                <IconButton touch={true}>
                    <MenuIcon/>

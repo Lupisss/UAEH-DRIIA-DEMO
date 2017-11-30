@@ -10,7 +10,7 @@ class ProfilePage extends Component {
 
     render() {
         return (
-            <div>
+            <div className="Main-profile">
                 <ProfileComponent/>
             </div>
         );
