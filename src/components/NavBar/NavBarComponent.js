@@ -18,7 +18,9 @@ export const NavBarComponent = (props) => {
             <ToolbarGroup>
                 <ToolbarTitle text="UAEH DRIIA"/>
                 <ToolbarSeparator/>
-                <RaisedButton label="Mi perfil" primary={true}/>
+                <Link to="/profile">
+                    <RaisedButton label="Mi perfil" primary={true}/>
+                </Link>
                 <IconMenu
                     iconButtonElement={
                         <IconButton touch={true}>
