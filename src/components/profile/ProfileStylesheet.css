@@ -186,12 +186,21 @@
     padding: 3% 2%;
 }
 
-.Section-form {
+.Section-form, .Section-map {
     width: 100%;
     box-sizing: border-box;
-    padding: 2%;
+    padding: 2% 5%;
     margin: 3% 2%;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+}
+
+.Section-form{
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Section-map{
+    justify-content: center;
+    align-items: center;
 }

@@ -9,12 +9,13 @@ import {
     //AutoComplete,
     List,
     ListItem,
-    RaisedButton
+    RaisedButton, FlatButton
 } from "material-ui";
+import {MapModal} from "../common/MapModal";
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
-export const ProfileComponent = ({props}) => {
+export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open}) => {
     return (
         <div className="Main-profile">
             <div
@@ -46,18 +47,22 @@ export const ProfileComponent = ({props}) => {
                 <Paper zDepth={3} className="Section-form" >
                     <h2 style={{width:'100%'}} ><small>Datos personales</small></h2>
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Numero de Cuenta"
                         hintText="244755"
                     />
                     <TextField
+                        //style={styles.item}
                         floatingLabelText="Nombre(s)"
                         hintText="ej. Miguel"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Apellido Paterno"
                         hintText="ej. González"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Apellido Materno"
                         hintText="ej. Durón"
                     />
@@ -68,6 +73,7 @@ export const ProfileComponent = ({props}) => {
                         <MenuItem value={4} primaryText="Prefiero no decir"/>
                     </DropDownMenu>
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Nacionalidad"
                         hintText="ej Mexicana"
                     />
@@ -76,14 +82,17 @@ export const ProfileComponent = ({props}) => {
                         autoOk={true}
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Curp"
                         hintText="ej GODM90290995HDFNRG06"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Número de pasaporte"
                         hintText="ej G15XXXXXX"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Número de seguro social"
                         hintText="ej 13MD1323"
                     />
@@ -92,45 +101,69 @@ export const ProfileComponent = ({props}) => {
                         autoOk={true}
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Clave de Elector"
                         hintText="ej GSDH45654XXXX"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Email alterno"
                         hintText="ej alguien@ejemplo.com"
                         type="email"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Teléfono fijo"
                         hintText="ej 771 567 XX XX"
                         type="tel"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Telefono móvil"
                         hintText="ej 771 567 XX XX"
                         type="tel"
                     />
                 </Paper>
 
-                <Paper zDepth={3} className="Section-form" >
+                <Paper zDepth={3} className="Section-map" >
                     <h2 style={{width:'100%'}}><small>Dirección</small></h2>
+                    <div>
+                        <RaisedButton
+                            primary={true}
+                            label="Ver mapa"
+                            onClick={handleOpen}
+                        />
+                    </div>
                     <TextField
-
+                        style={styles.item}
+                        multiLine={true}
+                        rowsMax={3}
+                        name="text"
+                        value={address.text}
+                        //disabled={true}
                     />
+                    <MapModal
+                        address={address}
+                        handleClose={handleClose}
+                        onDrag={onDrag}
+                        open={open}/>
                 </Paper>
 
                 <Paper zDepth={3} className="Section-form" >
                     <h2 style={{width:'100%'}}><small>Datos del padre o tutor</small></h2>
                     {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Nombre completo"
                         hintText="ej Miguel R. Gonzalez Duron"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Dirección"
                         hintText="ej Cipres 104 Pachuca de Soto, Hidalgo"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Email"
                         hintText="ej algo@ejemplo.com"
                     />
@@ -143,11 +176,13 @@ export const ProfileComponent = ({props}) => {
                     </DropDownMenu>
 
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Teléfono fijo"
                         hintText="ej 771 567 XX XX"
                         type="tel"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Telefono móvil"
                         hintText="ej 771 567 XX XX"
                         type="tel"
@@ -170,30 +205,36 @@ export const ProfileComponent = ({props}) => {
                         <MenuItem value={4} primaryText="Lic en Arquitectura"/>
                     </DropDownMenu>
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Promedio general"
                         hintText="ej 9.79"
                         type="text"
                         pattern="^\d?\d?\.\d?\d?$"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Numero de semestres"
                         hintText="ej 9"
                         type="number"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Semestre actual"
                         hintText="ej 7"
                         type="number"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Número total de créditos"
                         hintText="ej 226"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Número de créditos cubiertos"
                         hintText="ej 163.5"
                     />
                     <TextField
+                        // style={styles.item}
                         floatingLabelText="Porcentaje de créditos"
                         hintText="ej 72.5"
                     />
@@ -215,4 +256,11 @@ export const ProfileComponent = ({props}) => {
             </form>
         </div>
     );
+};
+
+const styles = {
+    item:{
+        boxSizing:'border-box',
+        margin: '0px 20px'
+    }
 };
