@@ -31,6 +31,7 @@
   box-sizing: border-box;
   width: 100vw;
   height: calc(100vh - 56px);
+  margin-top: 56px;
 }
 
 .NavBar {

@@ -180,11 +180,18 @@
     height: 100%;
 }
 .Profile-form {
-    padding: 5%;
-    display: flex;
-    flex-wrap: wrap;
     width: 80%;
-    justify-content: space-around;
     box-sizing: border-box;
     margin: 0 auto;
+    padding: 3% 2%;
+}
+
+.Section-form {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 2%;
+    margin: 3% 2%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
