@@ -9,11 +9,33 @@ import {
     //AutoComplete,
     List,
     ListItem,
-    RaisedButton, FlatButton
+    RaisedButton, Subheader, Avatar, IconMenu, IconButton
 } from "material-ui";
+import {grey400, darkBlack} from 'material-ui/styles/colors';
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
 import {MapModal} from "../common/MapModal";
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
+
+const iconButtonElement = (
+    <IconButton
+        touch={true}
+        tooltip="más"
+        tooltipPosition="bottom-left"
+    >
+        <MoreVertIcon color={grey400} />
+    </IconButton>
+);
+
+const rightIconMenu = (
+    <IconMenu iconButtonElement={iconButtonElement}>
+        <MenuItem>Reply</MenuItem>
+        <MenuItem>Forward</MenuItem>
+        <MenuItem>Delete</MenuItem>
+    </IconMenu>
+);
 
 export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open}) => {
     return (
@@ -167,8 +189,8 @@ export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open
                         floatingLabelText="Email"
                         hintText="ej algo@ejemplo.com"
                     />
-                    <DropDownMenu autoWidth={false} value={1} style={{marginTop:14, width: 256}} >
-                        <MenuItem value={1} primaryText="Parentesco" disabled={true}/>
+                    <DropDownMenu autoWidth={false} value={2} style={{marginTop:14, width: 256}} >
+                        <Subheader>Parentesco</Subheader>
                         <MenuItem value={2} primaryText="Madre"/>
                         <MenuItem value={3} primaryText="Padre"/>
                         <MenuItem value={4} primaryText="Tío"/>
@@ -240,18 +262,39 @@ export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open
                     />
                 </Paper>
 
-                <Paper zDepth={3} className="Section-form" >
+                <Paper zDepth={3} className="Section-languages" >
                     <h2 style={{width:'100%'}}><small>Idiomas</small></h2>
                     {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
+                    <FloatingActionButton zDepth={3} mini={true} className="Languages-AddButton">
+                        <ContentAdd />
+                    </FloatingActionButton>
                     <div className="Languages-list">
                         <List>
-                            <ListItem primaryText="Ingles"/>
-                            <ListItem primaryText="Frances"/>
+                            <ListItem
+                                leftAvatar={<Avatar src="http://noticias.universia.es/net/images/educacion/l/le/let/lets-talk-gafes-cometidas-escrita-fala-ingles-noticias.jpg" />}
+                                rightIconButton={rightIconMenu}
+                                primaryText="Inglés"
+                                secondaryText={
+                                    <p>
+                                        <span style={{color: darkBlack}}>580 pts </span>
+                                        Certificación TOEFL iTP
+                                    </p>
+                                }
+                            />
+                            <ListItem
+                                leftAvatar={<Avatar src="http://www.banderas-mundo.es/data/flags/big/fr.png" />}
+                                rightIconButton={rightIconMenu}
+                                primaryText="Francés"
+                                secondaryText={
+                                    <p>
+                                        <span style={{color: darkBlack}}>B2 </span>
+                                        Certificación
+                                    </p>
+                                }
+                            />
                         </List>
                     </div>
                 </Paper>
-
-                <RaisedButton primary={true} label="Guardar"/>
 
             </form>
         </div>

@@ -186,7 +186,7 @@
     padding: 3% 2%;
 }
 
-.Section-form, .Section-map {
+.Section-form, .Section-map, .Section-languages {
     width: 100%;
     box-sizing: border-box;
     padding: 2% 5%;
@@ -195,7 +195,7 @@
     flex-wrap: wrap;
 }
 
-.Section-form{
+.Section-form, .Section-languages{
     justify-content: space-evenly;
     align-items: center;
 }
@@ -203,4 +203,20 @@
 .Section-map{
     justify-content: center;
     align-items: center;
+}
+
+.Section-languages {
+    position: relative;
+}
+
+.Languages-list{
+    overflow-y: scroll;
+    max-height: 50%;
+    width: 80%;
+}
+
+.Languages-AddButton{
+    position: absolute;
+    right: 30px;
+    top: 30px;
 }
