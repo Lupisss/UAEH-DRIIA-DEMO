@@ -9,7 +9,7 @@ import {MuiThemeProvider} from "material-ui";
 //configurar router dom
 import {BrowserRouter} from "react-router-dom";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
+// import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {MiTema} from "./MiTema";
 
 injectTapEventPlugin();

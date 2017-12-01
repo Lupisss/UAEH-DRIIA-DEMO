@@ -1,12 +1,20 @@
 import React from 'react';
 import {
-    DatePicker, TextField, DropDownMenu, MenuItem, Paper, CardTitle, AutoComplete, List,
-    ListItem, RaisedButton
+    DatePicker,
+    TextField,
+    DropDownMenu,
+    MenuItem,
+    Paper,
+    //CardTitle,
+    //AutoComplete,
+    List,
+    ListItem,
+    RaisedButton
 } from "material-ui";
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
-export const ProfileComponent = ({}) => {
+export const ProfileComponent = ({props}) => {
     return (
         <div className="Main-profile">
             <div
@@ -196,7 +204,7 @@ export const ProfileComponent = ({}) => {
                     {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
                     <div className="Languages-list">
                         <List>
-                            <ListItem fullWidth={true} primaryText="Ingles"/>
+                            <ListItem primaryText="Ingles"/>
                             <ListItem primaryText="Frances"/>
                         </List>
                     </div>
@@ -208,7 +216,3 @@ export const ProfileComponent = ({}) => {
         </div>
     );
 };
-
-const institutos = [
-  'ICBI'
-];
