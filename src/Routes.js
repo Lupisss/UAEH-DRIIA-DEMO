@@ -5,6 +5,7 @@ import LoginPage from "./components/login/LoginPage";
 import SignupPage from "./components/singup/SignupPage";
 import ProfilePage from "./components/profile/ProfilePage";
 import TakePartPage from "./components/takepart/TakePartPage";
+import ChooseSubjectsPage from "./components/choosesubjects/ChooseSubjectsPage";
 
 export const Routes = () => (
     <Switch>
@@ -13,5 +14,6 @@ export const Routes = () => (
       <Route path="/signup" component={SignupPage}/>
       <Route path="/profile" component={ProfilePage}/>
       <Route path="/takePart" component={TakePartPage}/>
+      <Route path="/chooseSubjects" component={ChooseSubjectsPage}/>
     </Switch>
 );
