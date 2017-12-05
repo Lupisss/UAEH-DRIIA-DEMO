@@ -19,7 +19,6 @@ export const Options = ({index, dataSource}) => {
             <TextField
                 floatingLabelText="Programa académico a cursar"
             />
-
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import { Tabs, Tab, Paper, RaisedButton} from 'material-ui';
 import {Options} from "./Options";
+import {SubjectToStudy} from "./SubjectToStudy";
 
 export const TakePartComponent = ({props}) => {
     return (
@@ -14,6 +15,10 @@ export const TakePartComponent = ({props}) => {
                                 index={"1ra"}
                                 dataSource={colleges}
                             />
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
                         </div>
                     </Tab>
                     <Tab label="2da opción" >
