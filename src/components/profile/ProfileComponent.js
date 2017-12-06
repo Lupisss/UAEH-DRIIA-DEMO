@@ -1,17 +1,19 @@
 import React from 'react';
 import {
+    Avatar,
     DatePicker,
-    TextField,
     DropDownMenu,
-    MenuItem,
-    Paper,
-    //CardTitle,
-    //AutoComplete,
+    IconButton,
+    IconMenu,
     List,
     ListItem,
-    RaisedButton, Subheader, Avatar, IconMenu, IconButton
+    MenuItem,
+    Paper,
+    RaisedButton,
+    Subheader,
+    TextField
 } from "material-ui";
-import {grey400, darkBlack} from 'material-ui/styles/colors';
+import {darkBlack, grey400} from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {MapModal} from "../common/MapModal";
@@ -235,7 +237,7 @@ export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open
                     />
                     <TextField
                         // style={styles.item}
-                        floatingLabelText="Numero de semestres"
+                        floatingLabelText="Número de semestres"
                         hintText="ej 9"
                         type="number"
                     />
