@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Fragment} from 'react';
 import { Tabs, Tab, Paper, RaisedButton} from 'material-ui';
 import {Options} from "./Options";
 import {SubjectToStudy} from "./SubjectToStudy";
@@ -27,6 +27,10 @@ export const TakePartComponent = ({props}) => {
                                 index={"2da"}
                                 dataSource={colleges}
                             />
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
                         </div>
                     </Tab>
                     <Tab label="3ra opción">
@@ -35,11 +39,10 @@ export const TakePartComponent = ({props}) => {
                                 index={"3ra"}
                                 dataSource={colleges}
                             />
-                            <RaisedButton
-                                style={{margin:'15px 60px'}}
-                                primary={true}
-                                label="Enviar solicitud"
-                            />
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
+                            <SubjectToStudy/>
                         </div>
                     </Tab>
                 </Tabs>

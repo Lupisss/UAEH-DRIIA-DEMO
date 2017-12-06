@@ -5,6 +5,7 @@ import LoginPage from "./components/login/LoginPage";
 import SignupPage from "./components/singup/SignupPage";
 import ProfilePage from "./components/profile/ProfilePage";
 import TakePartPage from "./components/takepart/TakePartPage";
+import LoadFilesPage from "./components/loadfiles/LoadFilesPage";
 import ChooseSubjectsPage from "./components/choosesubjects/ChooseSubjectsPage";
 
 export const Routes = () => (
@@ -15,5 +16,7 @@ export const Routes = () => (
       <Route path="/profile" component={ProfilePage}/>
       <Route path="/takePart" component={TakePartPage}/>
       <Route path="/chooseSubjects" component={ChooseSubjectsPage}/>
+      <Route path="/loadfiles" component={LoadFilesPage}/>
+
     </Switch>
 );
