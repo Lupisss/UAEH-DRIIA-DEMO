@@ -1,0 +1,46 @@
+.informacion{
+    background-color: rgba(244, 244, 244, 1);
+    height:90vh;
+    width:100%;
+}
+.box_info{
+    padding-top: 70px;
+    text-align: center;
+
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 500;
+    align-self: center;
+    width:70%;
+    margin:0 auto;
+}
+.box_info h2{
+    font-size: 35px;
+    color:rgb(51, 51, 51);
+}
+.box_info .p{
+    font-size: 25px;
+    color:rgb(51, 51, 51);
+}
+.ask{
+    font-size: 18px;
+    color:rgba(51, 51, 51, 0.7);
+}
+.ask .icon_about{
+    margin:5px 10px 0 0;
+
+}
+@media(max-width: 428px){
+    .informacion{
+        height:auto;
+        padding-bottom: 20px;
+    }
+    .box_info h2{
+        font-size: 25px;
+    }
+    .box_info .p{
+        font-size: 18px;
+    }
+    .ask{
+        font-size: 12px;
+    }
+}

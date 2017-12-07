@@ -11,9 +11,11 @@ import {BrowserRouter} from "react-router-dom";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {MiTema} from "./MiTema";
+import '../node_modules/font-awesome/css/font-awesome.min.css';
 
 injectTapEventPlugin();
 const Tema = getMuiTheme (MiTema);
+
 
 //Miguelito encapsula a la aplicación con material ui para que se pueda utilizar en todos los componentes, con muiTheme el tema en espe
 const Miguelito = () => (
