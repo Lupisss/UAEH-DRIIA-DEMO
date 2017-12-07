@@ -10,8 +10,13 @@ import {
     TextField
 } from 'material-ui';
 import './AdminStylesheet.css';
+import Icon from 'material-ui/svg-icons/action/info';
+import {Link} from 'react-router-dom';
 
-export const AdminComponent = ({props}) => {
+export const AdminComponent = ({data, search, onChange}) => {
+    const dataToDisplay = data.map( (field,key) => {
+       return <MyRow key={key} rowData={field}/>
+    });
     return (
         <div>
             <div className="search">
@@ -20,6 +25,8 @@ export const AdminComponent = ({props}) => {
                     className="search-text"
                     hintText="Busca..."
                     name="search"
+                    onChange={onChange}
+                    value={search}
                 />
             </div>
             <Table>
@@ -36,36 +43,27 @@ export const AdminComponent = ({props}) => {
                     </TableRow>
                 </TableHeader>
                 <TableBody>
-                    <TableRow>
-                        <TableRowColumn>244755</TableRowColumn>
-                        <TableRowColumn>Miguel Rafael Gonzalez Duron</TableRowColumn>
-                        <TableRowColumn>MSSU</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>244755</TableRowColumn>
-                        <TableRowColumn>Miguel Rafael Gonzalez Duron</TableRowColumn>
-                        <TableRowColumn>MSSU</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>244755</TableRowColumn>
-                        <TableRowColumn>Miguel Rafael Gonzalez Duron</TableRowColumn>
-                        <TableRowColumn>MSSU</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>244755</TableRowColumn>
-                        <TableRowColumn>Miguel Rafael Gonzalez Duron</TableRowColumn>
-                        <TableRowColumn>MSSU</TableRowColumn>
-                    </TableRow>
-                    <TableRow>
-                        <TableRowColumn>244755</TableRowColumn>
-                        <TableRowColumn>Miguel Rafael Gonzalez Duron</TableRowColumn>
-                        <TableRowColumn>MSSU</TableRowColumn>
-                    </TableRow>
+                    {dataToDisplay}
                 </TableBody>
                 <TableFooter>
 
                 </TableFooter>
             </Table>
         </div>
+    );
+};
+
+const MyRow = ({rowData}) => {
+    return (
+        <TableRow>
+            <TableRowColumn>{rowData.id}</TableRowColumn>
+            <TableRowColumn>{rowData.fullName}</TableRowColumn>
+            <TableRowColumn>{rowData.college}</TableRowColumn>
+            <TableRowColumn>
+                <Link to='/profile'>
+                    <Icon title="Detalle"/>
+                </Link>
+            </TableRowColumn>
+        </TableRow>
     );
 };
