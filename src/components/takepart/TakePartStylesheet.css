@@ -1,6 +1,6 @@
 .Main-takepart {
     width: 100%;
-    height: 100%;
+    height: 110%;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,7 +9,7 @@
     background-size: cover;
     background-attachment: fixed;
     background-repeat: no-repeat;
-
+    will-change: transform;
 }
 
 .Main-form-tp{
@@ -26,7 +26,6 @@
     padding: 20px;
     width: 100%;
     /*height: 60vh;*/
-
 }
 .Options{
     box-sizing: border-box;

@@ -24,13 +24,15 @@ export const LoginComponent = (props) => {
                     onChange={props.onChange}
                 />
                 <RaisedButton fullWidth={true} label="Iniciar sesión" primary={true} type="submit" />
+
             </form>
 
 
-
+            <span style={{marginTop: 20}}>¿No tiene una cuenta?
             <Link to="/signup">
-              registro
+                 Cree una.
             </Link>
+            </span>
         </Paper>
     );
 };
