@@ -18,7 +18,7 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {MapModal} from "../common/MapModal";
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-
+import PropTypes from 'prop-types';
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
 const iconButtonElement = (
@@ -39,7 +39,7 @@ const rightIconMenu = (
     </IconMenu>
 );
 
-export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open}) => {
+export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open, publicProfile }) => {
     return (
         <div className="Main-profile">
             <div
@@ -299,6 +299,14 @@ export const ProfileComponent = ({address, onDrag, handleClose, handleOpen, open
                 </Paper>
 
             </form>
+            {
+                publicProfile &&
+                <Paper>
+                    <TextField multiLine={true} rowsMax={6} floatingLabelText="Message"/>
+                    <RaisedButton label="Enviar"/>
+                </Paper>
+            }
+
         </div>
     );
 };
@@ -308,4 +316,13 @@ const styles = {
         boxSizing:'border-box',
         margin: '0px 20px'
     }
+};
+
+ProfileComponent.propTypes = {
+    address: PropTypes.object.isRequired,
+    onDrag: PropTypes.func.isRequired,
+    handleClose: PropTypes.func.isRequired,
+    handleOpen:PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    publicProfile: PropTypes.bool
 };
