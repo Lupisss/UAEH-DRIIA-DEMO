@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import {AdminComponent} from "./AdminComponent";
+import {Drawer, MenuItem} from "material-ui";
+import './AdminStylesheet.css'
+import {CollegesMgr} from "./CollegesMgr";
 
 const fakeData = [
     {id: '244755', fullName: 'Miguel Rafael González Durón', college: 'MSSU' },
@@ -28,7 +31,12 @@ class AdminPage extends Component {
         items = items.filter(item => regEx.test(item.fullName)|| regEx.test(item.id) || regEx.test(item.college));
         return (
             <div className="Main-admin">
+                <Drawer containerClassName="drawer">
+                    <MenuItem>Estudiantes</MenuItem>
+                    <MenuItem>Universidades</MenuItem>
+                </Drawer>
                 <AdminComponent search={search} onChange={this.handleChange} data={items}/>
+                <CollegesMgr/>
             </div>
         );
     }
