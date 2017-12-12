@@ -1,11 +1,13 @@
 import React, {Component} from 'react';
 import {StudentAdminComponent} from "./StudentAdminComponent";
-import {Drawer, MenuItem, TextField} from "material-ui";
+import {Dialog, Drawer, FloatingActionButton, MenuItem, RaisedButton} from "material-ui";
 import './AdminStylesheet.css'
 import {Link, Route, Switch} from "react-router-dom";
 import {api} from '../../api/API';
 //import {CollegeAdminComponent} from "./CollegeAdminComponent";
 import {AddCollege} from "./AddCollege";
+import {CollegeAdminComponent} from "./CollegeAdminComponent";
+import IconFab from 'material-ui/svg-icons/content/add'
 
 const fakeData = [
     {id: '244755', fullName: 'Miguel Rafael González Durón', college: 'MSSU' },
@@ -20,16 +22,20 @@ class AdminPage extends Component {
         super(props);
         this.state = {
             search:'',
+            searchCollege:'',
+            openAddCollege: false,
             college: {
                 name: '',
                 country: 'MX'
-            }
+            },
+            collegesList:[]
         };
     }
 
     componentWillMount(){
         api.getColleges().then( r => {
                 console.log(r);
+                this.setState({['collegesList']:r});
             }).catch( e => {
                 console.log(e)
         })
@@ -40,6 +46,8 @@ class AdminPage extends Component {
     };
 
     //////////////////////////////////////////////////
+
+    // Controls For adding A new College
 
     changeCollegeField = (e) => {
         let {college} = this.state;
@@ -57,11 +65,28 @@ class AdminPage extends Component {
         e.preventDefault();
         const {college} = this.state;
         console.log(college);
-        api.newCollege(college)
+        api.newCollege(college).then( s => {
+            let {collegesList} = this.state;
+            collegesList.push(s);
+            this.setState({collegesList})
+        }).catch( e => {
+            console.error(e);
+        })
     };
 
+    openDialogNewCollege = () => {
+        this.setState({['openAddCollege']:true});
+    };
+
+    closeDialogNewCollege = () => {
+        this.setState({['openAddCollege']:false});
+    };
+
+    //////////////////////////////////////////////////
+
     render() {
-        const {search, college} = this.state;
+        const {search, searchCollege, collegesList, college, openAddCollege} = this.state;
+        // render student component
         const StudentComponent = () => (
             <StudentAdminComponent
                 search={search}
@@ -69,17 +94,35 @@ class AdminPage extends Component {
                 data={items}
             />
         );
+        // render college component
         const CollegeComponent = () => (
-            <AddCollege
-                college={college}
-                onChange={this.changeCollegeField}
-                onCountryChange={this.changeCountryCollege}
-                onSubmit={this.addNewCollege}
+            <CollegeAdminComponent
+                search={searchCollege}
+                onChange={this.handleChange}
+                data={colleges}
             />
         );
+
+        const actionsNewCollege = [
+            <RaisedButton
+                label="Cancelar"
+                onClick={this.closeDialogNewCollege}
+            />,
+            <RaisedButton
+                form="addnewcollege"
+                type="submit"
+                label="Agregar"
+                primary={true}
+                onClick={this.closeDialogNewCollege}
+            />
+
+        ];
         let items = fakeData.slice();
         const regEx = new RegExp(search,'i');
         items = items.filter(item => regEx.test(item.fullName)|| regEx.test(item.id) || regEx.test(item.college));
+        let colleges = collegesList.slice();
+        const regExCollege = new RegExp(searchCollege,'i');
+        colleges = colleges.filter(item => regExCollege.test(item.name)|| regExCollege.test(item.country) );
         return (
             <div className="Main-admin">
                 <Drawer containerClassName="drawer">
@@ -90,10 +133,40 @@ class AdminPage extends Component {
                     <Route path="/admin/students" render={StudentComponent} />
                     <Route path="/admin/colleges" render={CollegeComponent} />
                 </Switch>
+                {/* Dialog for adding a new university */}
+                <Dialog
+                    modal={false}
+                    open={openAddCollege}
+                    actions={actionsNewCollege}
+                    onRequestClose={this.closeDialogNewCollege}
+                    contentStyle={{width:'40%'}}
+                    title="Agregar una universidad"
+                >
+                    <AddCollege
+                        className="add-college-dialog"
+                        college={college}
+                        onChange={this.changeCollegeField}
+                        onCountryChange={this.changeCountryCollege}
+                        onSubmit={this.addNewCollege}
+                    />
+                </Dialog>
+                {/* End Of Dialog*/}
+                {/* Button for opening New College*/}
+                <FloatingActionButton style={styles.fab} onClick={this.openDialogNewCollege}>
+                    <IconFab/>
+                </FloatingActionButton>
+                {/*End Button*/}
             </div>
         );
     }
 }
 
+const styles = {
+    fab : {
+        position: 'fixed',
+        bottom: 15,
+        right: 15
+    }
+}
 
 export default AdminPage;

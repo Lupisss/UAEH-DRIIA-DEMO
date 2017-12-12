@@ -28,17 +28,18 @@ const INDIA = 'IN';
 const TAILANDIA = 'TL';
 const COREA_SUR = 'CS';
 
-export const AddCollege = ({onSubmit, college, onChange, onCountryChange}) => {
+export const AddCollege = ({className, onSubmit, college, onChange, onCountryChange}) => {
     const {name, country} = college;
     return (
-        <form onSubmit={onSubmit}>
+        <form id="addnewcollege" className={className} onSubmit={onSubmit}>
             <TextField
                 floatingLabelText="Nombre de la universidad"
                 name="name"
                 value={name}
                 onChange={onChange}
+                fullWidth={true}
             />
-            <DropDownMenu value={country} onChange={onCountryChange}>
+            <DropDownMenu value={country} onChange={onCountryChange} style={{width:'100%'}}>
                 <MenuItem value={USA}               primaryText='Estados Unidos de América' />
                 <MenuItem value={CANADA}            primaryText='Canadá'                    />
                 <MenuItem value={MEXICO}            primaryText='México'                    />
@@ -66,7 +67,6 @@ export const AddCollege = ({onSubmit, college, onChange, onCountryChange}) => {
                 <MenuItem value={TAILANDIA}         primaryText='Tailandia'                 />
                 <MenuItem value={COREA_SUR}         primaryText='Corea del Sur'             />
             </DropDownMenu>
-            <RaisedButton primary={true} type="submit" label="Enviar" />
         </form>
     );
 };

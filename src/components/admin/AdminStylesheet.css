@@ -17,3 +17,9 @@
     margin-top: 56px;
     text-align: left;
 }
+
+.add-college-dialog {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 20px;
+}

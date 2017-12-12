@@ -6,8 +6,7 @@ import {
     TableHeader,
     TableHeaderColumn,
     TableRow,
-    TableRowColumn,
-    TextField
+    TableRowColumn
 } from 'material-ui';
 import './AdminStylesheet.css';
 import Icon from 'material-ui/svg-icons/action/info';
@@ -39,6 +38,7 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                         <TableHeaderColumn>No Cuenta</TableHeaderColumn>
                         <TableHeaderColumn>Nombre completo</TableHeaderColumn>
                         <TableHeaderColumn>Universidad destino</TableHeaderColumn>
+                        <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
