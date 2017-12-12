@@ -12,23 +12,22 @@ import {
 import './AdminStylesheet.css';
 import Icon from 'material-ui/svg-icons/action/info';
 import {Link} from 'react-router-dom';
+import {SearchField} from "./SearchField";
 
-export const AdminComponent = ({data, search, onChange}) => {
+export const StudentAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
        return <MyRow key={key} rowData={field}/>
     });
     return (
         <div>
-            <div className="search">
-                <TextField
-                    style={{width:'50%'}}
-                    className="search-text"
-                    hintText="Busca..."
-                    name="search"
-                    onChange={onChange}
-                    value={search}
-                />
-            </div>
+            <SearchField
+                style={{width:'50%'}}
+                className="search-text"
+                hintText="Busca..."
+                name="search"
+                onChange={onChange}
+                value={search}
+            />
             <Table>
                 <TableHeader>
                     <TableRow >
