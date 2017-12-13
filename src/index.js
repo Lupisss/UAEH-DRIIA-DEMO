@@ -12,6 +12,11 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
 import {MiTema} from "./MiTema";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
+import {Provider} from 'react-redux';
+import {configureStore} from './redux/store/configureStore';
+
+
+const store = configureStore();
 
 injectTapEventPlugin();
 const Tema = getMuiTheme (MiTema);
@@ -30,5 +35,11 @@ const Router = () => (
     </BrowserRouter>
 );
 
-ReactDOM.render(<Router/>, document.getElementById('root'));
+const WithRedux = () => (
+    <Provider store={store}>
+        <Router/>
+    </Provider>
+);
+
+ReactDOM.render(<WithRedux/>, document.getElementById('root'));
 registerServiceWorker();
