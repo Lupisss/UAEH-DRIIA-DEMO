@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {SignupComponent} from "./SignupComponent";
-import firebase from "../../firebase";
+import {connect} from 'react-redux';
 import "./SignupStylesheet.css";
+import {signin} from '../../redux/actions/userActions';
 
 class SignupPage extends Component {
     constructor(props) {
@@ -26,17 +27,7 @@ class SignupPage extends Component {
     handleSubmit =(event) => {
         event.preventDefault();
         let user = this.state.user;
-        firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-            .then(r => {
-                console.log("Ya me guardé" , r);
-            })
-            .catch((error) => {
-            // Handle Errors here.
-            let errorCode = error.code;
-            let errorMessage = error.message;
-            console.log(errorCode + ' due to ' + errorMessage );
-        });
-
+        this.props.signin(user);
     };
     render() {
         return (
@@ -47,4 +38,9 @@ class SignupPage extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    user: state.user
+});
+
+SignupPage = connect(mapStateToProps, {signin}) (SignupPage);
 export default SignupPage;
