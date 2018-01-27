@@ -54,11 +54,13 @@ export const signin = (user) => ( dispatch, getState ) => {
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then( snap => {
             usersRef.push(user);
+            return Promise.resolve(snap);
         })
         .catch( error =>  {
             // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
+            // const errorCode = error.code;
+            // const errorMessage = error.message;
+            return Promise.reject(error);
         });
 };
 
@@ -150,10 +152,7 @@ export function comprobarUsuario(){
 function formatUser(u){
     return {
         id:u.uid,
-        email:u.email,
-        age:'',
-        groups:{},
-        chatsIn:{}
+        email:u.email
     }
 }
 

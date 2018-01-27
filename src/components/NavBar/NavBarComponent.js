@@ -1,7 +1,13 @@
 import React from "react";
 import {
-    Toolbar, ToolbarGroup, ToolbarTitle, IconMenu, IconButton, MenuItem, RaisedButton,
-    ToolbarSeparator
+    IconButton,
+    IconMenu,
+    MenuItem,
+    RaisedButton,
+    Toolbar,
+    ToolbarGroup,
+    ToolbarSeparator,
+    ToolbarTitle
 } from "material-ui";
 import ExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
@@ -16,7 +22,9 @@ export const NavBarComponent = (props) => {
                </IconButton>
            </ToolbarGroup>
             <ToolbarGroup>
-                <ToolbarTitle text="UAEH DRIIA"/>
+                <Link to="/" style={{textDecoration:"none", color: '#919191'}} >
+                    <ToolbarTitle text="UAEH DRIIA"/>
+                </Link>
                 <ToolbarSeparator/>
                 <Link to="/profile">
                     <RaisedButton label="Mi perfil" primary={true}/>
@@ -29,6 +37,10 @@ export const NavBarComponent = (props) => {
                     }
                 >
                     <MenuItem containerElement={ <Link to="/login"/> } primaryText="Iniciar sesión" />
+                    <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
+                    <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
+                    <MenuItem containerElement={ <Link to="/admin"/> } primaryText="Administrar" />
+                    <MenuItem containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
 
                 </IconMenu>
             </ToolbarGroup>

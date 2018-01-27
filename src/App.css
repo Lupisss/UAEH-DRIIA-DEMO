@@ -30,7 +30,7 @@
 
 .Main-route{
   box-sizing: border-box;
-  width: 100vw;
+  max-width: 100vw;
   height: calc(100vh - 56px);
   margin-top: 56px;
   font-family: "Roboto", sans-serif;
