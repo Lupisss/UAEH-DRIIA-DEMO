@@ -3,7 +3,6 @@ import {SignupComponent} from "./SignupComponent";
 import {connect} from 'react-redux';
 import "./SignupStylesheet.css";
 import {signin} from '../../redux/actions/userActions';
-import {Snackbar} from "material-ui";
 import toastr from 'toastr';
 
 class SignupPage extends Component {
@@ -16,17 +15,45 @@ class SignupPage extends Component {
                 email:'',
                 password:'',
                 password2:''
-            }, signupSuccess: false
+            },
+            signupSuccess: false,
+            errors: {
 
+            }
         };
     }
     handleChange = (event) => {
         let user = this.state.user;
         user[event.target.name]=event.target.value;
+        this.validate(event.target.name, event.target.value);
         this.setState({
             user
         });
     };
+
+    validate = (name, value) => {
+        const {errors, user:{password,password2}} = this.state;
+        switch (name) {
+            case 'password':
+                if(value.trim().length < 6)
+                    errors['password'] = 'La contraseña debe ser mayor a 6 caracteres';
+                else
+                    delete errors['password'];
+                if(value.trim() !== password2)
+                    errors['password2'] = 'La contraseña no coincide';
+                else
+                    delete errors['password2'];
+                break;
+            case 'password2':
+                if(value.trim() !== password)
+                    errors['password2'] =   'La contraseña no coincide';
+                else
+                    delete errors['password2'];
+                break;
+        }
+        this.setState({errors});
+    };
+
     handleSubmit =(event) => {
         event.preventDefault();
         let user = this.state.user;
@@ -45,17 +72,10 @@ class SignupPage extends Component {
     };
 
     render() {
-        const {signupSuccess} = this.state;
+        const {signupSuccess,errors} = this.state;
         return (
             <div className="Main-signup">
-                <SignupComponent user={this.state.user} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
-                <Snackbar
-                    open={signupSuccess}
-                    message="Cuenta registrada exitosamente"
-                    autoHideDuration={4000}
-                    onRequestClose={this.handleRequestClose}
-                />
-
+                <SignupComponent errors={errors} user={this.state.user} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
             </div>
         );
     }
