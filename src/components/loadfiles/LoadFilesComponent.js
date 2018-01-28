@@ -1,5 +1,5 @@
-import React, {Fragment} from "react";
-import { Tabs, Tab, Paper, RaisedButton} from 'material-ui';
+import React from "react";
+// import { Tabs, Tab, Paper, RaisedButton} from 'material-ui';
 import {UploadFile} from "./UploadFile"
 
 export const LoadFilesComponent = (props) => {

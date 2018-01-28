@@ -106,7 +106,7 @@ export function registrarEIniciarSesion(user) {
 export const updateProfile = (user) =>  (dispatch) => {
     //Touched by Bliss hand
     let updates = {
-        [`dev/users/${user.id}`]:user
+        [`dev/users/${user.id} `]:user
     };
     return db.update(updates)
         .then(()=>{

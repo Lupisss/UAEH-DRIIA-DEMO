@@ -1,5 +1,5 @@
-import React, {Fragment} from 'react';
-import { Tabs, Tab, Paper, RaisedButton} from 'material-ui';
+import React from 'react';
+import {Paper, Tab, Tabs} from 'material-ui';
 import {Options} from "./Options";
 import {SubjectToStudy} from "./SubjectToStudy";
 
