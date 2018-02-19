@@ -11,7 +11,7 @@ export const HomeComponent =() => (
         <Slide />
         <About />
         <Publi />
-        <Categorias />
+        {/*<Categorias />*/}
         <Public />
         <Info />
     </div>
