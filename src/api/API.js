@@ -1,8 +1,40 @@
 import axios from 'axios';
 
-const collegesUrl = 'http://localhost:8000/api/collegeapi/';
+let debug = true;
 
+//Working on localhost
+//Localhost urls
+let loginUrl = 'http://localhost:8000/rest-auth/login/';
+let collegesUrl = 'http://localhost:8000/api/collegeapi/';
+// Production urls
+if (!debug) {
+    //let collegesUrl = 'http://uaeh.herokuapp.com/api/collegeapi';
+}
+
+const tokenName = 'user_uaeh_token';
+// Axios functions
 export const api = {
+    /** User functions  **/
+    logIn: user => {
+        return new Promise( (resolve, reject) => {
+            const instance = axios.create({
+                baseURL: loginUrl,
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            });
+            instance.post('', user)
+                .then( r => {
+                    localStorage.setItem(tokenName, JSON.stringify(r.data.key));
+                    console.log(r.data.key);
+                    resolve(r.data);
+                }).catch( e => {
+                    console.log(e);
+                    reject(e);
+            });
+        });
+    },
+    /** End user functions **/
     getColleges: () => {
         return new Promise( (resolve, reject) => {
             const instance = axios.create({

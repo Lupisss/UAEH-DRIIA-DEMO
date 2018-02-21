@@ -1,52 +1,56 @@
 import React, {Component} from "react";
 import {LoginComponent} from "./LoginComponent";
-import firebase from "../../firebase";
+import {connect} from 'react-redux';
+import {logIn} from '../../redux/actions/userActions';
+import toastr from 'toastr';
 import "../singup/SignupStylesheet.css";
 
 class LoginPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            user:{
-                email:'',
-                password:'',
-
+            user: {
+                email: '',
+                password: '',
+                username: ''
             }
         };
     }
-    handleChange = (event) => {
+
+    handleChange = event => {
         let user = this.state.user;
-        user[event.target.name]=event.target.value;
+        user[event.target.name] = event.target.value;
         this.setState({
             user
         });
     };
 
-    handleSubmit =(event) => {
+    handleSubmit = event => {
         event.preventDefault();
-        let user = this.state.user;
-        firebase.auth().signInWithEmailAndPassword(user.email, user.password)
-            .then ((snap) => { console.log("Ya entré", snap)})
-            .catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode + " due to " + errorMessage)
-            // ...
+        let user = Object.assign({}, this.state.user);
+        user.username = user.email;
+        this.props.logIn(user)
+            .then(r => {
+                toastr.success('Sesión iniciada');
+            }).catch(e => {
+                toastr.error(e);
         });
-
-
-
     };
-
 
     render() {
         return (
             <div className="Main-login">
-                <LoginComponent user={this.state.user} onChange={this.handleChange} onSubmit={this.handleSubmit}/>
+                <LoginComponent
+                    user={this.state.user}
+                    onChange={this.handleChange}
+                    onSubmit={this.handleSubmit}
+                />
             </div>
         );
     }
 }
 
+const mapStateToProps = (state, ownProps) => ({});
+
+LoginPage = connect(mapStateToProps, {logIn})(LoginPage);
 export default LoginPage;
