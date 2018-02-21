@@ -1,6 +1,6 @@
 import React from 'react';
 import './Slide.css';
-import logo from '../../../assets/uaehh.png';
+//import logo from '../../../assets/uaehh.png';
 import {RaisedButton} from 'material-ui';
 
 export const SlideDisplay = () => {

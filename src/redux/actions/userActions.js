@@ -10,7 +10,7 @@ const usersRef = db.child("dev").child("users");
 //const userId = firebase.auth().currentUser.uid;
 //import toastr from 'toastr';
 
-export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
+//export const UPDATE_USER_SUCCESS = "UPDATE_USER_SUCCESS";
 export const LOGOUT_SUCCESS = "CERRAR_SESION_SUCCESS";
 
 /**************************** Login actions *********************************/
@@ -76,15 +76,15 @@ export const signin = (user) => ( dispatch, getState ) => {
 
 /**************************************/
 
-const logoutSuccess = () => ({
-     type: LOGOUT_SUCCESS
-});
+// const logoutSuccess = () => ({
+//      type: LOGOUT_SUCCESS
+// });
 
 
-const updateUserSuccess = user => ({
-        type:UPDATE_USER_SUCCESS,
-        user
-});
+// const updateUserSuccess = user => ({
+//         type:UPDATE_USER_SUCCESS,
+//         user
+// });
 
 
 

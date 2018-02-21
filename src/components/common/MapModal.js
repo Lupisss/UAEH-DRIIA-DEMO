@@ -4,9 +4,9 @@
 import React from 'react';
 import {Dialog, FlatButton} from 'material-ui';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
-import SearchBox from "react-google-maps/lib/components/places/SearchBox";
+//import SearchBox from "react-google-maps/lib/components/places/SearchBox";
 
-const MyMapComponent = withScriptjs(withGoogleMap(({address, dragged, isMarkerShown, lat=20.134484, lng=-98.802704, markerLat=20.1324695, markerLng=-98.8009663}) =>
+const MyMapComponent = withScriptjs(withGoogleMap(({address, dragged, isMarkerShown, /*lat=20.134484, lng=-98.802704, markerLat=20.1324695, markerLng=-98.8009663*/}) =>
     {
         // const googleMaps = window.google.maps;
         // const geocoder = new googleMaps.Geocoder();

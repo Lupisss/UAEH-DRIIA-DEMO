@@ -1,5 +1,5 @@
 import React from 'react';
-import {DropDownMenu, MenuItem, RaisedButton, TextField} from 'material-ui';
+import {DropDownMenu, MenuItem, TextField} from 'material-ui';
 
 const USA = 'US';
 const CANADA = 'CA';

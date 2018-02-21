@@ -34,8 +34,9 @@ class AdminPage extends Component {
 
     componentWillMount(){
         api.getColleges().then( r => {
-                console.log(r);
-                this.setState({['collegesList']:r});
+                let collegesList;
+                collegesList = r;
+                this.setState({collegesList});
             }).catch( e => {
                 console.log(e)
         })
@@ -75,11 +76,11 @@ class AdminPage extends Component {
     };
 
     openDialogNewCollege = () => {
-        this.setState({['openAddCollege']:true});
+        this.setState({openAddCollege:true});
     };
 
     closeDialogNewCollege = () => {
-        this.setState({['openAddCollege']:false});
+        this.setState({openAddCollege:false});
     };
 
     //////////////////////////////////////////////////

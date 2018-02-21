@@ -50,6 +50,7 @@ class SignupPage extends Component {
                 else
                     delete errors['password2'];
                 break;
+            default:
         }
         this.setState({errors});
     };
@@ -72,7 +73,7 @@ class SignupPage extends Component {
     };
 
     render() {
-        const {signupSuccess,errors} = this.state;
+        const {errors} = this.state;
         return (
             <div className="Main-signup">
                 <SignupComponent errors={errors} user={this.state.user} onChange={this.handleChange} onSubmit={this.handleSubmit}/>

@@ -19,7 +19,7 @@ import ContentAdd from 'material-ui/svg-icons/content/add';
 import {MapModal} from "../common/MapModal";
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
+//import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 import './ProfileStylesheet.css';
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
