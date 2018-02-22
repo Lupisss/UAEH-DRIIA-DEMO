@@ -16,19 +16,19 @@ export const LOGOUT_SUCCESS = "CERRAR_SESION_SUCCESS";
 /**************************** Login actions *********************************/
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 
-export const loginSuccess =  user => ({
-    type: LOGIN_SUCCESS ,
+export const loginSuccess = user => ({
+    type: LOGIN_SUCCESS,
     user
 });
 
 export const logIn = user => (dispatch, getState) => {
-  return api.logIn(user)
-      .then( r => {
-          dispatch(loginSuccess(user));
-          return Promise.resolve(r);
-      }).catch( e => {
-         return Promise.reject(e);
-      });
+    return api.logIn(user)
+        .then(r => {
+            dispatch(loginSuccess(user));
+            return Promise.resolve(r);
+        }).catch(e => {
+            return Promise.reject(e);
+        });
 };
 // export const login = user => (dispatch, getState) =>  {
 //     return firebase.auth()
@@ -60,13 +60,13 @@ export const logIn = user => (dispatch, getState) => {
 //
 // };
 
-export const signin = (user) => ( dispatch, getState ) => {
+export const signin = (user) => (dispatch, getState) => {
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
-        .then( snap => {
+        .then(snap => {
             usersRef.push(user);
             return Promise.resolve(snap);
         })
-        .catch( error =>  {
+        .catch(error => {
             // Handle Errors here.
             // const errorCode = error.code;
             // const errorMessage = error.message;
@@ -86,16 +86,25 @@ export const signUp = user => (dispatch, getState) => {
 
 /**************************************/
 
-// const logoutSuccess = () => ({
-//      type: LOGOUT_SUCCESS
-// });
+const logoutSuccess = () => ({
+    type: LOGOUT_SUCCESS
+});
 
+export const logOut = () => (dispatch, getState) => {
+    return api.logOut()
+        .then(r => {
+            dispatch(logoutSuccess());
+            return Promise.resolve(r);
+        }).catch(error => {
+            return Promise.reject(error);
+        });
+
+};
 
 // const updateUserSuccess = user => ({
 //         type:UPDATE_USER_SUCCESS,
 //         user
 // });
-
 
 
 // export function registrarEIniciarSesion(user) {
@@ -139,7 +148,6 @@ export const signUp = user => (dispatch, getState) => {
 // };
 
 
-
 // export function cerrarSesion() {
 //     return function (dispatch,getState) {
 //         return firebase.auth().signOut()
@@ -153,10 +161,10 @@ export const signUp = user => (dispatch, getState) => {
 //     }
 // }
 
-export function comprobarUsuario(){
+export function comprobarUsuario() {
     return function (dispatch, getState) {
         let user = localStorage.getItem('user');
-        if(user){
+        if (user) {
             user = JSON.parse(user);
             usersRef.child(user.uid).on('value', snap => {
                 dispatch(loginSuccess(snap.val()));
@@ -164,7 +172,6 @@ export function comprobarUsuario(){
         }
     }
 }
-
 
 
 //formatters:

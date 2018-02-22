@@ -6,6 +6,7 @@ let debug = true;
 //Localhost urls
 let loginUrl = 'http://localhost:8000/rest-auth/login/';
 let signupUrl = 'http://localhost:8000/rest-auth/registration/';
+let logoutUrl = 'http://localhost:8000/rest-auth/logout/';
 let collegesUrl = 'http://localhost:8000/api/collegeapi/';
 // Production urls
 if (!debug) {
@@ -30,7 +31,7 @@ export const api = {
                     resolve(r.data);
                 }).catch( e => {
                     console.log(e);
-                    reject(e);
+                    reject(e.response);
             });
         });
     },
@@ -48,8 +49,25 @@ export const api = {
                    resolve(r.data);
                }).catch( e => {
                     console.log(e);
-                    reject(e);
+                    reject(e.response);
            });
+        });
+    },
+    logOut : () => {
+        return new Promise( (resolve, reject) => {
+            const instance = axios.create({
+                baseURL: logoutUrl,
+                headers: {
+                    'Content-Type' : 'application/json'
+                }
+            });
+            instance.post('',{})
+                .then(r => {
+                    localStorage.removeItem(tokenName);
+                    resolve(r.data);
+                }).catch(e => {
+                    reject(e.response);
+            });
         });
     },
     /** End user functions **/
@@ -66,7 +84,7 @@ export const api = {
                     console.log(r);
                     resolve(r.data)
                 }).catch( error => {
-                    console.error(error)
+                    console.error(error);
                     reject(error.response)
             });
         });

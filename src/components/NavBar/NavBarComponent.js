@@ -13,7 +13,7 @@ import ExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
 import {Link} from "react-router-dom";
 
-export const NavBarComponent = (props) => {
+export const NavBarComponent = ({logOut}) => {
     return (
         <Toolbar className="NavBar">
            <ToolbarGroup>
@@ -40,7 +40,7 @@ export const NavBarComponent = (props) => {
                     <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
                     <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
                     <MenuItem containerElement={ <Link to="/admin"/> } primaryText="Administrar" />
-                    <MenuItem containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
+                    <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
 
                 </IconMenu>
             </ToolbarGroup>
