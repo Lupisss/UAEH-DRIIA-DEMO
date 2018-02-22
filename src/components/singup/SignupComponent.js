@@ -20,6 +20,7 @@ export const SignupComponent = ({
                     value={name}
                     name="name"
                     onChange={onChange}
+                    required={true}
                 />
                 <TextField
                     fullWidth={true}
@@ -28,6 +29,7 @@ export const SignupComponent = ({
                     value={lastName}
                     name="lastName"
                     onChange={onChange}
+                    required={true}
                 />
                 <TextField
                     fullWidth={true}
@@ -37,6 +39,7 @@ export const SignupComponent = ({
                     value={email}
                     name="email"
                     onChange={onChange}
+                    required={true}
                 />
                 <TextField
                     fullWidth={true}
@@ -46,6 +49,8 @@ export const SignupComponent = ({
                     name="password"
                     onChange={onChange}
                     errorText={ePass}
+                    pattern="^\d*[a-zA-Z]{1,}\d*"
+                    required={true}
                 />
                 <TextField
                     fullWidth={true}
@@ -55,8 +60,9 @@ export const SignupComponent = ({
                     name="password2"
                     onChange={onChange}
                     errorText={ePass2}
+                    required={true}
                 />
-                <RaisedButton disabled={ ok ?'':'disabled'} fullWidth={true} label="Registrar" primary={true} type="submit" />
+                <RaisedButton disabled={ !ok } fullWidth={true} label="Registrar" primary={true} type="submit" />
             </form>
         </Paper>
     );

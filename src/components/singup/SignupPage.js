@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {SignupComponent} from "./SignupComponent";
 import {connect} from 'react-redux';
 import "./SignupStylesheet.css";
-import {signin} from '../../redux/actions/userActions';
+import {signUp} from '../../redux/actions/userActions';
 import toastr from 'toastr';
 
 class SignupPage extends Component {
@@ -35,8 +35,8 @@ class SignupPage extends Component {
         const {errors, user:{password,password2}} = this.state;
         switch (name) {
             case 'password':
-                if(value.trim().length < 6)
-                    errors['password'] = 'La contraseña debe ser mayor a 6 caracteres';
+                if(value.trim().length < 8 )
+                    errors['password'] = 'La contraseña debe ser mayor a 8 caracteres';
                 else
                     delete errors['password'];
                 if(value.trim() !== password2)
@@ -57,13 +57,20 @@ class SignupPage extends Component {
 
     handleSubmit =(event) => {
         event.preventDefault();
-        let user = this.state.user;
-        this.props.signin(user)
-            .then( s => {
+        const {email,password,password2} = this.state.user;
+        let user = {};
+        user.email = user.username = email;
+        user.password1 = password;
+        user.password2 = password2;
+        console.log(user);
+        this.props.signUp(user)
+            .then( r => {
                 toastr.success('Registrado');
                 this.props.history.push('/profile');
+                console.log(r);
             })
             .catch( e => {
+                toastr.error(e);
                 console.error(e);
             });
     };
@@ -86,5 +93,5 @@ const mapStateToProps = (state) => ({
     user: state.user
 });
 
-SignupPage = connect(mapStateToProps, {signin}) (SignupPage);
+SignupPage = connect(mapStateToProps, {signUp}) (SignupPage);
 export default SignupPage;

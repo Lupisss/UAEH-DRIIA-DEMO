@@ -5,6 +5,7 @@ let debug = true;
 //Working on localhost
 //Localhost urls
 let loginUrl = 'http://localhost:8000/rest-auth/login/';
+let signupUrl = 'http://localhost:8000/rest-auth/registration/';
 let collegesUrl = 'http://localhost:8000/api/collegeapi/';
 // Production urls
 if (!debug) {
@@ -26,12 +27,29 @@ export const api = {
             instance.post('', user)
                 .then( r => {
                     localStorage.setItem(tokenName, JSON.stringify(r.data.key));
-                    console.log(r.data.key);
                     resolve(r.data);
                 }).catch( e => {
                     console.log(e);
                     reject(e);
             });
+        });
+    },
+    signUp : user => {
+        return new Promise( (resolve,reject) => {
+           const instance = axios.create({
+               baseURL: signupUrl,
+               headers: {
+                   'Content-Type' : 'application/json'
+               }
+           });
+           instance.post('', user)
+               .then( r => {
+                   localStorage.setItem(tokenName, JSON.stringify(r.data.key));
+                   resolve(r.data);
+               }).catch( e => {
+                    console.log(e);
+                    reject(e);
+           });
         });
     },
     /** End user functions **/

@@ -74,6 +74,16 @@ export const signin = (user) => ( dispatch, getState ) => {
         });
 };
 
+export const signUp = user => (dispatch, getState) => {
+    return api.signUp(user)
+        .then(r => {
+            return Promise.resolve(r);
+        }).catch(e => {
+            console.log(e);
+            return Promise.reject(e)
+        });
+};
+
 /**************************************/
 
 // const logoutSuccess = () => ({
