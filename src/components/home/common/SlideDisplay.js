@@ -3,6 +3,8 @@ import './Slide.css';
 //import logo from '../../../assets/uaehh.png';
 import {RaisedButton} from 'material-ui';
 
+
+//Texto y boton sobre imagen principal
 export const SlideDisplay = () => {
     return (
         <div className="slide">
@@ -15,7 +17,7 @@ export const SlideDisplay = () => {
                             Lorem ipsum dolor sit amet
                         </p>
                         <RaisedButton  label="Registro" primary={true} type="submit" />
-                        <p className="aviso">Necesitas ayuda? Contáctanos</p>
+                        <p classNamgit e="aviso">Necesitas ayuda? Contáctanos</p>
                     </div>
                 </div>
             </div>

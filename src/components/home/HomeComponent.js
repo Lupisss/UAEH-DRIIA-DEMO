@@ -6,6 +6,9 @@ import Publi from './common/Publi';
 import Public from './common/Public';
 import Info from './common/Info';
 
+
+
+//Concentra a todos los elementos de la pagina principal
 export const HomeComponent =() => (
     <div>
         <Slide />

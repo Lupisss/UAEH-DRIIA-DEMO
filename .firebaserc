@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "uaeh-driia"
+    "default": "uaeh-driia",
+    "uaehdriia": "uaehdri"
   }
 }

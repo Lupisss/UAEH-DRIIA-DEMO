@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import './Info.css';
 import FontAwesome from 'react-fontawesome';
 
-
+//Final de la pagina
 class Info extends Component {
     render() {
         return (

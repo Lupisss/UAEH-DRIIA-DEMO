@@ -1,6 +1,7 @@
 import React from 'react';
 import {DropDownMenu, MenuItem, TextField} from 'material-ui';
 
+/* declara las constantes para cada pais (como un id)*/
 const USA = 'US';
 const CANADA = 'CA';
 const MEXICO = 'MX';
@@ -28,9 +29,12 @@ const INDIA = 'IN';
 const TAILANDIA = 'TL';
 const COREA_SUR = 'CS';
 
+// se pone export antes para que en otra .js se pueda importar
 export const AddCollege = ({className, onSubmit, college, onChange, onCountryChange}) => {
     const {name, country} = college;
     return (
+        // Cuando presionas el boton de + en el apartado de universidad del administrador, aparece una ventana en donde se pueden agregar
+        //universidades
         <form id="addnewcollege" className={className} onSubmit={onSubmit}>
             <TextField
                 floatingLabelText="Nombre de la universidad"
@@ -39,6 +43,7 @@ export const AddCollege = ({className, onSubmit, college, onChange, onCountryCha
                 onChange={onChange}
                 fullWidth={true}
             />
+            {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
             <DropDownMenu value={country} onChange={onCountryChange} style={{width:'100%'}}>
                 <MenuItem value={USA}               primaryText='Estados Unidos de América' />
                 <MenuItem value={CANADA}            primaryText='Canadá'                    />

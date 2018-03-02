@@ -6,6 +6,7 @@ class HomePage extends React.Component {
         super(props);
         this.state= {};
     }
+    //Renderiza a HomeComponent
     render(){
         return (
             <div>

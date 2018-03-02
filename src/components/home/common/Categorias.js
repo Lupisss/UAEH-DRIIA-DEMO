@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import './Categorias.css';
 import FontAwesome from 'react-fontawesome';
 
+
+//6 imagenes que puedes seleccionar
 class Categorias extends Component {
     render() {
         return (

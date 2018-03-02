@@ -6,6 +6,7 @@ import iphone from '../../../assets/uaeh.png';
 class About extends Component {
     render() {
         return (
+
             <div className="about">
                 <div className="fx space">
                     <div className="process borde">
@@ -32,6 +33,8 @@ class About extends Component {
                 <div className="nos">
                     <div className="fx largo">
                         <div className="info">
+
+                            {/* Pagina principal abajo de la pagina principal*/}
                             <h2>Lorem ipsum dolor sit amet, consectetur<br/> Lorem ipsum dolor</h2>
                             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
                         </div>

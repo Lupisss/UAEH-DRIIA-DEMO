@@ -9,6 +9,7 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
     });
     return (
         <div>
+            {/* campo de busqueda  de universidades en la administracion */}
             <SearchField
                 style={{width:'50%'}}
                 className="search-text"
@@ -18,6 +19,7 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
                 value={search}
             />
             <Table>
+                {/* crea la tabla que muestra a las universidades registradas */}
                 <TableHeader>
                     <TableRow >
                         <TableHeaderColumn colSpan={3} tooltip="Lista de alumnos">
@@ -25,11 +27,14 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
+                        {/*Encabezado de la tabla  */}
                         <TableHeaderColumn>Id</TableHeaderColumn>
                         <TableHeaderColumn>Nombre de Universidad</TableHeaderColumn>
                         <TableHeaderColumn>País</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
+
+                {/*Cuerpo de la tabla */}
                 <TableBody>
                     {dataToDisplay}
                 </TableBody>
@@ -43,7 +48,9 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
 
 const MyRow = ({rowData}) => {
     return (
+
         <TableRow>
+            {/*Pone la información en la tabla antes creada */}
             <TableRowColumn>{rowData.id}</TableRowColumn>
             <TableRowColumn>{rowData.name}</TableRowColumn>
             <TableRowColumn>{rowData.country}</TableRowColumn>

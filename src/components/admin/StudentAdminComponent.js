@@ -19,6 +19,7 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
     });
     return (
         <div>
+            {/* campo de busqueda en la administracion */}
             <SearchField
                 style={{width:'50%'}}
                 className="search-text"
@@ -27,6 +28,7 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                 onChange={onChange}
                 value={search}
             />
+            {/* crea la tabla que muestra a los alumnos registrados */}
             <Table>
                 <TableHeader>
                     <TableRow >
@@ -35,15 +37,19 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
+                        {/*Crea las columnas de la tabla */}
                         <TableHeaderColumn>No Cuenta</TableHeaderColumn>
                         <TableHeaderColumn>Nombre completo</TableHeaderColumn>
                         <TableHeaderColumn>Universidad destino</TableHeaderColumn>
                         <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
+
+                {/* crea el cuerpo de la tabla */}
                 <TableBody>
                     {dataToDisplay}
                 </TableBody>
+                {/*Pies de la tabla */}
                 <TableFooter>
 
                 </TableFooter>
@@ -55,10 +61,14 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
 const MyRow = ({rowData}) => {
     return (
         <TableRow>
+
+            {/* pone los valores de la tabla, cuenta, nombre y escuela */}
             <TableRowColumn>{rowData.id}</TableRowColumn>
             <TableRowColumn>{rowData.fullName}</TableRowColumn>
             <TableRowColumn>{rowData.college}</TableRowColumn>
             <TableRowColumn>
+
+                {/* si presionas en el icono de ! te manda al perfil del alumno */}
                 <Link to='/profile'>
                     <Icon title="Detalle"/>
                 </Link>

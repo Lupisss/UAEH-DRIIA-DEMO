@@ -6,6 +6,9 @@ import {Dialog, FlatButton} from 'material-ui';
 import { withScriptjs, withGoogleMap, GoogleMap, Marker } from "react-google-maps"
 //import SearchBox from "react-google-maps/lib/components/places/SearchBox";
 
+
+
+//pone el mapa de google para dirección en el perfil
 const MyMapComponent = withScriptjs(withGoogleMap(({address, dragged, isMarkerShown, /*lat=20.134484, lng=-98.802704, markerLat=20.1324695, markerLng=-98.8009663*/}) =>
     {
         // const googleMaps = window.google.maps;
@@ -37,6 +40,7 @@ export const MapModal = ({address, open=false, handleClose, onDrag}) => {
         onDrag(e);
     }
 
+    //pone los botones de cancelar y guardar en la ventana de google maps
     const actions = [
         <FlatButton
             label="Cancelar"
@@ -51,6 +55,7 @@ export const MapModal = ({address, open=false, handleClose, onDrag}) => {
         />,
     ];
     return (
+        //pone los letreros en la ventana de google maps
         <Dialog
             style={styles.dialog}
             title="Seleccióna tu dirección"
@@ -61,6 +66,7 @@ export const MapModal = ({address, open=false, handleClose, onDrag}) => {
         >
             <div style={styles.wraper}>
                 <p>¿Donde vives?</p>
+                {/*Pone la dirección de google maps */}
                 <MyMapComponent
                     address={address}
                     dragged={dragged}
@@ -78,6 +84,10 @@ export const MapModal = ({address, open=false, handleClose, onDrag}) => {
 
 //MapModal.propTypes = {};
 
+
+
+
+//pone estilo
 const styles = {
     dialog: {
         display:"inherit"

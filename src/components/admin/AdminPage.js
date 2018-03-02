@@ -5,10 +5,14 @@ import './AdminStylesheet.css'
 import {Link, Route, Switch} from "react-router-dom";
 import {api} from '../../api/API';
 //import {CollegeAdminComponent} from "./CollegeAdminComponent";
+
+/* se puede importar porque en AddCollege ya se exportó /* se pone export antes para que en otra .js se pueda importar */
 import {AddCollege} from "./AddCollege";
 import {CollegeAdminComponent} from "./CollegeAdminComponent";
 import IconFab from 'material-ui/svg-icons/content/add'
 
+
+/*Datos de algunos estudiantes /* se pone export antes para que en otra .js se pueda importar */
 const fakeData = [
     {id: '244755', fullName: 'Miguel Rafael González Durón', college: 'MSSU' },
     {id: '244284', fullName: 'Guadalupe Reyes Delgadillo', college: 'Camp College' },
@@ -16,10 +20,13 @@ const fakeData = [
     {id: '123456', fullName: 'Arnold Azael Bautista Jimenez', college: 'Some college at Germany' },
     {id: '897832', fullName: 'Some Name Some Last Name', college: 'Another College' }
 ];
-
+//La funcion principal de un contenendor es tener componentes de presentación más pequeños y contiene toda la logica
 class AdminPage extends Component {
+    //inicializar y debe llamar al padre
     constructor(props) {
+        //Llamada al padre
         super(props);
+        //opcionalmente tiene un estado que es un objeto.. clave: valor
         this.state = {
             search:'',
             searchCollege:'',
@@ -28,10 +35,11 @@ class AdminPage extends Component {
                 name: '',
                 country: 'MX'
             },
+            //Array
             collegesList:[]
         };
     }
-
+    //METODOS
     componentWillMount(){
         api.getColleges().then( r => {
                 let collegesList;
@@ -103,7 +111,7 @@ class AdminPage extends Component {
                 data={colleges}
             />
         );
-
+        //Botones que están en agregar universidad, cancelar y aceptar
         const actionsNewCollege = [
             <RaisedButton
                 label="Cancelar"
@@ -125,6 +133,7 @@ class AdminPage extends Component {
         const regExCollege = new RegExp(searchCollege,'i');
         colleges = colleges.filter(item => regExCollege.test(item.name)|| regExCollege.test(item.country) );
         return (
+            // Crea el menu de lado izquierdo en administrador de Estudiantes y Universidad, al seleccionar uno, te dirige a ese apartado
             <div className="Main-admin">
                 <Drawer containerClassName="drawer">
                     <MenuItem containerElement={<Link to="/admin/students" />}>Estudiantes</MenuItem>

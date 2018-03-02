@@ -16,6 +16,8 @@ export const UploadFile = (props) => {
     const handleClick = () => {
         inputFile.click();
     };
+
+
     return (
         <div className="container-uploadfile">
             <Paper  className={props.className} zDepth={5} circle={true} >

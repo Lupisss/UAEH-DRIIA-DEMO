@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import './Publi.css';
 
+//Fondo de la pagina principal
 class Publi extends Component {
     render() {
         return (
