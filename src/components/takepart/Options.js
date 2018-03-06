@@ -1,6 +1,7 @@
 import React from 'react';
 import { AutoComplete, TextField} from 'material-ui';
-
+//formulario de universidad de destino
+//primera fila del formulario
 export const Options = ({index, dataSource}) => {
     return (
         <div className="Options">
@@ -11,6 +12,7 @@ export const Options = ({index, dataSource}) => {
                 dataSource={dataSource}
                 maxSearchResults={5}
             />
+
             <TextField
                 floatingLabelText="País"
                 disabled={true}

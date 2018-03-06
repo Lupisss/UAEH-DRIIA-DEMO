@@ -21,6 +21,10 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import PlacesAutocomplete from 'react-places-autocomplete';
 //import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 import './ProfileStylesheet.css';
+
+
+//perfil
+
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
 const iconButtonElement = (
@@ -102,6 +106,7 @@ class ProfilePage extends Component {
             <div className="Main-profile">
                 <div className="Main-profile">
                     <div
+                        //foto de portada
                         className="profile-portada"
                         style={{backgroundImage:`url('https://static.pexels.com/photos/314563/pexels-photo-314563.jpeg')`, backgroundColor:'white'}}
                     >
@@ -115,6 +120,7 @@ class ProfilePage extends Component {
                             <div
                                 //onClick={clickPic}
                             >
+                                {/*Cambiar la foto de perfil*/}
                                 <span>Cambiar Foto</span>
                             </div>
                             <img
@@ -126,6 +132,7 @@ class ProfilePage extends Component {
                         </figure>
                         {/*<input accept="image/*" ref={input=>theInput=input} onChange={changeCover} hidden type="file"/>*/}
                     </div>
+                    {/*Formulario de perfil*/}
                     <form className="Profile-form">
                         <Paper zDepth={3} className="Section-form" >
                             <h2 style={{width:'100%'}} ><small>Datos personales</small></h2>
@@ -208,6 +215,7 @@ class ProfilePage extends Component {
                             />
                         </Paper>
 
+                        {/*Apartado de dirección en el perfil*/}
                         <Paper zDepth={3} className="Section-map" >
                             <h2 style={{width:'100%'}}><small>Dirección</small></h2>
                             <div>
@@ -236,6 +244,7 @@ class ProfilePage extends Component {
                             />
                         </Paper>
 
+                        {/*Datos de tutor en el perfil*/}
                         <Paper zDepth={3} className="Section-form" >
                             <h2 style={{width:'100%'}}><small>Datos del padre o tutor</small></h2>
                             {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
@@ -276,6 +285,7 @@ class ProfilePage extends Component {
                             />
                         </Paper>
 
+                        {/*Información académica en perfil*/}
                         <Paper zDepth={3} className="Section-form" >
                             <h2 style={{width:'100%'}}><small>Información académica actual</small></h2>
                             {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
@@ -327,6 +337,7 @@ class ProfilePage extends Component {
                             />
                         </Paper>
 
+                        {/*Idiomas en perfil*/}
                         <Paper zDepth={3} className="Section-languages" >
                             <h2 style={{width:'100%'}}><small>Idiomas</small></h2>
                             {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
@@ -335,6 +346,7 @@ class ProfilePage extends Component {
                             </FloatingActionButton>
                             <div className="Languages-list">
                                 <List>
+                                    {/*Pone las imagenes de las banderas en idioma*/}
                                     <ListItem
                                         leftAvatar={<Avatar src="http://noticias.universia.es/net/images/educacion/l/le/let/lets-talk-gafes-cometidas-escrita-fala-ingles-noticias.jpg" />}
                                         rightIconButton={rightIconMenu}

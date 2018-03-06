@@ -2,6 +2,7 @@ import React from 'react';
 import {DropDownMenu, MenuItem, TextField} from 'material-ui';
 
 /* declara las constantes para cada pais (como un id)*/
+//elementos jx estos son nombre = "valor" siempre entre comillas
 const USA = 'US';
 const CANADA = 'CA';
 const MEXICO = 'MX';

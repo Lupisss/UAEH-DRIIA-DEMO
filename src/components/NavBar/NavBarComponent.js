@@ -13,6 +13,8 @@ import ExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
 import {Link} from "react-router-dom";
 
+
+//menú pricipal, arriba
 export const NavBarComponent = ({logOut}) => {
     return (
         <Toolbar className="NavBar">

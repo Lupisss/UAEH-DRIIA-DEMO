@@ -30,7 +30,7 @@ class SignupPage extends Component {
             user
         });
     };
-
+//validación de los campos de registro de usuario
     validate = (name, value) => {
         const {errors, user:{password,password2}} = this.state;
         switch (name) {

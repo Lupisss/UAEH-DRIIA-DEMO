@@ -1,6 +1,7 @@
 import React from "react";
 import {Paper, RaisedButton, TextField} from "material-ui";
 
+//Crear un usuario
 export const SignupComponent = ({
                                     user:{name, email, lastName, password, password2},
                                     onSubmit,
@@ -62,6 +63,7 @@ export const SignupComponent = ({
                     errorText={ePass2}
                     required={true}
                 />
+                {/*Boton para registrar*/}
                 <RaisedButton disabled={ !ok } fullWidth={true} label="Registrar" primary={true} type="submit" />
             </form>
         </Paper>

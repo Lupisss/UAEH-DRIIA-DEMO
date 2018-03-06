@@ -1,6 +1,7 @@
 import React from 'react';
 import {TextField} from 'material-ui';
 
+//Segunda fila del formulario
 export const SubjectToStudy = ({props}) => {
     return (
             <div className="Options">

@@ -3,6 +3,8 @@ import {Paper, Tab, Tabs} from 'material-ui';
 import {Options} from "./Options";
 import {SubjectToStudy} from "./SubjectToStudy";
 
+
+//Formulario general 1era opcion, 2da opcion, 3ra opcion cada uno con 4 materias a cursar
 export const TakePartComponent = ({props}) => {
     return (
         <Paper className="Main-form-tp" zDepth={3}>

@@ -2,6 +2,7 @@ import React from "react";
 import {Link} from "react-router-dom";
 import {TextField, RaisedButton, Paper} from "material-ui";
 
+//inciar sesion
 export const LoginComponent = (props) => {
     return (
         <Paper className="Main-form" zDepth={3}>
