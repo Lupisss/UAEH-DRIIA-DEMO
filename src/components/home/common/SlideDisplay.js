@@ -17,7 +17,7 @@ export const SlideDisplay = () => {
                             Lorem ipsum dolor sit amet
                         </p>
                         <RaisedButton  label="Registro" primary={true} type="submit" />
-                        <p classNamgit e="aviso">Necesitas ayuda? Contáctanos</p>
+                        <p className="aviso">Necesitas ayuda? Contáctanos</p>
                     </div>
                 </div>
             </div>

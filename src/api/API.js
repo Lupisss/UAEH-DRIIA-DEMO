@@ -8,8 +8,10 @@ let debug = true;
 let loginUrl = 'http://localhost:8000/rest-auth/login/';
 let signupUrl = 'http://localhost:8000/rest-auth/registration/';
 let logoutUrl = 'http://localhost:8000/rest-auth/logout/';
+let userUrl = 'http://localhost:8000/rest-auth/user/';
 let collegesUrl = 'http://localhost:8000/api/collegeapi/';
 let profileUrl = 'http://localhost:8000/api/publicprofile/';
+
 // Production urls
 if (!debug) {
     //let collegesUrl = 'http://uaeh.herokuapp.com/api/collegeapi';
@@ -98,6 +100,27 @@ export const api = {
             });
         });
     },
+    getUser: () => {
+        return new Promise( (resolve, reject) => {
+            const userToken = JSON.parse(localStorage.getItem(tokenName));
+            const instance = axios.create({
+                baseURL: userUrl,
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': 'Token ' + userToken
+                }
+            });
+            instance.get('')
+                .then(r => {
+                    console.log(r);
+                    resolve(r);
+                })
+                .catch(e => {
+                    console.log(e.response);
+                    reject(e.response)
+                }) ;
+        });
+    },
     setProfile: profile => {
         return new Promise((resolve, reject) => {
             const instance = axios.create({
@@ -168,10 +191,12 @@ export const api = {
     },
     removeCollege: (id) => {
         return new Promise((resolve, reject) => {
+            const userToken = JSON.parse(localStorage.getItem(tokenName));
             const instance = axios.create({
                 baseURL: collegesUrl,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token ' + userToken
                 }
             });
             instance.delete(id + '/')

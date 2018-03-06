@@ -31,9 +31,12 @@ class LoginPage extends Component {
         user.username = user.email;
         this.props.logIn(user)
             .then(r => {
-                toastr.success('Sesión iniciada');
+                toastr.success('Bienvenido');
+                this.props.history.push('/profile');
             }).catch(e => {
-                toastr.error(e);
+                for( let key in e.data ){
+                    toastr.error(e.data[key][0]);
+                }
         });
     };
 
