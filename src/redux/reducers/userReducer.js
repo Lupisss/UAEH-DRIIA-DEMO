@@ -14,7 +14,7 @@ const profile = ( state = {}, action) => {
 };
 
 const userReducer = combineReducers({
-    profile:profile
+    info: profile
 });
 
 export default userReducer;

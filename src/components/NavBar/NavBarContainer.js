@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import {NavBarComponent} from "./NavBarComponent";
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/actions/userActions';
+import toastr from 'toastr';
 
 class NavBarContainer extends Component {
     constructor(props) {
@@ -12,20 +13,24 @@ class NavBarContainer extends Component {
     logOut = () => {
         this.props.logOut()
             .then(r => {
-                console.log(r);
+                toastr.warning('Hasta pronto');
             })
             .catch(e => {
+                toastr.error('Algo salió mal');
                 console.log(e);
             });
 
     };
 
     render() {
-
+        const {user} = this.props;
+        const userLogged = Object.keys(user).length > 0;
         return (
             <div>
                 <NavBarComponent
                     logOut={this.logOut}
+                    user={user}
+                    userLogged={userLogged}
                 />
             </div>
         );
@@ -33,7 +38,7 @@ class NavBarContainer extends Component {
 }
 
 const mapStateToProps = (state,ownProps) => ({
-
+    user: state.user.info
 });
 
 NavBarContainer = connect(mapStateToProps,{logOut})(NavBarContainer);

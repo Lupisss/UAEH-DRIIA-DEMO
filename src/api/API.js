@@ -8,7 +8,7 @@ let debug = true;
 let loginUrl = 'http://localhost:8000/rest-auth/login/';
 let signupUrl = 'http://localhost:8000/rest-auth/registration/';
 let logoutUrl = 'http://localhost:8000/rest-auth/logout/';
-let userUrl = 'http://localhost:8000/rest-auth/user/';
+let userUrl = 'http://localhost:8000/api/auth/me/';
 let collegesUrl = 'http://localhost:8000/api/collegeapi/';
 let profileUrl = 'http://localhost:8000/api/publicprofile/';
 
@@ -16,8 +16,13 @@ let profileUrl = 'http://localhost:8000/api/publicprofile/';
 if (!debug) {
     //let collegesUrl = 'http://uaeh.herokuapp.com/api/collegeapi';
 }
-
+//Dar un nombre al token local
 const tokenName = 'user_uaeh_token';
+// Obtener el usuario Determinar si está logeado o no
+const getLocalToken = () => {
+    return JSON.parse(localStorage.getItem(tokenName));
+};
+
 // Axios functions
 // Crear un objeto de funciones
 // Necesitamos comunicarnos con el servidor,
@@ -102,17 +107,15 @@ export const api = {
     },
     getUser: () => {
         return new Promise( (resolve, reject) => {
-            const userToken = JSON.parse(localStorage.getItem(tokenName));
             const instance = axios.create({
                 baseURL: userUrl,
                 headers: {
                     'Content-Type' : 'application/json',
-                    'Authorization': 'Token ' + userToken
+                    'Authorization': 'Token ' + getLocalToken()
                 }
             });
             instance.get('')
                 .then(r => {
-                    console.log(r);
                     resolve(r);
                 })
                 .catch(e => {
@@ -140,7 +143,8 @@ export const api = {
             const instance = axios.create({
                 baseURL: collegesUrl,
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Token ' + getLocalToken()
                 }
             });
             instance.get()

@@ -101,7 +101,6 @@ class ProfilePage extends Component {
             input: 'inputmui',
             //autocompleteContainer: 'my-autocomplete-container'
         };
-        console.log(this.context.muiTheme);
         return (
             <div className="Main-profile">
                 <div className="Main-profile">

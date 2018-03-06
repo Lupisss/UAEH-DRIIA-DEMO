@@ -24,7 +24,14 @@ export const loginSuccess = user => ({
 export const logIn = user => (dispatch, getState) => {
     return api.logIn(user)
         .then(r => {
-            dispatch(loginSuccess(user));
+            api.getUser()
+                .then(r => {
+                    console.log('El usuario que llega del server',r);
+                    dispatch(loginSuccess(r.data));
+                    console.log(getState());
+                }).catch(e => {
+                    console.log(e);
+                });
             return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
@@ -166,11 +173,11 @@ export function comprobarUsuario() {
     return function (dispatch, getState) {
         let user = JSON.parse(localStorage.getItem(tokenName));
         if (user) {
-            api.getUser().then(r => {
-                dispatch(loginSuccess(r.data));
-                console.log(getState());
-            }).catch(e => {
-                console.log(e);
+            api.getUser()
+                .then(r => {
+                    dispatch(loginSuccess(r.data));
+                }).catch(e => {
+                    console.log(e);
             });
         }
     }
