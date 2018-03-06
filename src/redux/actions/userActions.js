@@ -26,7 +26,6 @@ export const logIn = user => (dispatch, getState) => {
         .then(r => {
             api.getUser()
                 .then(r => {
-                    console.log('El usuario que llega del server',r);
                     dispatch(loginSuccess(r.data));
                     console.log(getState());
                 }).catch(e => {

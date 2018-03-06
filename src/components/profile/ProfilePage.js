@@ -21,6 +21,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import PlacesAutocomplete from 'react-places-autocomplete';
 //import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 import './ProfileStylesheet.css';
+import ZipApi from '../../api/zipRepository';
 
 
 //perfil
@@ -55,11 +56,32 @@ class ProfilePage extends Component {
                 lng:-98.8009663,
                 text:''
             },
-            addressField: 'San Francisco, CA'
+            addressField: 'San Francisco, CA',
+            zipAddress : {
+                zipCode: 0
+            }
+
         };
         this.onChange = addressField => this.setState({ addressField });
 
     }
+
+    handleZipAdressChange = e => {
+        const zipAddress = Object.assign({},this.state.zipAddress);
+        zipAddress[e.target.name] = e.target.value;
+        this.setState({zipAddress});
+    };
+
+    getAddress = e => {
+        e.preventDefault();
+        const {zipAddress:{zipCode}} = this.state;
+        ZipApi.getAddress(zipCode)
+            .then(r => {
+                console.log('La direccion',r);
+            }).catch(e => {
+                console.log(e);
+        });
+    };
 
     onDrag = (e) => {
         let {address} = this.state;
@@ -217,30 +239,48 @@ class ProfilePage extends Component {
                         {/*Apartado de dirección en el perfil*/}
                         <Paper zDepth={3} className="Section-map" >
                             <h2 style={{width:'100%'}}><small>Dirección</small></h2>
-                            <div>
+                            {/*<div>*/}
+                                {/*<RaisedButton*/}
+                                    {/*primary={true}*/}
+                                    {/*label="Ver mapa"*/}
+                                    {/*onClick={this.handleOpen}*/}
+                                {/*/>*/}
+                            {/*</div>*/}
+                            {/*<TextField*/}
+                                {/*style={styles.item}*/}
+                                {/*multiLine={true}*/}
+                                {/*rowsMax={3}*/}
+                                {/*name="text"*/}
+                                {/*value={address.text}*/}
+                                {/*//disabled={true}*/}
+                            {/*/>*/}
+                            {/*<MapModal*/}
+                                {/*address={address}*/}
+                                {/*handleClose={this.handleClose}*/}
+                                {/*onDrag={this.onDrag}*/}
+                                {/*open={modalOpen}/>*/}
+                            {/*<PlacesAutocomplete*/}
+                                {/*inputProps={inputProps}*/}
+                                {/*classNames={cssClasses}*/}
+                            {/*/>*/}
+                            <form onSubmit={this.getAddress}>
+                                <TextField
+                                    name="zipCode"
+                                    floatingLabelText="Código postal"
+                                    onChange={this.handleZipAdressChange}
+                                    required={true}
+                                    pattern="[0-9]{5}"
+                                    //onBlur={this.getAddress}
+                                />
                                 <RaisedButton
                                     primary={true}
-                                    label="Ver mapa"
-                                    onClick={this.handleOpen}
+                                    label="Buscar"
+                                    //onClick={this.getAddress}
+                                    type="submit"
                                 />
-                            </div>
-                            <TextField
-                                style={styles.item}
-                                multiLine={true}
-                                rowsMax={3}
-                                name="text"
-                                value={address.text}
-                                //disabled={true}
-                            />
-                            <MapModal
-                                address={address}
-                                handleClose={this.handleClose}
-                                onDrag={this.onDrag}
-                                open={modalOpen}/>
-                            <PlacesAutocomplete
-                                inputProps={inputProps}
-                                classNames={cssClasses}
-                            />
+                            </form>
+
+
                         </Paper>
 
                         {/*Datos de tutor en el perfil*/}

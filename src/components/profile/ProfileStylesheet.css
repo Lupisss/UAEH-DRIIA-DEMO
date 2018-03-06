@@ -195,7 +195,7 @@
     flex-wrap: wrap;
 }
 
-.Section-form, .Section-languages{
+.Section-form, .Section-map, .Section-languages{
     justify-content: space-evenly;
     align-items: center;
 }
