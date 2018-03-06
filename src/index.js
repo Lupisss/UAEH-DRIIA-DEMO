@@ -10,7 +10,7 @@ import {MuiThemeProvider} from "material-ui";
 import {BrowserRouter} from "react-router-dom";
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 // import darkBaseTheme from 'material-ui/styles/baseThemes/darkBaseTheme';
-import {MiTema} from "./MiTema";
+import MiTema from "./MiTema";
 import '../node_modules/font-awesome/css/font-awesome.min.css';
 import {Provider} from 'react-redux';
 import {configureStore} from './redux/store/configureStore';
