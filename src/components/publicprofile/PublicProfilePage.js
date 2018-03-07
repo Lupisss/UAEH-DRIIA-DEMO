@@ -10,7 +10,7 @@ export default class PublicProfilePage extends Component {
     render() {
         return (
             <div>
-                <ProfileComponent publicProfile />
+
             </div>
         );
     }

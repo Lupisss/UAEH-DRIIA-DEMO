@@ -12,6 +12,7 @@ import './AdminStylesheet.css';
 import Icon from 'material-ui/svg-icons/action/info';
 import {Link} from 'react-router-dom';
 import {SearchField} from "./SearchField";
+import {PuProfileComponent} from "../publicprofile/PuProfileComponent";
 
 export const StudentAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
@@ -69,7 +70,9 @@ const MyRow = ({rowData}) => {
             <TableRowColumn>
 
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}
-                <Link to='/profile'>
+                {/*<Link to='/profile'>*/}
+                    <Link to='/public'>
+
                     <Icon title="Detalle"/>
                 </Link>
             </TableRowColumn>
