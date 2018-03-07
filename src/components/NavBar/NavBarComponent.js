@@ -15,7 +15,7 @@ import {Link} from "react-router-dom";
 
 
 //menú pricipal, arriba
-export const NavBarComponent = ({logOut}) => {
+export const NavBarComponent = ({logOut,user,userLogged}) => {
     return (
         <Toolbar className="NavBar">
            <ToolbarGroup>
@@ -28,23 +28,35 @@ export const NavBarComponent = ({logOut}) => {
                     <ToolbarTitle text="UAEH DRIIA"/>
                 </Link>
                 <ToolbarSeparator/>
-                <Link to="/profile">
-                    <RaisedButton label="Mi perfil" primary={true}/>
-                </Link>
-                <IconMenu
-                    iconButtonElement={
-                        <IconButton touch={true}>
-                            <ExpandMoreIcon/>
-                        </IconButton>
-                    }
-                >
-                    <MenuItem containerElement={ <Link to="/login"/> } primaryText="Iniciar sesión" />
-                    <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
-                    <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
-                    <MenuItem containerElement={ <Link to="/admin"/> } primaryText="Administrar" />
-                    <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
+                {
+                    userLogged ?
+                        <Link to="/profile">
+                            <RaisedButton label="Mi perfil" primary={true}/>
+                        </Link> :
+                        <Link to="/login">
+                            <RaisedButton label="Iniciar sesión" primary={true}/>
+                        </Link>
+                }
+                {
+                    userLogged &&
+                    <IconMenu
+                        iconButtonElement={
+                            <IconButton touch={true}>
+                                <ExpandMoreIcon/>
+                            </IconButton>
+                        }
+                    >
+                        <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
+                        <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
+                        <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
+                        {
+                            user.is_staff &&
+                            <MenuItem containerElement={ <Link to="/admin"/> } primaryText="Administrar" />
+                        }
 
-                </IconMenu>
+                    </IconMenu>
+                }
+
             </ToolbarGroup>
         </Toolbar>
     );

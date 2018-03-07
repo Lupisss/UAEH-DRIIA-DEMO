@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {LoginComponent} from "./LoginComponent";
 import {connect} from 'react-redux';
-import {logIn} from '../../redux/actions/userActions';
+import {logIn, isLogged} from '../../redux/actions/userActions';
 import toastr from 'toastr';
 import "../singup/SignupStylesheet.css";
 
@@ -15,6 +15,13 @@ class LoginPage extends Component {
                 username: ''
             }
         };
+    }
+
+    componentWillMount() {
+        if (isLogged()) {
+            toastr.warning('Ya tienes una sesión activa');
+            this.props.history.push('/')
+        }
     }
 
     handleChange = event => {
@@ -31,9 +38,12 @@ class LoginPage extends Component {
         user.username = user.email;
         this.props.logIn(user)
             .then(r => {
-                toastr.success('Sesión iniciada');
+                toastr.success('Bienvenido');
+                this.props.history.push('/profile');
             }).catch(e => {
-                toastr.error(e);
+            for (let key in e.data) {
+                toastr.error(e.data[key][0]);
+            }
         });
     };
 
@@ -50,7 +60,7 @@ class LoginPage extends Component {
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({});
+const mapStateToProps = (state, ownProps) => ({userLogged: Object.keys(state.user.info).length > 0});
 
 LoginPage = connect(mapStateToProps, {logIn})(LoginPage);
 export default LoginPage;

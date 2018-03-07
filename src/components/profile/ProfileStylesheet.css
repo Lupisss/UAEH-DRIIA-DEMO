@@ -180,7 +180,7 @@
     height: 100%;
 }
 .Profile-form, .TakePart-form {
-    width: 80%;
+    width: 90%;
     box-sizing: border-box;
     margin: 0 auto;
     padding: 3% 2%;
@@ -195,7 +195,7 @@
     flex-wrap: wrap;
 }
 
-.Section-form, .Section-languages{
+.Section-form, .Section-map, .Section-languages{
     justify-content: space-evenly;
     align-items: center;
 }
