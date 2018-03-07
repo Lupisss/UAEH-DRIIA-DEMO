@@ -27,7 +27,6 @@ export const logIn = user => (dispatch, getState) => {
             api.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
-                    console.log(getState());
                 }).catch(e => {
                     console.log(e);
                 });
@@ -181,6 +180,10 @@ export function comprobarUsuario() {
         }
     }
 }
+
+export const isLogged = () => {
+    return JSON.parse(localStorage.getItem(tokenName));
+};
 
 
 //formatters:

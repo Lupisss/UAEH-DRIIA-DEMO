@@ -16,9 +16,9 @@ import {
 import {darkBlack, grey400} from 'material-ui/styles/colors';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
-import {MapModal} from "../common/MapModal";
+//import {MapModal} from "../common/MapModal";
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
-import PlacesAutocomplete from 'react-places-autocomplete';
+//import PlacesAutocomplete from 'react-places-autocomplete';
 //import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 import './ProfileStylesheet.css';
 import ZipApi from '../../api/zipRepository';
@@ -113,16 +113,16 @@ class ProfilePage extends Component {
     };
 
     render() {
-        const {modalOpen, address} = this.state;
-        const inputProps = {
-            value: this.state.addressField,
-            onChange: this.onChange,
-        };
-        const cssClasses = {
-            root: 'group',
-            input: 'inputmui',
-            //autocompleteContainer: 'my-autocomplete-container'
-        };
+        // const {modalOpen, address} = this.state;
+        // const inputProps = {
+        //     value: this.state.addressField,
+        //     onChange: this.onChange,
+        // };
+        // const cssClasses = {
+        //     root: 'group',
+        //     input: 'inputmui',
+        //     //autocompleteContainer: 'my-autocomplete-container'
+        // };
         return (
             <div className="Main-profile">
                 <div className="Main-profile">
@@ -154,7 +154,7 @@ class ProfilePage extends Component {
                         {/*<input accept="image/*" ref={input=>theInput=input} onChange={changeCover} hidden type="file"/>*/}
                     </div>
                     {/*Formulario de perfil*/}
-                    <form className="Profile-form">
+                    <div className="Profile-form">
                         <Paper zDepth={3} className="Section-form" >
                             <h2 style={{width:'100%'}} ><small>Datos personales</small></h2>
                             <TextField
@@ -412,7 +412,7 @@ class ProfilePage extends Component {
                             </div>
                         </Paper>
 
-                    </form>
+                    </div>
                     {
                         this.props.publicProfile &&
                         <Paper>
@@ -427,10 +427,10 @@ class ProfilePage extends Component {
     }
 }
 
-const styles = {
-    item:{
-        boxSizing:'border-box',
-        margin: '0px 20px'
-    }
-};
+// const styles = {
+//     item:{
+//         boxSizing:'border-box',
+//         margin: '0px 20px'
+//     }
+// };
 export default ProfilePage;

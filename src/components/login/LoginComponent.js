@@ -27,11 +27,10 @@ export const LoginComponent = (props) => {
                 <RaisedButton fullWidth={true} label="Iniciar sesión" primary={true} type="submit" />
 
             </form>
-
-
-            <span style={{marginTop: 20}}>¿No tiene una cuenta?
+            <br/>
+            <span style={{marginTop: 20}}>¿No tiene una cuenta? {' '}
             <Link to="/signup">
-                 Cree una.
+                Cree una.
             </Link>
             </span>
         </Paper>

@@ -1,6 +1,6 @@
 import React from "react";
 import {Paper, RaisedButton, TextField} from "material-ui";
-
+import {Link} from 'react-router-dom';
 //Crear un usuario
 export const SignupComponent = ({
                                     user:{name, email, lastName, password, password2},
@@ -66,6 +66,12 @@ export const SignupComponent = ({
                 {/*Boton para registrar*/}
                 <RaisedButton disabled={ !ok } fullWidth={true} label="Registrar" primary={true} type="submit" />
             </form>
+            <br/>
+            <span style={{marginTop: 20}}>¿Ya tiene una cuenta? {' '}
+                <Link to="/login">
+                        Inicie sesión.
+                    </Link>
+                </span>
         </Paper>
     );
 };

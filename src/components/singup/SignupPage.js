@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {SignupComponent} from "./SignupComponent";
 import {connect} from 'react-redux';
 import "./SignupStylesheet.css";
-import {signUp} from '../../redux/actions/userActions';
+import {isLogged, signUp} from '../../redux/actions/userActions';
 import toastr from 'toastr';
 
 class SignupPage extends Component {
@@ -22,6 +22,14 @@ class SignupPage extends Component {
             }
         };
     }
+
+    componentWillMount() {
+        if (isLogged()) {
+            toastr.warning('Ya tienes una sesión activa');
+            this.props.history.push('/')
+        }
+    }
+
     handleChange = (event) => {
         let user = this.state.user;
         user[event.target.name]=event.target.value;
