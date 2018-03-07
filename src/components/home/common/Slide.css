@@ -28,7 +28,7 @@
     width:160px;
 }
 .slogan {
-
+    position: absolute;
     color: white;
     padding: 0 20% 0 0;
 }
@@ -81,4 +81,13 @@
     .slogan{
         padding: 0;
     }
+}
+
+/* Style the video: 100% width and height to cover the entire window */
+#myVideo {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 100%;
+    min-height: 100%;
 }
