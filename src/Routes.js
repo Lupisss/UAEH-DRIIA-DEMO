@@ -9,7 +9,6 @@ import LoadFilesPage from "./components/loadfiles/LoadFilesPage";
 import ChooseSubjectsPage from "./components/choosesubjects/ChooseSubjectsPage";
 import AdminPage from "./components/admin/AdminPage";
 import CVPage from "./components/cv/CVPage";
-import PublicProfilePage from "./components/publicprofile/PublicProfilePage";
 import PuProfilePage from "./components/publicprofile/PuProfilePage";
 
 export const Routes = () => (
@@ -18,7 +17,6 @@ export const Routes = () => (
       <Route path="/login" component={LoginPage}/>
       <Route path="/signup" component={SignupPage}/>
       <Route path="/profile" component={ProfilePage}/>
-      <Route path="/publicProfile" component={PublicProfilePage}/>
       <Route path="/takePart" component={TakePartPage}/>
       <Route path="/chooseSubjects" component={ChooseSubjectsPage}/>
       <Route path="/loadfiles" component={LoadFilesPage}/>
