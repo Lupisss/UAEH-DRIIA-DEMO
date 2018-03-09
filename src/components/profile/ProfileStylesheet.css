@@ -1,5 +1,7 @@
 /*mobile first style (mobile defaults)*/
-
+* {
+    box-sizing: border-box;
+}
 .profile-portada{
     background-size: cover;
     background-color: lightgray;
@@ -180,14 +182,13 @@
     height: 100%;
 }
 .Profile-form, .TakePart-form {
-    width: 90%;
+    width: 95%;
     box-sizing: border-box;
     margin: 0 auto;
     padding: 3% 2%;
 }
 
 .Section-form, .Section-map, .Section-languages {
-    width: 100%;
     box-sizing: border-box;
     padding: 2% 5%;
     margin: 3% 2%;
