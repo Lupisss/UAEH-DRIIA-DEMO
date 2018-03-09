@@ -1,5 +1,6 @@
 import firebase from '../../firebase';
-import {api} from '../../api/API';
+//import {api} from '../../api/API';
+import {Auth} from '../../api/repos';
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -22,9 +23,9 @@ export const loginSuccess = user => ({
 });
 
 export const logIn = user => (dispatch, getState) => {
-    return api.logIn(user)
+    return Auth.logIn(user)
         .then(r => {
-            api.getUser()
+            Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
                 }).catch(e => {
@@ -81,7 +82,7 @@ export const signin = (user) => (dispatch, getState) => {
 };
 
 export const signUp = user => (dispatch, getState) => {
-    return api.signUp(user)
+    return Auth.signUp(user)
         .then(r => {
             return Promise.resolve(r);
         }).catch(e => {
@@ -97,7 +98,7 @@ const logoutSuccess = () => ({
 });
 
 export const logOut = () => (dispatch, getState) => {
-    return api.logOut()
+    return Auth.logOut()
         .then(r => {
             dispatch(logoutSuccess());
             return Promise.resolve(r);
@@ -171,7 +172,7 @@ export function comprobarUsuario() {
     return function (dispatch, getState) {
         let user = JSON.parse(localStorage.getItem(tokenName));
         if (user) {
-            api.getUser()
+            Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
                 }).catch(e => {

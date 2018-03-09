@@ -22,6 +22,7 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 //import { geocodeByAddress, geocodeByPlaceId } from 'react-places-autocomplete';
 import './ProfileStylesheet.css';
 import ZipApi from '../../api/zipRepository';
+import toastr from 'toastr';
 
 
 //perfil
@@ -57,30 +58,61 @@ class ProfilePage extends Component {
                 text:''
             },
             addressField: 'San Francisco, CA',
+            // Clave valor para controlar nuestro text field de zip address
             zipAddress : {
-                zipCode: 0
-            }
+                codigo_postal: '',
+                colonias: [],
+                estado: '',
+                municipio: '',
+                calleNumero: ''
+            },
+            // determinar si se ha buscado
+            isSearched: false,
+            // controlar al dropdown
+            currentColonia: ""
 
         };
         this.onChange = addressField => this.setState({ addressField });
 
     }
 
+    // Función para manejar los cambios onChange de nuestro input zipAddress
     handleZipAdressChange = e => {
+        // clona la propiedad del state llamada zipAddress
         const zipAddress = Object.assign({},this.state.zipAddress);
+        // Asigna a la llave llamada name el valor que le llega
         zipAddress[e.target.name] = e.target.value;
+        if (e.target.name === 'codigo_postal') {
+            this.setState({isSearched:false});
+        }
+        // Actualiza el state
         this.setState({zipAddress});
     };
 
+    handleDropDownZipChange = (event, index, value) => this.setState({currentColonia:value});
+
+
+
     getAddress = e => {
+        // Prevenimos las acciones por default de un formulario
         e.preventDefault();
-        const {zipAddress:{zipCode}} = this.state;
-        ZipApi.getAddress(zipCode)
+        // obtenemos el valor del codigo_postal (valor del innput con el nombre codigo_postal)
+        const {zipAddress:{codigo_postal}} = this.state;
+        ZipApi.getAddress(codigo_postal)
             .then(r => {
                 console.log('La direccion',r);
+                if (r.estado !== "") {
+                    // indicamos que se ha realzado una busqueda
+                    r.calleNumero = '';
+                    this.setState({isSearched:true,zipAddress:r,currentColonia:r.colonias[0]});
+                }else{
+                    throw new Error("Código postal inválido");
+                }
             }).catch(e => {
                 console.log(e);
+                toastr.warning('Código postal inválido')
         });
+
     };
 
     onDrag = (e) => {
@@ -123,6 +155,12 @@ class ProfilePage extends Component {
         //     input: 'inputmui',
         //     //autocompleteContainer: 'my-autocomplete-container'
         // };
+        const {zipAddress:{calleNumero,codigo_postal ,colonias = [],estado,municipio},isSearched, currentColonia} = this.state;
+        // vamos a reformatear el array de colonias
+        //  la función map retorna un array nuevo con el retorno del cuerpo de su función
+        const coloniasDropDown = colonias.map( (colonia,key) =>
+            <MenuItem key={key} value={colonia} primaryText={colonia}/>
+        );
         return (
             <div className="Main-profile">
                 <div className="Main-profile">
@@ -263,23 +301,57 @@ class ProfilePage extends Component {
                                 {/*inputProps={inputProps}*/}
                                 {/*classNames={cssClasses}*/}
                             {/*/>*/}
-                            <form onSubmit={this.getAddress}>
+                            <form className="zip-address-search" onSubmit={this.getAddress}>
                                 <TextField
-                                    name="zipCode"
+                                    name="codigo_postal"
+                                    value={codigo_postal}
                                     floatingLabelText="Código postal"
                                     onChange={this.handleZipAdressChange}
                                     required={true}
                                     pattern="[0-9]{5}"
                                     //onBlur={this.getAddress}
                                 />
-                                <RaisedButton
-                                    primary={true}
-                                    label="Buscar"
-                                    //onClick={this.getAddress}
-                                    type="submit"
-                                />
+                                <div>
+                                    <RaisedButton
+                                        primary={true}
+                                        label="Buscar"
+                                        //onClick={this.getAddress}
+                                        type="submit"
+                                    />
+                                </div>
                             </form>
-
+                            {
+                                // si ya se ha buscado el zip code ...
+                                isSearched  &&
+                                    <div className="zip-address-extend">
+                                        <DropDownMenu
+                                            onChange={this.handleDropDownZipChange}
+                                            autoWidth={false}
+                                            value={currentColonia}
+                                            style={{marginTop:14, width: 256}}
+                                        >
+                                            {coloniasDropDown}
+                                        </DropDownMenu>
+                                        <TextField
+                                            name="estado"
+                                            value={estado}
+                                            floatingLabelText="Estado"
+                                            disabled={true}
+                                        />
+                                        <TextField
+                                            name="municipio"
+                                            value={municipio}
+                                            floatingLabelText="Municipio"
+                                            disabled={true}
+                                        />
+                                        <TextField
+                                            name="calleNumero"
+                                            value={calleNumero}
+                                            onChange={this.handleZipAdressChange}
+                                            floatingLabelText="Calle y Número"
+                                        />
+                                    </div>
+                            }
 
                         </Paper>
 
