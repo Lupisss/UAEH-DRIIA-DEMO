@@ -19,6 +19,17 @@ import 'toastr/build/toastr.css';
 
 const store = configureStore();
 
+export const logFancy = (msg, style) => {
+    setTimeout( console.log.bind(console, `%c${msg}%c`, style, ""));
+};
+
+const initialConsoleLogMsg = () => {
+    logFancy("¡Detente!", "color:red;font-size:3em");
+    logFancy("Esta función del navegador está dedicada a desarrolladores", "color:gray;font-size:1.2em");
+    logFancy("Evita ser sancionado", "color:gray;font-size:1.2em");
+};
+
+initialConsoleLogMsg();
 
 injectTapEventPlugin();
 const Tema = getMuiTheme (MiTema);

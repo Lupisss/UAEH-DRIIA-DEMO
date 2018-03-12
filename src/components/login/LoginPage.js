@@ -38,6 +38,7 @@ class LoginPage extends Component {
         user.username = user.email;
         this.props.logIn(user)
             .then(r => {
+                console.log(r);
                 toastr.success('Bienvenido');
                 this.props.history.push('/profile');
             }).catch(e => {
