@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
     IconButton,
     IconMenu,
@@ -30,9 +30,13 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
                 <ToolbarSeparator/>
                 {
                     userLogged ?
-                        <Link to="/profile">
-                            <RaisedButton label="Mi perfil" primary={true}/>
-                        </Link> :
+                        user.is_staff ?
+                            <Link to="/admin">
+                                <RaisedButton label="Administrar" primary={true}/>
+                            </Link> :
+                            <Link to="/profile">
+                                <RaisedButton label="Mi perfil" primary={true}/>
+                            </Link>:
                         <Link to="/login">
                             <RaisedButton label="Iniciar sesión" primary={true}/>
                         </Link>
@@ -46,13 +50,15 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
                             </IconButton>
                         }
                     >
-                        <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
-                        <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
-                        <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
                         {
-                            user.is_staff &&
-                            <MenuItem containerElement={ <Link to="/admin"/> } primaryText="Administrar" />
+                            !user.is_staff &&
+                            <Fragment>
+                                <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
+                                <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
+                            </Fragment>
                         }
+
+                        <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
 
                     </IconMenu>
                 }
