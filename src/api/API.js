@@ -17,9 +17,9 @@ if (!debug) {
     //let collegesUrl = 'http://uaeh.herokuapp.com/api/collegeapi';
 }
 //Dar un nombre al token local
-const tokenName = 'user_uaeh_token';
+export const tokenName = 'user_uaeh_token';
 // Obtener el usuario Determinar si está logeado o no
-const getLocalToken = () => {
+export const getLocalToken = () => {
     return JSON.parse(localStorage.getItem(tokenName));
 };
 

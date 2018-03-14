@@ -75,7 +75,7 @@ class SignupPage extends Component {
             .then( r => {
                 toastr.success('Registrado');
                 this.props.history.push('/profile');
-                console.log(r);
+                console.log('Se supone que soy el usuario',r);
             })
             .catch( e => {
                 toastr.error(e);

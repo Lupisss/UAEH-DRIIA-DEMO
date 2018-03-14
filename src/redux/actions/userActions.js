@@ -84,7 +84,13 @@ export const signin = (user) => (dispatch, getState) => {
 export const signUp = user => (dispatch, getState) => {
     return Auth.signUp(user)
         .then(r => {
-            return Promise.resolve(r);
+            Auth.getUser()
+                .then(r => {
+                    dispatch(loginSuccess(r.data));
+                    return Promise.resolve(r.data);
+                }).catch(e => {
+                console.log(e);
+            });
         }).catch(e => {
             console.log(e);
             return Promise.reject(e)
