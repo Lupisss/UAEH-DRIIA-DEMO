@@ -4,7 +4,7 @@ const authRepository = () => {
     let debug = true;
 
     let baseUrl = 'http://localhost:8000/rest-auth';
-    let userUrl = 'http://localhost:8000/api/auth/me/';
+    let userUrl = 'http://localhost:8000/me/';
 
     //Dar un nombre al token local
     const tokenName = 'user_uaeh_token';

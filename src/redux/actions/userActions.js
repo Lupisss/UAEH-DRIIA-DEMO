@@ -87,10 +87,10 @@ export const signUp = user => (dispatch, getState) => {
             Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
-                    return Promise.resolve(r.data);
                 }).catch(e => {
-                console.log(e);
+                    console.log(e);
             });
+            return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
             return Promise.reject(e)
@@ -181,6 +181,7 @@ export function comprobarUsuario() {
             Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
+                    console.log(getState());
                 }).catch(e => {
                     console.log(e);
             });
