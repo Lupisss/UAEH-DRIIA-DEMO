@@ -6,6 +6,7 @@ import AddressInfo from './AddressInfoContainer';
 import TutorInfo from './TutorInfoContainer';
 import AcademicInfo from './AcademicInfoContainer';
 import LangInfo from './LangInfoContainer';
+import {connect} from 'react-redux';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -38,4 +39,9 @@ class ProfilePage extends Component {
 //         margin: '0px 20px'
 //     }
 // };
+const mapStateToProps = (state, ownProps) => ({
+
+});
+
+ProfilePage = connect(mapStateToProps, {})(ProfilePage);
 export default ProfilePage;

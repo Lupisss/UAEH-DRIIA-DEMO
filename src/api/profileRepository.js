@@ -2,7 +2,7 @@ import axios from 'axios';
 import {getLocalToken} from './API';
 
 const profileRepository = () => {
-    let baseUrl = 'http://localhost:8000/api/profileapi/';
+    let baseUrl = 'http://localhost:8000/api/profiles/';
 
     const newProfile = profile => {
         return new Promise( (resolve, reject) => {

@@ -1,6 +1,6 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth} from '../../api/repos';
+import {Auth, ProfileAPi} from '../../api/repos';
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -67,6 +67,31 @@ export const logIn = user => (dispatch, getState) => {
 //
 // };
 
+// nuevo perfil en blanco
+let profileProto = {
+    gender: "M",
+    academicId: "",
+    birth_date: null,
+    curp: "",
+    about: "",
+    passport_number: "",
+    ssn_number: "",
+    ssn_expiry_date: null,
+    vote_key: "",
+    secondary_email: "",
+    phone_number: "",
+    cellphone_number: "",
+    credits_coursed: null,
+    credit_percentage_coursed: null,
+    nationality: "",
+    profilePicture: null,
+    wallPicture: null,
+    user: null,
+    tutor: null,
+    academic_program: null,
+    certifications: []
+};
+
 export const signin = (user) => (dispatch, getState) => {
     return firebase.auth().createUserWithEmailAndPassword(user.email, user.password)
         .then(snap => {
@@ -83,19 +108,30 @@ export const signin = (user) => (dispatch, getState) => {
 
 export const signUp = user => (dispatch, getState) => {
     return Auth.signUp(user)
-        .then(r => {
-            Auth.getUser()
-                .then(r => {
-                    dispatch(loginSuccess(r.data));
+        .then(tokenR => {
+            return Auth.getUser()
+                .then(userR => {
+                    profileProto.user = userR.data.id;
+                    userR.data.profile = profileProto;
+                    return ProfileAPi.newProfile(profileProto)
+                        .then(profileR => {
+                            dispatch(loginSuccess(userR.data));
+                            return Promise.resolve(userR.data);
+                        }).catch(e => {
+                            console.log(e.response);
+                            return Promise.reject(e.response);
+                        });
                 }).catch(e => {
-                    console.log(e);
+                    console.log(e.response);
+                    return Promise.reject(e.response)
             });
-            return Promise.resolve(r);
         }).catch(e => {
-            console.log(e);
-            return Promise.reject(e)
+            console.log(e.response);
+            return Promise.reject(e.response)
         });
 };
+
+
 
 /**************************************/
 
