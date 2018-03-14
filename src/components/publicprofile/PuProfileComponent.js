@@ -122,11 +122,11 @@ export const PuProfileComponent = (props) => {
                     <Paper zDepth={4} className="prueba1" >
                         <h2 style={{width:'100%'}}><small>DATOS DEL PADRE O TUTOR</small></h2>
                         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
-                        <TextField disabled style={{width:'68%'}}
+                        <TextField disabled style={{width:'80%'}}
                             //style={styles.item}
                                    value="Nombre"
                         />
-                        <TextField disabled style={{width:'68%'}}
+                        <TextField disabled style={{width:'80%'}}
                             //style={styles.item}
                                    value="Dirección"
                         />
@@ -154,36 +154,36 @@ export const PuProfileComponent = (props) => {
                     <Paper zDepth={5} className="prueba1" >
                         <h2 style={{width:'100%'}}><small>INFORMACIÓN ACADÉMICA ACTUAL</small></h2>
                         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
-                        <TextField disabled style={{width:'43%'}}
+                        <TextField disabled style={{width:'40%'}}
                             //style={styles.item}
                                    value="Instituto"
                         />
 
-                        <TextField disabled style={{width:'43%'}}
+                        <TextField disabled style={{width:'40%'}}
                             //style={styles.item}
                                    value="Programa educativo"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Promedio general"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Número de semestres"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Semestre actual"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Número total de créditos"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Número de créditos cubiertos"
                         />
-                        <TextField disabled style={{width:'29%'}}
+                        <TextField disabled style={{width:'26.6%'}}
                             //style={styles.item}
                                    value="Porcentaje de créditos"
                         />
