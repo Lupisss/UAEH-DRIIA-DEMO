@@ -10,8 +10,10 @@ class PersonalInformation extends Component {
     }
 
     render(){
+        const {user, profile} = this.props;
+        console.log(user, profile);
         return (
-            <PersonalInformationForm/>
+            <div></div>
         );
     }
 }
