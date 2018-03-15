@@ -19,18 +19,46 @@ class ProfilePage extends Component {
                 birth_date: "1995-09-29",
                 ssn_expiry_date: "1995-09-29"
             },
-            user: {}
+            user: {},
+            birth_date: "1995-09-29",
+            ssn_expiry_date: "1995-09-29"
         };
     }
 
     componentWillReceiveProps(nP){
-        this.setState({profile:nP.profile,user:nP.user});
+        let birth_date = {};
+        let ssn_expiry_date = {};
+        if(nP.fetched) {
+            birth_date = moment(nP.profile.birth_date, "YYYY-MM-DD").toDate();
+            ssn_expiry_date = moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate();
+            this.setState({
+                profile: nP.profile,
+                user: nP.user,
+                birth_date:birth_date,
+                ssn_expiry_date:ssn_expiry_date
+            });
+        }
     }
 
     handleProfileChange = e => {
         let profile = Object.assign({},this.state.profile);
         profile[e.target.name] = e.target.value;
         this.setState({profile});
+    };
+
+    handleDropDownChange = name => (event, index, value) => {
+        let profile = Object.assign({},this.state.profile);
+        profile[name] = value;
+        this.setState({profile});
+    };
+
+    handleDatePickerChange = name => (event, date) => {
+        let profile = Object.assign({},this.state.profile);
+        profile[name] = moment(date).format("YYYY-MM-DD");
+        this.setState({
+            profile,
+            [name]:date
+        });
     };
 
     handleUserChange = e => {
@@ -51,13 +79,7 @@ class ProfilePage extends Component {
 
     render() {
         const {fetched} = this.props;
-        const {user = {}, profile = {birth_date: "1995-09-29", ssn_expiry_date: "1995-09-29"}} = this.state;
-        let birth_date = {};
-        let ssn_expiry_date = {};
-        if (fetched) {
-            birth_date = moment(profile.birth_date, "YYYY-MM-DD").toDate();
-            ssn_expiry_date = moment(profile.ssn_expiry_date, "YYYY-MM-DD").toDate();
-        }
+        const {user = {}, profile = {}, birth_date, ssn_expiry_date} = this.state;
         return (
             <Fragment>
                 {
@@ -72,6 +94,8 @@ class ProfilePage extends Component {
                                     birth_date={birth_date}
                                     ssn_expiry_date={ssn_expiry_date}
                                     handleProfileChange={this.handleProfileChange}
+                                    handleDropDownChange={this.handleDropDownChange}
+                                    handleDatePickerChange={this.handleDatePickerChange}
                                     handleUserChange={this.handleUserChange}
                                     onSubmit={this.handleSubmit}
                                 />
