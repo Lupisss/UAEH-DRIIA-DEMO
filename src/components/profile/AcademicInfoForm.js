@@ -2,7 +2,7 @@ import React, {Fragment} from "react";
 import {DropDownMenu, MenuItem, Paper, TextField} from "material-ui";
 
 export const AcademicInfoForm = () => (
-    <Paper zDepth={3} className="Section-form" >
+    <Paper zDepth={3} className="Paper-form" >
         <h2 style={{width:'100%'}}><small>Información académica actual</small></h2>
         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
         <DropDownMenu autoWidth={false} value={2} style={{marginTop:14, width: 256}} >

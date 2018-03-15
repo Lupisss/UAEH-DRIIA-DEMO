@@ -188,12 +188,19 @@
     padding: 3% 2%;
 }
 
-.Section-form, .Section-map, .Section-languages {
+.Paper-form, .Section-map, .Section-languages {
     box-sizing: border-box;
     padding: 2% 5%;
     margin: 3% 2%;
     display: flex;
     flex-wrap: wrap;
+}
+
+.Section-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .zip-address-search, .zip-address-extend {
@@ -211,7 +218,7 @@
     margin: 0 auto;
 }
 
-.Section-form, .Section-map, .Section-languages{
+.Paper-form, .Section-map, .Section-languages{
     justify-content: space-evenly;
     align-items: center;
 }

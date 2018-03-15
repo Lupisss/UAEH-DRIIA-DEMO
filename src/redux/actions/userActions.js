@@ -131,6 +131,24 @@ export const signUp = user => (dispatch, getState) => {
         });
 };
 
+export const UPDATE_PROFILE = "UPDATE_PROFILE";
+
+export const updateProfileSuccess = profile => ({
+    type: UPDATE_PROFILE,
+    profile
+});
+
+export const updateProfile = profile => (dispatch, getState) => {
+    return ProfileAPi.updateProfile(profile)
+        .then(r => {
+            console.log(r.data);
+            dispatch(updateProfileSuccess(r.data));
+            return Promise.resolve(r.data);
+        }).catch(e => {
+            console.log(e.response);
+            return Promise.reject(e.response)
+        });
+};
 
 
 /**************************************/
@@ -210,6 +228,14 @@ export const logOut = () => (dispatch, getState) => {
 //     }
 // }
 const tokenName = 'user_uaeh_token';
+
+export const IS_FETCHED = "IS_FETCHED";
+
+export const fetchedSuccess = () => ({
+    type: IS_FETCHED,
+    isFetched:true
+});
+
 export function comprobarUsuario() {
     return function (dispatch, getState) {
         let user = JSON.parse(localStorage.getItem(tokenName));
@@ -217,6 +243,7 @@ export function comprobarUsuario() {
             Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
+                    dispatch(fetchedSuccess());
                     console.log(getState());
                 }).catch(e => {
                     console.log(e);
