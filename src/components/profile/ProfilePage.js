@@ -30,8 +30,8 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if(nP.fetched) {
-            birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
-            ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
+            birth_date = nP.profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            ssn_expiry_date = nP.profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: nP.profile,
                 user: nP.user,
