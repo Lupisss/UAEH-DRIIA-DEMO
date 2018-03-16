@@ -1,5 +1,7 @@
 import React, {Component} from "react";
+import {connect} from 'react-redux';
 import {PuProfileComponent} from "./PuProfileComponent";
+import {MainLoader} from '../loader/Loader';
 
 
 class PuProfilePage extends Component {
@@ -9,12 +11,25 @@ class PuProfilePage extends Component {
     }
 
     render() {
+        const {fetched} = this.props;
         return (
-            <div>
-                <PuProfileComponent/>
-            </div>
+
+                    !fetched ? <MainLoader/> :
+
+                                <div>
+
+                                    <PuProfileComponent/>
+                                </div>
+
         );
     }
 }
 
+const mapStateToProps = (state, ownProps) => ({
+    user: state.user.info,
+    profile: state.user.info.profile,
+    fetched: state.user.isFetched
+});
+
+PuProfilePage = connect(mapStateToProps)(PuProfilePage);
 export default PuProfilePage;
