@@ -1,7 +1,18 @@
 import React from 'react';
 import {DatePicker, DropDownMenu, MenuItem, TextField, Paper, RaisedButton} from "material-ui";
 
-export const PersonalInformationForm = ({user = {}, profile = {}, birth_date = {}, ssn_expiry_date = {}, onSubmit, handleProfileChange, handleUserChange}) => (
+export const PersonalInformationForm =
+    ({
+         user = {},
+         profile = {},
+         birth_date = {},
+         ssn_expiry_date = {},
+         onSubmit,
+         handleProfileChange,
+         handleUserChange,
+         handleDropDownChange,
+         handleDatePickerChange
+     }) => (
     <Paper className="Paper-form" zDepth={3} >
         <form className="Section-form" onSubmit={onSubmit}>
             <h2 style={{width:'100%'}} ><small>Datos personales</small></h2>
@@ -29,10 +40,15 @@ export const PersonalInformationForm = ({user = {}, profile = {}, birth_date = {
                 floatingLabelText="Apellidos"
                 hintText="ej. González"
             />
-            <DropDownMenu autoWidth={false} value={profile.gender} style={{marginTop:14, width: 256}} >
+            <DropDownMenu
+                autoWidth={false}
+                value={profile.gender}
+                onChange={handleDropDownChange("gender")}
+                style={{marginTop:14, width: 256}}
+            >
                 <MenuItem value="M" primaryText="Masculino"/>
                 <MenuItem value="F" primaryText="Femenino"/>
-                <MenuItem value={4} primaryText="Prefiero no decir"/>
+                <MenuItem value="U" primaryText="Prefiero no decir"/>
             </DropDownMenu>
             <TextField
                 // style={styles.item}
@@ -45,7 +61,7 @@ export const PersonalInformationForm = ({user = {}, profile = {}, birth_date = {
             <DatePicker
                 name="birth_date"
                 value={birth_date}
-                //onChange={handleProfileChange}
+                onChange={handleDatePickerChange("birth_date")}
                 floatingLabelText="Fecha de nacimiento"
                 autoOk={true}
             />
@@ -76,7 +92,7 @@ export const PersonalInformationForm = ({user = {}, profile = {}, birth_date = {
             <DatePicker
                 name="ssn_expiry_date"
                 value={ssn_expiry_date}
-                //onChange={handleProfileChange}
+                onChange={handleDatePickerChange("ssn_expiry_date")}
                 floatingLabelText="Vigencia del seguro social"
                 autoOk={true}
             />

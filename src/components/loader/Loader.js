@@ -1,7 +1,8 @@
 import React from 'react';
 //import {CircularProgress} from 'material-ui';
 
-const loader = "http://gifimage.net/wp-content/uploads/2017/08/loading-gif-transparent-15.gif";
+let loader = "http://gifimage.net/wp-content/uploads/2017/08/loading-gif-transparent-15.gif";
+loader = "https://media3.giphy.com/media/xUOxf2Z6fLwKBTfGTK/giphy.gif";
 
 export const MainLoader = () => (
     <div style={styles.cover}>
