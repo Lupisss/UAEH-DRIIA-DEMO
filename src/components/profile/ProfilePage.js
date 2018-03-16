@@ -11,6 +11,7 @@ import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
 import {MainLoader} from '../loader/Loader';
 import {RaisedButton} from 'material-ui';
+import toastr from 'toastr';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -70,12 +71,17 @@ class ProfilePage extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        this.props.updateProfile(this.state.profile)
+        let profile = Object.assign({},this.state.profile);
+        delete profile.profilePicture;
+        delete profile.wallPicture;
+        this.props.updateProfile(profile)
             .then(r => {
+                toastr.success("Perfil actualizado");
                 console.log(r);
             }).catch(e => {
                 console.log(e);
-        });
+            });
+
     };
 
     render() {
