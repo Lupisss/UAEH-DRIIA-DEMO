@@ -1,6 +1,6 @@
 import React, {Component,Fragment} from 'react';
 import './ProfileStylesheet.css';
-import Portada from './PortadaContainer';
+import {PortadaDisplay as Portada} from './PortadaDisplay';
 import {PersonalInformationForm as PersonalInformation}  from './PersonalInformationForm';
 import AddressInfo from './AddressInfoContainer';
 import TutorInfo from './TutorInfoContainer';
@@ -10,6 +10,7 @@ import {connect} from 'react-redux';
 import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
 import {MainLoader} from '../loader/Loader';
+import {RaisedButton} from 'material-ui';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -29,8 +30,8 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if(nP.fetched) {
-            birth_date = moment(nP.profile.birth_date, "YYYY-MM-DD").toDate();
-            ssn_expiry_date = moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate();
+            birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: nP.profile,
                 user: nP.user,
@@ -80,12 +81,15 @@ class ProfilePage extends Component {
     render() {
         const {fetched} = this.props;
         const {user = {}, profile = {}, birth_date, ssn_expiry_date} = this.state;
+        console.log(profile);
         return (
             <Fragment>
                 {
                     !fetched ? <MainLoader/> :
                         <Fragment>
-                            <Portada/>
+                            <Portada
+                                profile={profile}
+                            />
                             {/*Formularios del perfil*/}
                             <div className="Profile-form">
                                 <PersonalInformation
@@ -103,6 +107,16 @@ class ProfilePage extends Component {
                                 <TutorInfo/>
                                 <AcademicInfo/>
                                 <LangInfo/>
+                                <div className="Paper-form" style={{padding:0}}>
+                                    <div style={{width:'100%'}}>
+                                        <RaisedButton
+                                            type="submit"
+                                            primary={true}
+                                            label="Guardar cambios"
+                                            fullWidth={true}
+                                        />
+                                    </div>
+                                </div>
                             </div>
                         </Fragment>
                 }
@@ -111,12 +125,13 @@ class ProfilePage extends Component {
     }
 }
 
-// const styles = {
-//     item:{
-//         boxSizing:'border-box',
-//         margin: '0px 20px'
-//     }
-// };
+const styles = {
+    saveButton:{
+        position:'fixed',
+        bottom: 10,
+        right: 0
+    }
+};
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
