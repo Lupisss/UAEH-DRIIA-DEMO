@@ -1,5 +1,6 @@
 import React from 'react';
-import {DatePicker, DropDownMenu, MenuItem, TextField, Paper, RaisedButton} from "material-ui";
+import {DatePicker, DropDownMenu, MenuItem, TextField, Paper, IconButton} from "material-ui";
+import IconSVG from 'material-ui/svg-icons/content/save';
 
 export const PersonalInformationForm =
     ({
@@ -11,10 +12,11 @@ export const PersonalInformationForm =
          handleProfileChange,
          handleUserChange,
          handleDropDownChange,
-         handleDatePickerChange
+         handleDatePickerChange,
+         scrollToSave,
      }) => (
     <Paper className="Paper-form" zDepth={3} >
-        <form className="Section-form" onSubmit={onSubmit}>
+        <div className="Section-form" >
             <h2 style={{width:'100%'}} ><small>Datos personales</small></h2>
             <TextField
                 // style={styles.item}
@@ -132,16 +134,10 @@ export const PersonalInformationForm =
                 type="tel"
             />
             <div style={{width:'100%', margin:'20px 10px 10px'}}>
-                <div>
-                    <RaisedButton
-                        //style={{width:'50%'}}
-                        primary={true}
-                        type="submit"
-                        label="Guardar"
-                        fullWidth={true}
-                    />
-                </div>
+                <IconButton tooltip="Guardar cambios" onClick={scrollToSave}>
+                    <IconSVG />
+                </IconButton>
             </div>
-        </form>
+        </div>
     </Paper>
 );

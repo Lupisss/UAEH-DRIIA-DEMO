@@ -12,6 +12,7 @@ import {updateProfile} from '../../redux/actions/userActions';
 import {MainLoader} from '../loader/Loader';
 import {RaisedButton} from 'material-ui';
 import toastr from 'toastr';
+import scrollToComponent from 'react-scroll-to-component';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -23,7 +24,15 @@ class ProfilePage extends Component {
             },
             user: {},
             birth_date: "1995-09-29",
-            ssn_expiry_date: "1995-09-29"
+            ssn_expiry_date: "1995-09-29",
+            profilePicture: {
+                src: "",
+                file: ""
+            },
+            wallPicture: {
+                src: "",
+                file: ""
+            }
         };
     }
 
@@ -31,10 +40,11 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if(nP.fetched) {
-            birth_date = nP.profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
-            ssn_expiry_date = nP.profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
+            let profile = Object.assign({}, nP.profile);
+            birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
-                profile: nP.profile,
+                profile: profile,
                 user: nP.user,
                 birth_date:birth_date,
                 ssn_expiry_date:ssn_expiry_date
@@ -72,8 +82,10 @@ class ProfilePage extends Component {
     handleSubmit = e => {
         e.preventDefault();
         let profile = Object.assign({},this.state.profile);
-        delete profile.profilePicture;
-        delete profile.wallPicture;
+        let profilePicture = Object.assign({},this.state.profilePicture);
+        let wallPicture = Object.assign({},this.state.wallPicture);
+        if(profilePicture.src === "") delete profile.profilePicture;
+        if (wallPicture.src === "") delete profile.wallPicture;
         this.props.updateProfile(profile)
             .then(r => {
                 toastr.success("Perfil actualizado");
@@ -82,6 +94,26 @@ class ProfilePage extends Component {
                 console.log(e);
             });
 
+    };
+
+    scrollToSave = () => {
+        scrollToComponent(this.saveButton);
+    };
+
+    changePicture = name => e => {
+        let profile = Object.assign({},this.state.profile);
+        let pictureToChange = Object.assign({},this.state[name]);
+        let file = e.target.files[0];
+        const reader = new FileReader();
+
+        reader.onload =  (e) => {
+            pictureToChange.src = e.target.result;
+            pictureToChange.file = file;
+            profile[name] = pictureToChange.src;
+            this.setState({profile, [name]:pictureToChange});
+        };
+
+        reader.readAsDataURL(file);
     };
 
     render() {
@@ -95,9 +127,10 @@ class ProfilePage extends Component {
                         <Fragment>
                             <Portada
                                 profile={profile}
+                                changePicture={this.changePicture}
                             />
                             {/*Formularios del perfil*/}
-                            <div className="Profile-form">
+                            <form onSubmit={this.handleSubmit} className="Profile-form">
                                 <PersonalInformation
                                     user={user}
                                     profile={profile}
@@ -108,6 +141,7 @@ class ProfilePage extends Component {
                                     handleDatePickerChange={this.handleDatePickerChange}
                                     handleUserChange={this.handleUserChange}
                                     onSubmit={this.handleSubmit}
+                                    scrollToSave={this.scrollToSave}
                                 />
                                 <AddressInfo/>
                                 <TutorInfo/>
@@ -116,6 +150,7 @@ class ProfilePage extends Component {
                                 <div className="Paper-form" style={{padding:0}}>
                                     <div style={{width:'100%'}}>
                                         <RaisedButton
+                                            ref={comp => this.saveButton = comp}
                                             type="submit"
                                             primary={true}
                                             label="Guardar cambios"
@@ -123,7 +158,7 @@ class ProfilePage extends Component {
                                         />
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </Fragment>
                 }
             </Fragment>
@@ -138,6 +173,7 @@ const styles = {
         right: 0
     }
 };
+
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
