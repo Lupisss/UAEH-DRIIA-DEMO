@@ -1,6 +1,6 @@
 import React from 'react';
-import {DatePicker, DropDownMenu, MenuItem, TextField, Paper, IconButton} from "material-ui";
-import IconSVG from 'material-ui/svg-icons/content/save';
+import {DatePicker, DropDownMenu, MenuItem, TextField, Paper} from "material-ui";
+//import IconSVG from 'material-ui/svg-icons/navigation/arrow-downward';
 
 export const PersonalInformationForm =
     ({
@@ -133,11 +133,11 @@ export const PersonalInformationForm =
                 hintText="ej 771 567 XX XX"
                 type="tel"
             />
-            <div style={{width:'100%', margin:'20px 10px 10px'}}>
-                <IconButton tooltip="Guardar cambios" onClick={scrollToSave}>
-                    <IconSVG />
-                </IconButton>
-            </div>
+            {/*<div style={{width:'100%', margin:'20px 10px 10px'}}>*/}
+                {/*<IconButton tooltip="Guardar cambios" onClick={scrollToSave}>*/}
+                    {/*<IconSVG />*/}
+                {/*</IconButton>*/}
+            {/*</div>*/}
         </div>
     </Paper>
 );

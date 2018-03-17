@@ -13,25 +13,25 @@ export const AddressInfoForm =
     }) => (
     <Paper zDepth={3} className="Section-map" >
         <h2 style={{width:'100%'}}><small>Dirección</small></h2>
-        <form className="zip-address-search" onSubmit={getAddress}>
+        <div className="zip-address-search">
             <TextField
                 name="codigo_postal"
                 value={codigo_postal}
                 floatingLabelText="Código postal"
                 onChange={handleZipAdressChange}
-                required={true}
-                pattern="[0-9]{5}"
+                //required={true}
+                //pattern="[0-9]{5}"
                 //onBlur={this.getAddress}
             />
             <div>
                 <RaisedButton
                     primary={true}
                     label="Buscar"
-                    //onClick={this.getAddress}
+                    onClick={getAddress}
                     type="submit"
                 />
             </div>
-        </form>
+        </div>
         {
             // si ya se ha buscado el zip code ...
             isSearched  &&

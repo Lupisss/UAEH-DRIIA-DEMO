@@ -3,14 +3,15 @@ import './ProfileStylesheet.css';
 import {PortadaDisplay as Portada} from './PortadaDisplay';
 import {PersonalInformationForm as PersonalInformation}  from './PersonalInformationForm';
 import AddressInfo from './AddressInfoContainer';
-import TutorInfo from './TutorInfoContainer';
+import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
 import AcademicInfo from './AcademicInfoContainer';
 import LangInfo from './LangInfoContainer';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
 import {MainLoader} from '../loader/Loader';
-import {RaisedButton} from 'material-ui';
+import {FloatingActionButton} from 'material-ui';
+import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 
@@ -36,6 +37,21 @@ class ProfilePage extends Component {
         };
     }
 
+    componentWillMount(){
+        let birth_date = {};
+        let ssn_expiry_date = {};
+        if(this.props.fetched) {
+            let profile = Object.assign({}, this.props.profile);
+            birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            ssn_expiry_date = profile.ssn_expiry_date ? moment(this.props.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
+            this.setState({
+                profile: profile,
+                user: this.props.user,
+                birth_date:birth_date,
+                ssn_expiry_date:ssn_expiry_date
+            });
+        }
+    }
     componentWillReceiveProps(nP){
         let birth_date = {};
         let ssn_expiry_date = {};
@@ -147,17 +163,18 @@ class ProfilePage extends Component {
                                 <TutorInfo/>
                                 <AcademicInfo/>
                                 <LangInfo/>
-                                <div className="Paper-form" style={{padding:0}}>
-                                    <div style={{width:'100%'}}>
-                                        <RaisedButton
-                                            ref={comp => this.saveButton = comp}
-                                            type="submit"
-                                            primary={true}
-                                            label="Guardar cambios"
-                                            fullWidth={true}
-                                        />
-                                    </div>
-                                </div>
+
+                                <FloatingActionButton
+                                    ref={comp => this.saveButton = comp}
+                                    type="submit"
+                                    style={styles.fab}
+                                    tooltip="save"
+                                    zDepth={5}
+                                >
+                                    <IconButton/>
+                                </FloatingActionButton>
+
+
                             </form>
                         </Fragment>
                 }
@@ -167,10 +184,13 @@ class ProfilePage extends Component {
 }
 
 const styles = {
-    saveButton:{
-        position:'fixed',
-        bottom: 10,
-        right: 0
+    fab : {
+        margin: 0,
+        top: 'auto',
+        right: 20,
+        bottom: 20,
+        left: 'auto',
+        position: 'fixed',
     }
 };
 
