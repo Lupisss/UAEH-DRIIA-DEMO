@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const addressRepository = () => {
-    const baseUrl = 'http://localhost:8000/api/addresses/';
+    const baseURL = 'http://localhost:8000/api/addresses/';
     const tokenName = 'user_uaeh_token';
     const getLocalToken = () => {
         return JSON.parse(localStorage.getItem(tokenName))
@@ -9,7 +9,7 @@ const addressRepository = () => {
     const newAddress = address => {
         return new Promise( (resolve, reject) => {
             const instance = axios.create({
-                baseUrl,
+                baseURL,
                 headers: {
                     "Content-Type" : "application/json",
                     "Authorization": "Token " + getLocalToken()
