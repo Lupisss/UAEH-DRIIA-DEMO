@@ -23,6 +23,7 @@ class ProfilePage extends Component {
                 birth_date: "1995-09-29",
                 ssn_expiry_date: "1995-09-29"
             },
+            tutor: {},
             user: {},
             birth_date: "1995-09-29",
             ssn_expiry_date: "1995-09-29",
@@ -47,6 +48,7 @@ class ProfilePage extends Component {
             this.setState({
                 profile: profile,
                 user: this.props.user,
+                tutor: this.props.tutor,
                 birth_date:birth_date,
                 ssn_expiry_date:ssn_expiry_date
             });
@@ -62,6 +64,7 @@ class ProfilePage extends Component {
             this.setState({
                 profile: profile,
                 user: nP.user,
+                tutor: nP.tutor,
                 birth_date:birth_date,
                 ssn_expiry_date:ssn_expiry_date
             });
@@ -134,7 +137,7 @@ class ProfilePage extends Component {
 
     render() {
         const {fetched} = this.props;
-        const {user = {}, profile = {}, birth_date, ssn_expiry_date} = this.state;
+        const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date} = this.state;
         console.log(profile);
         return (
             <Fragment>
@@ -160,7 +163,9 @@ class ProfilePage extends Component {
                                     scrollToSave={this.scrollToSave}
                                 />
                                 <AddressInfo/>
-                                <TutorInfo/>
+                                <TutorInfo
+                                    tutor={tutor}
+                                />
                                 <AcademicInfo/>
                                 <LangInfo/>
 
@@ -197,6 +202,7 @@ const styles = {
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
+    tutor: state.tutor.mytutor.length > 0 ? state.tutor.mytutor[0] : [],
     fetched: state.user.isFetched
 });
 

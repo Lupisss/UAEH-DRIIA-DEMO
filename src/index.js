@@ -18,6 +18,8 @@ import 'toastr/build/toastr.css';
 
 const store = configureStore();
 
+setTimeout( () => console.log(store.getState()), 2000);
+
 export const logFancy = (msg, style) => {
     setTimeout( console.log.bind(console, `%c${msg}%c`, style, ""));
 };

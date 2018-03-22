@@ -1,6 +1,7 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
 import {Auth, ProfileAPi} from '../../api/repos';
+import {getTutor} from "./tutorActions";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -243,6 +244,7 @@ export function comprobarUsuario() {
             Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
+                    dispatch(getTutor());
                     dispatch(fetchedSuccess());
                     console.log(getState());
                 }).catch(e => {

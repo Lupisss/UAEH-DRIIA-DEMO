@@ -1,43 +1,46 @@
 import axios from 'axios';
 
 const tutorRepository = () => {
-    const baseURL = 'http://localhost:8000/api/tutors/';
+    const baseURL = 'http://localhost:8000/api/tutor/';
+
     const tokenName = 'user_uaeh_token';
+
     const getLocalToken = () => {
         return JSON.parse(localStorage.getItem(tokenName))
-    }
+    };
+
     const newTutor = tutor => {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const instance = axios.create({
                 baseURL,
                 headers: {
-                    "Content-Type" : "application/json",
+                    "Content-Type": "application/json",
                     "Authorization": "Token " + getLocalToken()
                 }
             });
 
-            instance.post("",tutor)
+            instance.post("", tutor)
                 .then(r => {
                     console.log(r.data);
                     resolve(r.data);
                 }).catch(e => {
-                console.log(e.response);
-                reject(e.response);
+                    console.log(e.response);
+                    reject(e.response);
             });
         });
     };
 
-    const getTutor =() =>{
-        return new Promise( (resolve, reject ) => {
+    const getTutor = () => {
+        return new Promise((resolve, reject) => {
             const instance = axios.create({
                 baseURL,
-                headers:{
-                    "Content-Type" : "application/json",
+                headers: {
+                    "Content-Type": "application/json",
                     "Authorization": "Token " + getLocalToken()
                 }
             });
 
-            instance.get()
+            instance.get("")
                 .then(r => {
                     console.log(r.data);
                     resolve(r.data);
@@ -48,18 +51,18 @@ const tutorRepository = () => {
         });
     };
 
-  //////////////////////////////////Update
+    //////////////////////////////////Update
     const updateTutor = (tutor) => {
-        return new Promise( (resolve, reject) => {
-            const instance= axios.create({
+        return new Promise((resolve, reject) => {
+            const instance = axios.create({
                 baseURL,
                 headers: {
-                    "Content-Type" : "application/json",
+                    "Content-Type": "application/json",
                     "Authorization": "Token " + getLocalToken()
                 }
             });
-            instance.patch(tutor.id + '/', tutor )
-                .then(r=> {
+            instance.patch(tutor.id + '/', tutor)
+                .then(r => {
                     resolve(r.data);
                 }).catch(e => {
                     console.log(e);
@@ -70,11 +73,11 @@ const tutorRepository = () => {
     //////////////////Delete
 
     const deleteTutor = (idTutor) => {
-        return new Promise( (resolve, reject) => {
+        return new Promise((resolve, reject) => {
             const instance = axios.create({
                 baseURL,
-                headers:{
-                    "Content-Type" : "application/json",
+                headers: {
+                    "Content-Type": "application/json",
                     "Authorization": "Token " + getLocalToken()
                 }
             });

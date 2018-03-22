@@ -2,10 +2,13 @@ import axios from 'axios';
 
 const addressRepository = () => {
     const baseURL = 'http://localhost:8000/api/addresses/';
+
     const tokenName = 'user_uaeh_token';
+
     const getLocalToken = () => {
         return JSON.parse(localStorage.getItem(tokenName))
-    }
+    };
+
     const newAddress = address => {
         return new Promise( (resolve, reject) => {
             const instance = axios.create({
@@ -36,7 +39,8 @@ const addressRepository = () => {
                     "Authorization": "Token " + getLocalToken()
                 }
             });
-            instance.get()
+
+            instance.get("")
                 .then(r => {
                     resolve(r.data);
                 }).catch(e => {
@@ -55,6 +59,7 @@ const addressRepository = () => {
                     "Authorization": "Token " + getLocalToken()
                 }
             });
+
             instance.patch(address.id + '/', address)
                 .then(r => {
                     resolve(r.data);
