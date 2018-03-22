@@ -119,6 +119,9 @@ class ProfilePage extends Component {
         scrollToComponent(this.saveButton);
     };
 
+
+
+
     changePicture = name => e => {
         let profile = Object.assign({},this.state.profile);
         let pictureToChange = Object.assign({},this.state[name]);
@@ -126,7 +129,8 @@ class ProfilePage extends Component {
         const reader = new FileReader();
 
         reader.onload =  (e) => {
-            pictureToChange.src = e.target.result;
+            let img = e.target.result;
+            pictureToChange.src = img;
             pictureToChange.file = file;
             profile[name] = pictureToChange.src;
             this.setState({profile, [name]:pictureToChange});
@@ -202,9 +206,17 @@ const styles = {
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
-    tutor: state.tutor.mytutor.length > 0 ? state.tutor.mytutor[0] : [],
+    tutor: state.tutor.mytutor.length > 0 ? state.tutor.mytutor[0] : tutorBlank,
     fetched: state.user.isFetched
 });
+
+const tutorBlank = {
+    full_name: "",
+    relationship: "",
+    email: "",
+    phone_number: "",
+    cellphone_number: ""
+};
 
 ProfilePage = connect(mapStateToProps, {updateProfile})(ProfilePage);
 export default ProfilePage;
