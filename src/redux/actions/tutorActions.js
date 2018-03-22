@@ -4,7 +4,7 @@ import {TutorApi} from '../../api/repos';
 // Determine if tutors have fetched from server
 export const FETCHED = "TUTORS_FETCHED";
 
-export const tutorsFethedSuccess = status => ({
+export const tutorFethedSuccess = status => ({
     type: FETCHED,
     status
 });
@@ -22,7 +22,7 @@ export const getTutor = () => (dispatch, getState) => {
         .then(r => {
             dispatch(getTutorSuccess(r));
             // Determine if tutors have fetched from server
-            dispatch(tutorsFethedSuccess(true));
+            dispatch(tutorFethedSuccess(true));
             Promise.resolve(r);
         }).catch(e => {
             Promise.reject(e);
@@ -40,7 +40,7 @@ export const newTutorSuccess = tutor => ({
 export const newTutor = tutor => (dispatch, getState) => {
     return TutorApi.newTutor(tutor)
         .then(r => {
-            dispatch(newTutorSuccess(tutor));
+            dispatch(newTutorSuccess(r));
             Promise.resolve(r);
         }).catch(e => {
             Promise.reject(e)
@@ -58,9 +58,10 @@ export const updateTutorSuccess = tutor => ({
 export const updateTutor = tutor => (dispatch, getState) => {
     return TutorApi.updateTutor(tutor)
         .then(r => {
-            dispatch(updateTutorSuccess(tutor));
+            dispatch(updateTutorSuccess(r));
             Promise.resolve(r);
         }).catch(e => {
+            console.log(e);
             Promise.reject(e)
         });
 };

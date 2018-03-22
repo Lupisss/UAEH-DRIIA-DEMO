@@ -9,6 +9,7 @@ import LangInfo from './LangInfoContainer';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
+import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
 import {FloatingActionButton} from 'material-ui';
 import IconButton from 'material-ui/svg-icons/content/save'
@@ -77,10 +78,22 @@ class ProfilePage extends Component {
         this.setState({profile});
     };
 
+    handleTutorChange = e => {
+        let tutor = Object.assign({},this.state.tutor);
+        tutor[e.target.name] = e.target.value;
+        this.setState({tutor});
+    };
+
     handleDropDownChange = name => (event, index, value) => {
         let profile = Object.assign({},this.state.profile);
         profile[name] = value;
         this.setState({profile});
+    };
+
+    handleTutorDropDownChange = name => (event, index, value) => {
+        let tutor = Object.assign({},this.state.tutor);
+        tutor[name] = value;
+        this.setState({tutor});
     };
 
     handleDatePickerChange = name => (event, date) => {
@@ -101,6 +114,7 @@ class ProfilePage extends Component {
     handleSubmit = e => {
         e.preventDefault();
         let profile = Object.assign({},this.state.profile);
+        let tutor = Object.assign({},this.state.tutor);
         let profilePicture = Object.assign({},this.state.profilePicture);
         let wallPicture = Object.assign({},this.state.wallPicture);
         if(profilePicture.src === "") delete profile.profilePicture;
@@ -112,6 +126,15 @@ class ProfilePage extends Component {
             }).catch(e => {
                 console.log(e);
             });
+        tutor.address = tutor.address.id;
+        this.props.updateTutor(tutor)
+            .then(r => {
+                toastr.success("Tutor actualizado");
+                console.log(r);
+            }).catch(e => {
+                console.log(e);
+        });
+
 
     };
 
@@ -169,6 +192,8 @@ class ProfilePage extends Component {
                                 <AddressInfo/>
                                 <TutorInfo
                                     tutor={tutor}
+                                    onChange={this.handleTutorChange}
+                                    onDropDown={this.handleTutorDropDownChange}
                                 />
                                 <AcademicInfo/>
                                 <LangInfo/>
@@ -218,5 +243,5 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
-ProfilePage = connect(mapStateToProps, {updateProfile})(ProfilePage);
+ProfilePage = connect(mapStateToProps, {updateProfile, updateTutor})(ProfilePage);
 export default ProfilePage;
