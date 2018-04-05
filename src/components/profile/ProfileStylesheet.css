@@ -202,8 +202,15 @@
     box-sizing: border-box;
     padding: 2% 5%;
     margin: 3% 2%;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+}
+
+.SaveButton {
+    width: 100%;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 2em;
 }
 
 .Section-form {
@@ -229,8 +236,8 @@
 }
 
 .Paper-form, .Section-map, .Section-languages{
-    justify-content: space-evenly;
-    align-items: center;
+    /*justify-content: space-evenly;*/
+    /*align-items: center;*/
 }
 
 .Section-map{

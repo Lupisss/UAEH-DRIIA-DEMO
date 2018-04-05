@@ -1,7 +1,7 @@
-import React, {Component,Fragment} from 'react';
+import React, {Component, Fragment} from 'react';
 import './ProfileStylesheet.css';
 import {PortadaDisplay as Portada} from './PortadaDisplay';
-import {PersonalInformationForm as PersonalInformation}  from './PersonalInformationForm';
+import {PersonalInformationForm as PersonalInformation} from './PersonalInformationForm';
 import AddressInfo from './AddressInfoContainer';
 import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
 import AcademicInfo from './AcademicInfoContainer';
@@ -11,7 +11,7 @@ import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
-import {FloatingActionButton, LinearProgress} from 'material-ui';
+import {Drawer, FloatingActionButton, LinearProgress, MenuItem} from 'material-ui';
 import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
@@ -40,85 +40,85 @@ class ProfilePage extends Component {
         };
     }
 
-    componentWillMount(){
+    componentWillMount() {
         let birth_date = {};
         let ssn_expiry_date = {};
-        if(this.props.fetched) {
+        if (this.props.fetched) {
             let profile = Object.assign({}, this.props.profile);
-            birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(this.props.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: profile,
                 user: this.props.user,
                 tutor: this.props.tutor,
-                birth_date:birth_date,
-                ssn_expiry_date:ssn_expiry_date
+                birth_date: birth_date,
+                ssn_expiry_date: ssn_expiry_date
             });
         }
     }
-    componentWillReceiveProps(nP){
+
+    componentWillReceiveProps(nP) {
         let birth_date = {};
         let ssn_expiry_date = {};
-        if(nP.fetched) {
+        if (nP.fetched) {
             let profile = Object.assign({}, nP.profile);
-            birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate(): {};
+            birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: profile,
                 user: nP.user,
                 tutor: nP.tutor,
-                birth_date:birth_date,
-                ssn_expiry_date:ssn_expiry_date
+                birth_date: birth_date,
+                ssn_expiry_date: ssn_expiry_date
             });
         }
     }
 
     handleProfileChange = e => {
-        let profile = Object.assign({},this.state.profile);
+        let profile = Object.assign({}, this.state.profile);
         profile[e.target.name] = e.target.value;
         this.setState({profile});
     };
 
     handleTutorChange = e => {
-        let tutor = Object.assign({},this.state.tutor);
+        let tutor = Object.assign({}, this.state.tutor);
         tutor[e.target.name] = e.target.value;
         this.setState({tutor});
     };
 
     handleDropDownChange = name => (event, index, value) => {
-        let profile = Object.assign({},this.state.profile);
+        let profile = Object.assign({}, this.state.profile);
         profile[name] = value;
         this.setState({profile});
     };
 
     handleTutorDropDownChange = name => (event, index, value) => {
-        let tutor = Object.assign({},this.state.tutor);
+        let tutor = Object.assign({}, this.state.tutor);
         tutor[name] = value;
         this.setState({tutor});
     };
 
     handleDatePickerChange = name => (event, date) => {
-        let profile = Object.assign({},this.state.profile);
+        let profile = Object.assign({}, this.state.profile);
         profile[name] = moment(date).format("YYYY-MM-DD");
         this.setState({
             profile,
-            [name]:date
+            [name]: date
         });
     };
 
     handleUserChange = e => {
-        let user = Object.assign({},this.state.user);
+        let user = Object.assign({}, this.state.user);
         user[e.target.name] = e.target.value;
         this.setState({user});
     };
 
-    handleSubmit = e => {
+    handleSubmitProfile = e => {
         e.preventDefault();
-        let profile = Object.assign({},this.state.profile);
-        let tutor = Object.assign({},this.state.tutor);
-        let profilePicture = Object.assign({},this.state.profilePicture);
-        let wallPicture = Object.assign({},this.state.wallPicture);
-        if(profilePicture.src === "") delete profile.profilePicture;
+        let profile = Object.assign({}, this.state.profile);
+        let profilePicture = Object.assign({}, this.state.profilePicture);
+        let wallPicture = Object.assign({}, this.state.wallPicture);
+        if (profilePicture.src === "") delete profile.profilePicture;
         if (wallPicture.src === "") delete profile.wallPicture;
         this.props.updateProfile(profile)
             .then(r => {
@@ -126,17 +126,20 @@ class ProfilePage extends Component {
                 console.log(r);
             }).catch(e => {
                 console.log(e);
-            });
+        });
+    };
+    handleSubmitTutor = e => {
+        e.preventDefault();
+        let tutor = {...this.state.tutor};
         tutor.address = tutor.address.id;
         this.props.updateTutor(tutor)
             .then(r => {
                 toastr.success("Tutor actualizado");
                 console.log(r);
             }).catch(e => {
+                toastr.error(e);
                 console.log(e);
         });
-
-
     };
 
     scrollToSave = () => {
@@ -144,12 +147,10 @@ class ProfilePage extends Component {
     };
 
 
-
-
     changePicture = name => e => {
         //this.setState({loadingPictures:true});
-        let profile = Object.assign({},this.state.profile);
-        let pictureToChange = Object.assign({},this.state[name]);
+        let profile = Object.assign({}, this.state.profile);
+        let pictureToChange = Object.assign({}, this.state[name]);
         pictureToChange.loading = true;
         let file = e.target.files[0];
         if (file) {
@@ -174,7 +175,6 @@ class ProfilePage extends Component {
         }
 
 
-
     };
 
     render() {
@@ -187,14 +187,14 @@ class ProfilePage extends Component {
                 {
                     !fetched ? <MainLoader/> :
                         <Fragment>
-                            { loadingPictures ?  <LinearProgress style={{width: '50%', margin: '20px auto'}}/> :
+                            {loadingPictures ? <LinearProgress style={{width: '50%', margin: '20px auto'}}/> :
                                 <Portada
                                     profile={profile}
                                     changePicture={this.changePicture}
                                 />
                             }
                             {/*Formularios del perfil*/}
-                            <form onSubmit={this.handleSubmit} className="Profile-form">
+                            <div className="Profile-form">
                                 <PersonalInformation
                                     user={user}
                                     profile={profile}
@@ -204,14 +204,15 @@ class ProfilePage extends Component {
                                     handleDropDownChange={this.handleDropDownChange}
                                     handleDatePickerChange={this.handleDatePickerChange}
                                     handleUserChange={this.handleUserChange}
-                                    onSubmit={this.handleSubmit}
                                     scrollToSave={this.scrollToSave}
+                                    onSubmit={this.handleSubmitProfile}
                                 />
                                 <AddressInfo/>
                                 <TutorInfo
                                     tutor={tutor}
                                     onChange={this.handleTutorChange}
                                     onDropDown={this.handleTutorDropDownChange}
+                                    onSubmit={this.handleSubmitTutor}
                                 />
                                 <AcademicInfo/>
                                 <LangInfo/>
@@ -227,7 +228,7 @@ class ProfilePage extends Component {
                                 </FloatingActionButton>
 
 
-                            </form>
+                            </div>
                         </Fragment>
                 }
             </Fragment>
@@ -236,7 +237,7 @@ class ProfilePage extends Component {
 }
 
 const styles = {
-    fab : {
+    fab: {
         margin: 0,
         top: 'auto',
         right: 20,
