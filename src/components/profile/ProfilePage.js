@@ -11,7 +11,7 @@ import moment from 'moment';
 import {updateProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
-import {FloatingActionButton} from 'material-ui';
+import {FloatingActionButton, LinearProgress} from 'material-ui';
 import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
@@ -35,7 +35,8 @@ class ProfilePage extends Component {
             wallPicture: {
                 src: "",
                 file: ""
-            }
+            },
+            loadingPictures: false
         };
     }
 
@@ -146,35 +147,52 @@ class ProfilePage extends Component {
 
 
     changePicture = name => e => {
+        //this.setState({loadingPictures:true});
         let profile = Object.assign({},this.state.profile);
         let pictureToChange = Object.assign({},this.state[name]);
+        pictureToChange.loading = true;
         let file = e.target.files[0];
-        const reader = new FileReader();
+        if (file) {
+            if (file.size > 3000000) {
+                console.log('Too big');
+                toastr.error('La imagen debe ser menor a 3MB');
+                return;
+            }
+            const reader = new window.FileReader();
 
-        reader.onload =  (e) => {
-            let img = e.target.result;
-            pictureToChange.src = img;
-            pictureToChange.file = file;
-            profile[name] = pictureToChange.src;
-            this.setState({profile, [name]:pictureToChange});
-        };
+            reader.onload = (file => e => {
+                console.log("el file", file);
+                toastr.success("Imagen cargada");
+                let img = e.target.result;
+                pictureToChange.src = img;
+                pictureToChange.file = file;
+                profile[name] = pictureToChange.src;
+                this.setState({profile, [name]: pictureToChange});
+            })(file);
 
-        reader.readAsDataURL(file);
+            reader.readAsDataURL(file);
+        }
+
+
+
     };
 
     render() {
         const {fetched} = this.props;
-        const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date} = this.state;
+        const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
+        console.log(loadingPictures);
         console.log(profile);
         return (
             <Fragment>
                 {
                     !fetched ? <MainLoader/> :
                         <Fragment>
-                            <Portada
-                                profile={profile}
-                                changePicture={this.changePicture}
-                            />
+                            { loadingPictures ?  <LinearProgress style={{width: '50%', margin: '20px auto'}}/> :
+                                <Portada
+                                    profile={profile}
+                                    changePicture={this.changePicture}
+                                />
+                            }
                             {/*Formularios del perfil*/}
                             <form onSubmit={this.handleSubmit} className="Profile-form">
                                 <PersonalInformation

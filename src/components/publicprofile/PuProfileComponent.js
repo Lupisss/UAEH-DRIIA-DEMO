@@ -7,19 +7,24 @@ import './PuPublicStylesheet.css';
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
-export const PuProfileComponent = (props) => {
+export const PuProfileComponent = ({profile}) => {
+    const toShow = [];
+    for( let key in profile){
+        toShow.push({key : key, value:  profile[key]});
+    }
+    const profileInfo = toShow.map( data => <p>{data.key + " : " + data.value}</p>);
     return (
 
          <div className="Main-profile" >
              <div className="Main-profile">
                 <div
                     className="profile-portada"
-                    style={{backgroundImage:`url('https://static.pexels.com/photos/314563/pexels-photo-314563.jpeg')`, backgroundColor:'white'}}
+                    style={{backgroundImage:`url('${profile.wallPicture}')`, backgroundColor:'white'}}
                 >
                     <figure>
                         <img
 
-                            src={defaultImg}
+                            src={profile.profilePicture}
                             alt="user"
                          />
                     </figure>
@@ -32,6 +37,8 @@ export const PuProfileComponent = (props) => {
 
                     {/* <Paper zDepth={2} className="prueba1" >*/}
                         <h2  style={{width:'100%'}} ><small>DATOS PERSONALES</small></h2>
+                        <p>Hola esto es un ejemplo</p>
+                        {profileInfo}
 
                         <TextField  disabled style={{width:'75%'}}
                             // style={styles.item}

@@ -1,4 +1,5 @@
 import React from "react";
+import toastr from "toastr";
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
@@ -27,7 +28,14 @@ export const PortadaDisplay = ({profile,changePicture}) => {
                 {/*loading ? <CircularProgress/> : "Cambiar Portada"*/}
                 Cambiar Portada
             </button>
-            <input accept="image/*" name='image' ref={input => wallPic = input } type="file" hidden onChange={changePicture("wallPicture")}/>
+            <input
+                accept="image/*"
+                name='image'
+                ref={input => wallPic = input }
+                type="file"
+                hidden
+                onChange={changePicture("wallPicture")}
+            />
             <figure>
                 <div
                     onClick={changeProfilePic}
@@ -41,7 +49,14 @@ export const PortadaDisplay = ({profile,changePicture}) => {
                     alt="user"
                     onClick={changeProfilePic}
                 />
-                <input accept="image/*" name='image' ref={input => profPic = input } type="file" hidden onChange={changePicture("profilePicture")}/>
+                <input
+                    accept="image/*"
+                    name='image'
+                    ref={input => profPic = input }
+                    type="file"
+                    hidden
+                    onChange={changePicture("profilePicture")}
+                />
                 {/*<input accept="image/*" ref={input=>secondInput=input} onChange={changePic} hidden type="file"/>*/}
             </figure>
             {/*<input accept="image/*" ref={input=>theInput=input} onChange={changeCover} hidden type="file"/>*/}

@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
 import {PuProfileComponent} from "./PuProfileComponent";
 import {MainLoader} from '../loader/Loader';
@@ -11,15 +11,16 @@ class PuProfilePage extends Component {
     }
 
     render() {
-        const {fetched} = this.props;
+        const {fetched, profile} = this.props;
         return (
 
                     !fetched ? <MainLoader/> :
 
-                                <div>
-
-                                    <PuProfileComponent/>
-                                </div>
+                                <Fragment>
+                                    <PuProfileComponent
+                                        profile={profile}
+                                    />
+                                </Fragment>
 
         );
     }
