@@ -2,7 +2,8 @@ import React, {Component, Fragment} from 'react';
 import './ProfileStylesheet.css';
 import {PortadaDisplay as Portada} from './PortadaDisplay';
 import {PersonalInformationForm as PersonalInformation} from './PersonalInformationForm';
-import AddressInfo from './AddressInfoContainer';
+import {AddressInfoComponent as AddressInfo} from './AddressInfoComponent';
+import NewAddress from './AddressInfoContainer';
 import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
 import AcademicInfo from './AcademicInfoContainer';
 import LangInfo from './LangInfoContainer';
@@ -15,6 +16,7 @@ import {Drawer, FloatingActionButton, LinearProgress, MenuItem} from 'material-u
 import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
+import {Route, Switch} from "react-router-dom";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -177,7 +179,17 @@ class ProfilePage extends Component {
 
     };
 
+    newAddress = () => this.props.history.push('/profile/newAddress');
+    closeNewAddress = () => this.props.history.push('/profile');
+
     render() {
+        const NewAddressRender = props => (
+            <NewAddress
+                closeModal={this.closeNewAddress}
+                {...props}
+                {...this.props}
+            />
+        );
         const {fetched} = this.props;
         const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
@@ -207,7 +219,10 @@ class ProfilePage extends Component {
                                     scrollToSave={this.scrollToSave}
                                     onSubmit={this.handleSubmitProfile}
                                 />
-                                <AddressInfo/>
+                                <AddressInfo
+                                    addresses={profile.addresses}
+                                    newAddress={this.newAddress}
+                                />
                                 <TutorInfo
                                     tutor={tutor}
                                     onChange={this.handleTutorChange}
@@ -229,6 +244,9 @@ class ProfilePage extends Component {
 
 
                             </div>
+                            <Switch>
+                                <Route path="/profile/:id" render={NewAddressRender}/>
+                            </Switch>
                         </Fragment>
                 }
             </Fragment>

@@ -1,8 +1,9 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {ZipApi} from "../../api/repos";
 import toastr from "toastr";
 import {AddressInfoForm} from "./AddressInfoForm";
-import {MenuItem} from "material-ui";
+import { MenuItem} from "material-ui";
+import {connect} from 'react-redux';
 
 class AddressInfoContainer extends Component {
     constructor(props) {
@@ -61,25 +62,51 @@ class AddressInfoContainer extends Component {
 
     };
 
+    handleSubmit = e => {
+        e.preventDefault();
+        const address = {...this.state.zipAddress};
+        console.log(address);
+        toastr.success("Guardado");
+    };
+
     render() {
         const {zipAddress, isSearched, currentColonia} = this.state;
+        const {address, closeModal} = this.props;
         // vamos a reformatear el array de colonias
         //  la función map retorna un array nuevo con el retorno del cuerpo de su función
         const dataDropDown = zipAddress.colonias.map((colonia, key) =>
             <MenuItem key={key} value={colonia} primaryText={colonia}/>
         );
         return (
-            <AddressInfoForm
-                zipAddress={zipAddress}
-                isSearched={isSearched}
-                currentColonia={currentColonia}
-                dataDropDown={dataDropDown}
-                handleZipAdressChange={this.handleZipAdressChange}
-                handleDropDownZipChange={this.handleDropDownZipChange}
-                getAddress={this.getAddress}
-            />
+            <Fragment>
+                <AddressInfoForm
+                    address={address}
+                    zipAddress={zipAddress}
+                    isSearched={isSearched}
+                    currentColonia={currentColonia}
+                    dataDropDown={dataDropDown}
+                    handleZipAdressChange={this.handleZipAdressChange}
+                    handleDropDownZipChange={this.handleDropDownZipChange}
+                    getAddress={this.getAddress}
+                    closeModal={closeModal}
+                    saveEditAddress={this.handleSubmit}
+                />
+            </Fragment>
         );
     }
 }
 
+const mapStateToProps = (state, ownProps) => {
+    const id = ownProps.match.params.id;
+    console.log(id);
+    let address;
+    if (id !== 'newAddress') {
+        address = (state.user.info.profile.addresses.filter( address => address.id == id )[0]);
+    }
+    return {
+        address
+    }
+};
+
+AddressInfoContainer = connect(mapStateToProps,{})(AddressInfoContainer);
 export default AddressInfoContainer;
