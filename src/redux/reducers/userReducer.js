@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {LOGIN_SUCCESS, LOGOUT_SUCCESS, UPDATE_PROFILE, IS_FETCHED} from "../actions/userActions";
+import {LOGIN_SUCCESS, LOGOUT_SUCCESS, UPDATE_PROFILE, IS_FETCHED, ADD_NEW_ADDRESS} from "../actions/userActions";
 
 const profile = ( state = {}, action) => {
     switch (action.type) {
@@ -9,6 +9,10 @@ const profile = ( state = {}, action) => {
             return {};
         case UPDATE_PROFILE:
             return {...state, profile:action.profile};
+        case ADD_NEW_ADDRESS:
+            let profile = {...state.profile };
+            profile.addresses.push(action.address);
+            return {...state, profile};
         default:
             return state;
 

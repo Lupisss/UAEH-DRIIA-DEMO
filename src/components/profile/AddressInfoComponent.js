@@ -35,8 +35,9 @@ const rightIconMenu = (
 
 export const AddressInfoComponent = ({addresses = [], newAddress}) => {
     let adressesListItems = addresses.length > 0 ?
-        addresses.map(address => (
+        addresses.map( (address, key) => (
             <ListItem
+                key={key}
                 rightIconButton={rightIconMenu}
                 primaryText={
                     <p>

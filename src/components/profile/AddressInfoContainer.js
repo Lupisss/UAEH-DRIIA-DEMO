@@ -4,6 +4,7 @@ import toastr from "toastr";
 import {AddressInfoForm} from "./AddressInfoForm";
 import { MenuItem} from "material-ui";
 import {connect} from 'react-redux';
+import {addNewAddressToProfile} from '../../redux/actions/userActions';
 
 class AddressInfoContainer extends Component {
     constructor(props) {
@@ -64,9 +65,26 @@ class AddressInfoContainer extends Component {
 
     handleSubmit = e => {
         e.preventDefault();
-        const address = {...this.state.zipAddress};
+        const zipAddress = {...this.state.zipAddress};
+        const address = {
+            profile : this.props.profileId,
+            address1 : zipAddress.calleNumero,
+            suburb : this.state.currentColonia,
+            city : zipAddress.municipio,
+            state : zipAddress.estado,
+            country : 'México',
+            zip_code : zipAddress.codigo_postal
+        };
         console.log(address);
-        toastr.success("Guardado");
+        this.props.addNewAddressToProfile(address)
+            .then(r => {
+                toastr.success("Dirección añadida");
+                this.props.history.push('/profile');
+            })
+            .catch(e => {
+                console.log(e);
+                toastr.error(e)
+            });
     };
 
     render() {
@@ -104,9 +122,10 @@ const mapStateToProps = (state, ownProps) => {
         address = (state.user.info.profile.addresses.filter( address => address.id == id )[0]);
     }
     return {
-        address
+        address,
+        profileId : state.user.info.profile.id
     }
 };
 
-AddressInfoContainer = connect(mapStateToProps,{})(AddressInfoContainer);
+AddressInfoContainer = connect(mapStateToProps,{addNewAddressToProfile})(AddressInfoContainer);
 export default AddressInfoContainer;

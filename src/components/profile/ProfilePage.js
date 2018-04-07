@@ -117,11 +117,12 @@ class ProfilePage extends Component {
 
     handleSubmitProfile = e => {
         e.preventDefault();
-        let profile = Object.assign({}, this.state.profile);
-        let profilePicture = Object.assign({}, this.state.profilePicture);
-        let wallPicture = Object.assign({}, this.state.wallPicture);
+        let profile = {...this.state.profile};
+        let profilePicture = {...this.state.profilePicture};
+        let wallPicture = {...this.state.wallPicture};
         if (profilePicture.src === "") delete profile.profilePicture;
         if (wallPicture.src === "") delete profile.wallPicture;
+        profile.user = this.props.user.id;
         this.props.updateProfile(profile)
             .then(r => {
                 toastr.success("Perfil actualizado");

@@ -65,7 +65,7 @@ export const AddressInfoForm = (
                         name="codigo_postal"
                         value={codigo_postal}
                         disabled
-                        floatingLabelText="C.P."
+                        floatingLabelText="Código Postal"
                         //onBlur={this.getAddress}
                     />
                     <DropDownMenu
@@ -73,7 +73,6 @@ export const AddressInfoForm = (
                         autoWidth={false}
                         value={currentColonia}
                         style={{marginTop: 14, width: 256}}
-                        floatingLabelText="Colonia"
                     >
                         {dataDropDown}
                     </DropDownMenu>
@@ -95,6 +94,7 @@ export const AddressInfoForm = (
                         onChange={handleZipAdressChange}
                         floatingLabelText="Calle y Número"
                         style={{width:'80%'}}
+                        required
                     />
                 </form>
             }

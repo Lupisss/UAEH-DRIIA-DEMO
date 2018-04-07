@@ -1,6 +1,6 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth, ProfileAPi} from '../../api/repos';
+import {Auth, ProfileAPi, AddressApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
@@ -149,6 +149,23 @@ export const updateProfile = profile => (dispatch, getState) => {
             console.log(e.response);
             return Promise.reject(e.response)
         });
+};
+
+export const ADD_NEW_ADDRESS = "ADD_NEW_ADDRESS";
+
+export const addNewAddressToProfileSuccess = address => ({
+    type: ADD_NEW_ADDRESS,
+    address
+});
+
+export const addNewAddressToProfile = address => (dispatch, getState) => {
+    return AddressApi.newAddress(address)
+        .then(r => {
+            dispatch(addNewAddressToProfileSuccess(r))
+        }).catch(e => {
+            console.log(e);
+        });
+
 };
 
 
