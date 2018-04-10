@@ -15,30 +15,28 @@ import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import {grey400, grey600} from "material-ui/styles/colors";
 
-const iconButtonElement = (
-    <IconButton
-        touch={true}
-        tooltip="más"
-        tooltipPosition="bottom-left"
-    >
-        <MoreVertIcon color={grey400}/>
-    </IconButton>
-);
 
-const rightIconMenu = (
-    <IconMenu iconButtonElement={iconButtonElement}>
-        <MenuItem>Reply</MenuItem>
-        <MenuItem>Forward</MenuItem>
-        <MenuItem>Delete</MenuItem>
-    </IconMenu>
-);
 
-export const AddressInfoComponent = ({addresses = [], newAddress}) => {
+export const AddressInfoComponent = ({addresses = [], newAddress, deleteAddress, history}) => {
+    const iconButtonElement = (
+        <IconButton
+            touch={true}
+            tooltip="más"
+            tooltipPosition="bottom-left"
+        >
+            <MoreVertIcon color={grey400}/>
+        </IconButton>
+    );
     let adressesListItems = addresses.length > 0 ?
         addresses.map( (address, key) => (
             <ListItem
                 key={key}
-                rightIconButton={rightIconMenu}
+                rightIconButton={(
+                    <IconMenu iconButtonElement={iconButtonElement}>
+                        <MenuItem onClick={()=>history.push(`/profile/address/${address.id}`)}>Editar</MenuItem>
+                        <MenuItem onClick={()=>deleteAddress(address.id)}>Eliminar</MenuItem>
+                    </IconMenu>
+                )}
                 primaryText={
                     <p>
                         {address.address1 + " " + address.suburb}
