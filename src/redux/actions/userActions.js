@@ -168,6 +168,44 @@ export const addNewAddressToProfile = address => (dispatch, getState) => {
 
 };
 
+ // ACTUALIZAR LA DIRECCION DEL PERFIL
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
+
+export const updateAddressToProfileSuccess = address => ({
+    type: UPDATE_ADDRESS,
+    address
+});
+
+export const updateAddressToProfile = address => (dispatch, getState) => {
+    return AddressApi.updateAddress(address)
+        .then(r => {
+            console.log(r);
+            dispatch(updateAddressToProfileSuccess(r))
+        }).catch(e => {
+            console.log(e);
+        });
+
+};
+
+// ELIMINAR DIRECCION DEL PERFIL
+
+export const DELETE_ADDRESS = "DELETE_ADDRESS";
+
+export const deleteAddressToProfileSuccess = idAddress => ({
+    type: DELETE_ADDRESS,
+    idAddress
+});
+
+export const deleteAddressToProfile = idAddress => (dispatch, getState) => {
+    return AddressApi.deleteAddress(idAddress)
+        .then(r => {
+            console.log(r);
+            dispatch(deleteAddressToProfileSuccess(idAddress))
+        }).catch(e => {
+            console.log(e);
+        });
+
+};
 
 /**************************************/
 

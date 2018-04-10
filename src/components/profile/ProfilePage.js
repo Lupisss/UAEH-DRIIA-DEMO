@@ -9,7 +9,7 @@ import AcademicInfo from './AcademicInfoContainer';
 import LangInfo from './LangInfoContainer';
 import {connect} from 'react-redux';
 import moment from 'moment';
-import {updateProfile} from '../../redux/actions/userActions';
+import {updateProfile,deleteAddressToProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
 import {Drawer, FloatingActionButton, LinearProgress, MenuItem} from 'material-ui';
@@ -180,7 +180,17 @@ class ProfilePage extends Component {
 
     };
 
-    newAddress = () => this.props.history.push('/profile/newAddress');
+    newAddress = () => this.props.history.push('/profile/address/newAddress');
+
+    deleteAddress = idAddress => {
+        this.props.deleteAddressToProfile(idAddress)
+            .then(r => {
+                toastr.warning("Eliminado");
+            }).catch(e => {
+                toastr.error(JSON.stringify(e))
+        });
+    };
+
     closeNewAddress = () => this.props.history.push('/profile');
 
     render() {
@@ -188,10 +198,9 @@ class ProfilePage extends Component {
             <NewAddress
                 closeModal={this.closeNewAddress}
                 {...props}
-                {...this.props}
             />
         );
-        const {fetched} = this.props;
+        const {fetched, history} = this.props;
         const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
         console.log(profile);
@@ -221,8 +230,10 @@ class ProfilePage extends Component {
                                     onSubmit={this.handleSubmitProfile}
                                 />
                                 <AddressInfo
+                                    history={history}
                                     addresses={profile.addresses}
                                     newAddress={this.newAddress}
+                                    deleteAddress={this.deleteAddress}
                                 />
                                 <TutorInfo
                                     tutor={tutor}
@@ -246,7 +257,7 @@ class ProfilePage extends Component {
 
                             </div>
                             <Switch>
-                                <Route path="/profile/:id" render={NewAddressRender}/>
+                                <Route path="/profile/address/:id" render={NewAddressRender}/>
                             </Switch>
                         </Fragment>
                 }
@@ -281,5 +292,5 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
-ProfilePage = connect(mapStateToProps, {updateProfile, updateTutor})(ProfilePage);
+ProfilePage = connect(mapStateToProps, {updateProfile, deleteAddressToProfile, updateTutor})(ProfilePage);
 export default ProfilePage;
