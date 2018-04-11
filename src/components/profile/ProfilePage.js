@@ -4,15 +4,16 @@ import {PortadaDisplay as Portada} from './PortadaDisplay';
 import {PersonalInformationForm as PersonalInformation} from './PersonalInformationForm';
 import {AddressInfoComponent as AddressInfo} from './AddressInfoComponent';
 import NewAddress from './AddressInfoContainer';
+import NewCertification from './LangInfoContainer';
 import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
 import AcademicInfo from './AcademicInfoContainer';
-import LangInfo from './LangInfoContainer';
+import {LangInfoComponent as LangInfo} from './LangInfoComponent';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {updateProfile,deleteAddressToProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
-import {Drawer, FloatingActionButton, LinearProgress, MenuItem} from 'material-ui';
+import { FloatingActionButton, LinearProgress} from 'material-ui';
 import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
@@ -190,12 +191,28 @@ class ProfilePage extends Component {
                 toastr.error(JSON.stringify(e))
         });
     };
+    newCertification = () => this.props.history.push('/profile/certification/newCertification');
+
+    deleteCertification = certificationId => {
+        // this.props.deleteAddressToProfile(idAddress)
+        //     .then(r => {
+        //         toastr.warning("Eliminado");
+        //     }).catch(e => {
+        //         toastr.error(JSON.stringify(e))
+        // });
+    };
 
     closeNewAddress = () => this.props.history.push('/profile');
 
     render() {
         const NewAddressRender = props => (
             <NewAddress
+                closeModal={this.closeNewAddress}
+                {...props}
+            />
+        );
+        const NewCertificationRender = props => (
+            <NewCertification
                 closeModal={this.closeNewAddress}
                 {...props}
             />
@@ -242,7 +259,12 @@ class ProfilePage extends Component {
                                     onSubmit={this.handleSubmitTutor}
                                 />
                                 <AcademicInfo/>
-                                <LangInfo/>
+                                <LangInfo
+                                    history={history}
+                                    certifications={profile.certifications}
+                                    newCertification={this.newCertification}
+                                    deleteCertification={this.deleteCertification}
+                                />
 
                                 <FloatingActionButton
                                     ref={comp => this.saveButton = comp}
@@ -258,6 +280,7 @@ class ProfilePage extends Component {
                             </div>
                             <Switch>
                                 <Route path="/profile/address/:id" render={NewAddressRender}/>
+                                <Route path="/profile/certification/:id" render={NewCertificationRender}/>
                             </Switch>
                         </Fragment>
                 }
