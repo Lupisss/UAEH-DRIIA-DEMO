@@ -5,9 +5,10 @@ import {
 } from "material-ui";
 import './PuPublicStylesheet.css';
 
+
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
 
-export const PuProfileComponent = ({profile}) => {
+export const PuProfileComponent = ({profile, user}) => {
     const toShow = [];
     for( let key in profile){
         toShow.push({key : key, value:  profile[key]});
@@ -19,7 +20,7 @@ export const PuProfileComponent = ({profile}) => {
              <div className="Main-profile">
                 <div
                     className="profile-portada"
-                    style={{backgroundImage:`url('${profile.wallPicture}')`, backgroundColor:'white'}}
+                    style={{backgroundImage:`url('${profile.wallPicture}')`, backgroundColor:'#A9F5E1'}}
                 >
                     <figure>
                         <img
@@ -31,35 +32,54 @@ export const PuProfileComponent = ({profile}) => {
                 </div>
                 {/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/}
 
-                 <div className="Profile-form " >
 
-                    <Paper zDepth={3} className="prueba1" >
+
+
+                 <div className="Profile-form " >
+                     <h1> {user.last_name} {user.first_name} </h1>
+                     <h2> {profile.academicId}</h2>
+                     <h3> Nacionalidad: {profile.nationality} </h3>
+                     <h4> {profile.cellphone_number} </h4>
+
+
+                    <Paper style={{backgroundColor: "#901B00", color: "white"}} zDepth={3} className="prueba1" >
 
                     {/* <Paper zDepth={2} className="prueba1" >*/}
                         <h2  style={{width:'100%'}} ><small>DATOS PERSONALES</small></h2>
-                        <p>Hola esto es un ejemplo</p>
-                        {profileInfo}
+                        <p > Genero: {profile.gender} </p>
+                        <p> Fecha de nacimiento: {profile.birth_date} </p>
+                        <p> CURP: {profile.curp} </p>
+                        <p> Número de Seguro Social: {profile.ssn_number} </p>
+                        <p> Expiración de Seguro Social: {profile.ssn_expiry_date} </p>
+                        <p> Clave de Elector: {profile.vote_key} </p>
+                        <p> Teléfono Fijo: {profile.phone_number} </p>
+                        <p> Email Alterno: {profile.secondary_email} </p>
 
-                        <TextField  disabled style={{width:'75%'}}
+
+
+
+                        {/*{profileInfo}
+
+                        <h3  > {profile.academicId}</h3>
+                        <h4> {user.last_name} {user.first_name} </h4>
+
+
+                       <TextField disabled style={{width:'29%'}}
                             // style={styles.item}
-                                    value="Cuenta"
-
+                                   value={user.last_name}
                         />
 
                         <TextField disabled style={{width:'29%'}}
                             // style={styles.item}
-                                   value="Apellido Paterno"
-                        />
-
-                        <TextField disabled style={{width:'29%'}}
-                            // style={styles.item}
-                            value="Apellido Materno"
+                                   value={user.first_name}
                         />
 
                         <TextField disabled style={{width:'29%'}}
                             //style={styles.item}
                                    value="Nombre"
                         />
+
+
 
                         <TextField disabled style={{width:'29%'}}
                             //style={styles.item}
@@ -107,7 +127,7 @@ export const PuProfileComponent = ({profile}) => {
                         <TextField disabled style={{width:'29%'}}
                             //style={styles.item}
                                    value="Email alterno"
-                        />
+                        /> */}
 
                 </Paper>
 
@@ -128,6 +148,7 @@ export const PuProfileComponent = ({profile}) => {
 
                     <Paper zDepth={4} className="prueba1" >
                         <h2 style={{width:'100%'}}><small>DATOS DEL PADRE O TUTOR</small></h2>
+
                         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
                         <TextField disabled style={{width:'80%'}}
                             //style={styles.item}

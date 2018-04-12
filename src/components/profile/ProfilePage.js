@@ -12,7 +12,7 @@ import {updateProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
 import {Drawer, FloatingActionButton, LinearProgress, MenuItem} from 'material-ui';
-import IconButton from 'material-ui/svg-icons/content/save'
+import IconButton from 'material-ui/svg-icons/content/save';
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 
