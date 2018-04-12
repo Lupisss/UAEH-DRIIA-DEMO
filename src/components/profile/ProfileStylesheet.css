@@ -231,7 +231,6 @@
 }
 
 .zip-address-search {
-    width: 45%;
     margin: 0 auto;
 }
 
@@ -251,8 +250,10 @@
 
 .Languages-list{
     overflow-y: scroll;
-    max-height: 50%;
-    width: 80%;
+    max-height: 200px;
+    width: 90%;
+    margin: 0 auto;
+    text-align: left;
 }
 
 .Languages-AddButton{

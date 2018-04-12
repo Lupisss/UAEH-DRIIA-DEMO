@@ -27,7 +27,7 @@ export const PersonalInformationForm = (
 
     }
 ) => (
-    <Card className="Paper-form" zDepth={3}>
+    <Card className="Paper-form" zDepth={3} initiallyExpanded>
         <CardHeader
             title="Datos personales"
             titleStyle={{fontSize: '1.2rem'}}
