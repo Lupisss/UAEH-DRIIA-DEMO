@@ -14,7 +14,8 @@ class LangnfoContainer extends Component {
             certification: {
                 name: '',
                 description: '',
-                language: ''
+                language: '',
+                type: 'CE'
             },
         };
     }
@@ -61,6 +62,12 @@ class LangnfoContainer extends Component {
         }
     };
 
+    handleDropDownChange = name => (event, index, value) => {
+        let certification = {...this.state.certification};
+        certification[name] = value;
+        this.setState({certification});
+    };
+
     render() {
         const {certification} = this.state;
         const {closeModal, certification : edit} = this.props;
@@ -70,6 +77,7 @@ class LangnfoContainer extends Component {
                     certification={certification}
                     edit={edit}
                     handleCertificationChange={this.handleCertificationChange}
+                    handleDropDownChange={this.handleDropDownChange}
                     closeModal={closeModal}
                     saveEditCertification={this.handleSubmit}
                 />

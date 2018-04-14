@@ -1,22 +1,24 @@
 import React from "react";
-import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog} from "material-ui";
+import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, MenuItem} from "material-ui";
 
 export const LangInfoForm = (
     {
         certification : {
             name,
             description,
-            language
+            language,
+            type
         },
         edit,
         closeModal,
         saveEditCertification,
-        handleCertificationChange
+        handleCertificationChange,
+        handleDropDownChange
     }
 ) => {
     const Actions = [
         <FlatButton
-            //onClick={}
+            onClick={closeModal}
             secondary
             label="Cancelar"
         />,
@@ -62,6 +64,15 @@ export const LangInfoForm = (
                     hintText="Inglés"
                     //onBlur={this.getAddress}
                 />
+                <DropDownMenu
+                    autoWidth={false}
+                    style={{marginTop: 14, width: 256}}
+                    value={type}
+                    onChange={handleDropDownChange("type")}
+                >
+                    <MenuItem value="CE" primaryText="Certificado" />
+                    <MenuItem value="CO" primaryText="Constancia" />
+                </DropDownMenu>
             </form>
 
 
