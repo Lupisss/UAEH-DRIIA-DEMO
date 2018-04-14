@@ -5,6 +5,7 @@ import { LangInfoForm } from "./LangInfoForm";
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 // import {} from '../../redux/actions/userActions';
+import {addNewCertificationToProfile, updateCertificationToProfile} from '../../redux/actions/userActions';
 
 class LangnfoContainer extends Component {
     constructor(props) {
@@ -21,7 +22,7 @@ class LangnfoContainer extends Component {
     }
 
     componentWillMount(){
-        const {fetched, address: certification} = this.props;
+        const {fetched, certification} = this.props;
         if (fetched){
             if (certification) {
                 this.setState({certification})
@@ -30,7 +31,7 @@ class LangnfoContainer extends Component {
     }
 
     componentWillReceiveProps(nP){
-        const {fetched, address: certification} = nP;
+        const {fetched, certification} = nP;
         if (fetched){
             if (certification) {
                 this.setState({certification})
@@ -49,24 +50,40 @@ class LangnfoContainer extends Component {
     };
     // handleDropDownZipChange = (event, index, value) => this.setState({currentColonia: value});
 
-
-    handleSubmit = e => {
-        e.preventDefault();
-        const certification = {...this.state.certification};
-        certification.profile = this.props.profileId;
-        console.log(certification);
-        if(certification.id){
-            //Editar
-        }else {
-            //Añadir
-        }
-    };
-
     handleDropDownChange = name => (event, index, value) => {
         let certification = {...this.state.certification};
         certification[name] = value;
         this.setState({certification});
     };
+
+    handleSubmit = e => {
+        e.preventDefault();
+        let certification = {...this.state.certification};
+        certification.profile =  this.props.profileId;
+        console.log(certification);
+        if(certification.id){
+            this.props.updateCertificationToProfile(certification)
+                .then(r => {
+                    toastr.success("Certificación editada");
+                    this.props.history.push('/profile');
+                })
+                .catch(e => {
+                    console.log(e);
+                    toastr.error(e)
+                });
+        }else {
+            this.props.addNewCertificationToProfile(certification)
+                .then(r => {
+                    toastr.success("Certificación añadida");
+                    this.props.history.push('/profile');
+                })
+                .catch(e => {
+                    console.log(e);
+                    toastr.error(e)
+                });
+        }
+    };
+
 
     render() {
         const {certification} = this.state;
@@ -103,5 +120,5 @@ const mapStateToProps = (state, ownProps) => {
 };
 
 LangnfoContainer = withRouter(LangnfoContainer);
-LangnfoContainer = connect(mapStateToProps,{})(LangnfoContainer);
+LangnfoContainer = connect(mapStateToProps,{addNewCertificationToProfile,updateCertificationToProfile})(LangnfoContainer);
 export default LangnfoContainer;
