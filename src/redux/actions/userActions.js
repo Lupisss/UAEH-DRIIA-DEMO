@@ -1,6 +1,6 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth, ProfileAPi, AddressApi} from '../../api/repos';
+import {Auth, ProfileAPi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
@@ -151,6 +151,10 @@ export const updateProfile = profile => (dispatch, getState) => {
         });
 };
 
+/**
+ *      Addresses
+ ***/
+
 export const ADD_NEW_ADDRESS = "ADD_NEW_ADDRESS";
 
 export const addNewAddressToProfileSuccess = address => ({
@@ -201,6 +205,68 @@ export const deleteAddressToProfile = idAddress => (dispatch, getState) => {
         .then(r => {
             console.log(r);
             dispatch(deleteAddressToProfileSuccess(idAddress))
+        }).catch(e => {
+            console.log(e);
+        });
+
+};
+
+/**************************************/
+
+/**
+ *      Certifications
+ ***/
+
+export const ADD_NEW_CERTIFICATION = "ADD_NEW_CERTIFICATION";
+
+export const addNewCertificationToProfileSuccess = certification => ({
+    type: ADD_NEW_CERTIFICATION,
+    certification
+});
+
+export const addNewCertificationToProfile = certification => (dispatch, getState) => {
+    return CertificationApi.newCertification(certification)
+        .then(r => {
+            dispatch(addNewCertificationToProfileSuccess(r))
+        }).catch(e => {
+            console.log(e);
+        });
+
+};
+
+// ACTUALIZAR LA DIRECCION DEL PERFIL
+export const UPDATE_CERTIFICATION = "UPDATE_CERTIFICATION";
+
+export const updateCertificationToProfileSuccess = certification => ({
+    type: UPDATE_CERTIFICATION,
+    certification
+});
+
+export const updateCertificationToProfile = certification => (dispatch, getState) => {
+    return CertificationApi.updateCertification(certification)
+        .then(r => {
+            console.log(r);
+            dispatch(updateCertificationToProfileSuccess(r))
+        }).catch(e => {
+            console.log(e);
+        });
+
+};
+
+// ELIMINAR DIRECCION DEL PERFIL
+
+export const DELETE_CERTIFICATION = "DELETE_CERTIFICATION";
+
+export const deleteCertificationToProfileSuccess = certificationId => ({
+    type: DELETE_CERTIFICATION,
+    certificationId
+});
+
+export const deleteCertificationToProfile = certificationId => (dispatch, getState) => {
+    return CertificationApi.deleteCertification(certificationId)
+        .then(r => {
+            console.log(r);
+            dispatch(deleteCertificationToProfileSuccess(certificationId))
         }).catch(e => {
             console.log(e);
         });

@@ -10,7 +10,7 @@ import AcademicInfo from './AcademicInfoContainer';
 import {LangInfoComponent as LangInfo} from './LangInfoComponent';
 import {connect} from 'react-redux';
 import moment from 'moment';
-import {updateProfile,deleteAddressToProfile} from '../../redux/actions/userActions';
+import {updateProfile,deleteAddressToProfile, deleteCertificationToProfile} from '../../redux/actions/userActions';
 import {updateTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
 import { FloatingActionButton, LinearProgress} from 'material-ui';
@@ -194,12 +194,12 @@ class ProfilePage extends Component {
     newCertification = () => this.props.history.push('/profile/certification/newCertification');
 
     deleteCertification = certificationId => {
-        // this.props.deleteAddressToProfile(idAddress)
-        //     .then(r => {
-        //         toastr.warning("Eliminado");
-        //     }).catch(e => {
-        //         toastr.error(JSON.stringify(e))
-        // });
+        this.props.deleteCertificationToProfile(certificationId)
+            .then(r => {
+                toastr.warning("Eliminado");
+            }).catch(e => {
+                toastr.error(JSON.stringify(e))
+        });
     };
 
     closeNewAddress = () => this.props.history.push('/profile');
@@ -315,5 +315,5 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
-ProfilePage = connect(mapStateToProps, {updateProfile, deleteAddressToProfile, updateTutor})(ProfilePage);
+ProfilePage = connect(mapStateToProps, {updateProfile, deleteAddressToProfile, deleteCertificationToProfile, updateTutor})(ProfilePage);
 export default ProfilePage;
