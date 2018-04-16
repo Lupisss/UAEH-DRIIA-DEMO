@@ -1,9 +1,23 @@
 import React, {Fragment} from "react";
-import {DropDownMenu, MenuItem, Paper, TextField} from "material-ui";
+import {DropDownMenu,
+    Card,
+    CardHeader,
+    CardTitle,
+    CardText,
+    MenuItem, Paper, TextField} from "material-ui";
 
 export const AcademicInfoForm = () => (
-    <Paper zDepth={3} className="Paper-form" >
-        <h2 style={{width:'100%'}}><small>Información académica actual</small></h2>
+    <Card zDepth={3} className="Paper-form"  >
+
+        <CardHeader
+            title="Información académica actual"
+            titleStyle={{fontSize: '1.2rem'}}
+            // subtitle="Subtitle"
+            actAsExpander
+            showExpandableButton
+        />
+        <CardText expandable>
+
         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
         <DropDownMenu autoWidth={false} value={2} style={{marginTop:14, width: 256}} >
             <MenuItem value={1} primaryText="Instituto" disabled={true}/>
@@ -51,6 +65,7 @@ export const AcademicInfoForm = () => (
             floatingLabelText="Porcentaje de créditos"
             hintText="ej 72.5"
         />
-    </Paper>
+        </CardText>
+    </Card>
 
 );

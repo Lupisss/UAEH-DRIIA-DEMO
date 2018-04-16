@@ -2,6 +2,8 @@ import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
 import {PuProfileComponent} from "./PuProfileComponent";
 import {MainLoader} from '../loader/Loader';
+import IconButton from 'material-ui/svg-icons/content/save'
+import { FloatingActionButton} from 'material-ui';
 
 
 
@@ -12,7 +14,7 @@ class PuProfilePage extends Component {
     }
 
     render() {
-        const {fetched, profile, user, tutor} = this.props;
+        const {fetched, profile, user, tutor, addresses} = this.props;
         console.log('3456789kihugyftdfcghjkug',tutor);
         return (
 
@@ -22,22 +24,26 @@ class PuProfilePage extends Component {
                                     <PuProfileComponent
                                         profile={profile}
                                         user={user}
-
-
+                                        tutor={tutor}
+                                        addresses={profile.addresses}
                                     />
-                                </Fragment>
 
+                                </Fragment>
         );
     }
 }
 
+
 const tutorBlank = {
     full_name: "",
+    address: [],
     relationship: "",
     email: "",
     phone_number: "",
     cellphone_number: ""
 };
+
+
 
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,

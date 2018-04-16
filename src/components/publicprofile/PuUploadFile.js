@@ -1,6 +1,6 @@
 import React from "react";
 import {IconButton, Paper} from "material-ui";
-import AddFileIcon from "material-ui/svg-icons/action/note-add";
+import AddFileIcon from "material-ui/svg-icons/action/assignment-returned";
 
 let inputFile;
 
@@ -12,7 +12,7 @@ const IconStyle = {
     width: 40, height:40, padding: 2
 };
 
-export const UploadFile = (props) => {
+export const PuUploadFile = (props) => {
     const handleClick = () => {
         inputFile.click();
     };
@@ -21,10 +21,10 @@ export const UploadFile = (props) => {
     return (
         <div className="container-uploadfile">
             <Paper  className={props.className} zDepth={5} circle={true} >
-                    <input accept={props.fileType} ref={input =>{inputFile=input}} type="file" hidden/>
-                    <IconButton iconStyle={IconSize} style={IconStyle} onClick={handleClick}>
-                        <AddFileIcon/>
-                     </IconButton>
+                 <input accept={props.fileType} ref={input =>{inputFile=input}} type="file" hidden/>
+                <IconButton iconStyle={IconSize} style={IconStyle} onClick={handleClick}>
+                    <AddFileIcon/>
+                </IconButton>
                 <p style={{margin:0}}>{props.fileName}</p>
             </Paper>
         </div>
