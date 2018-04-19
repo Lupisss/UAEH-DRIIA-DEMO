@@ -1,105 +1,117 @@
 import React, {Component} from "react";
-import "./LoadFileStylesheet.css";
-import {UploadFile} from "./UploadFile"
+import "./PuLoadFiles.css";
+import {PuUploadFile} from "./PuUploadFile"
+import RaisedButton from 'material-ui/RaisedButton';
 
 
+const style = {
+    margin: 12,
+    labelColor: "white"
+};
 
-
-class LoadFilesPage extends Component {
+class PuLoadFilesPage extends Component {
     constructor(props) {
         super(props);
         this.state = {};
     }
+
+
 //Es el contenedor
     //Pagina para cargar archivos
     render() {
         return (
             <div className="Main-takepart">
-                <div className="Main-LoadFiles">
-                    <UploadFile
+                <div className="Main-PuLoadFiles">
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Acta de Nacimiento"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Tira de Materias"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Carta de Postulación"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Solicitud de Participación"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Certificado de Ingles"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Exposición de Motivos"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="Certificado Médico"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
-                    <UploadFile
+                    <PuUploadFile
                         fileName="CURP"
                         fileType=".pdf"
                         className="uploadfile"
                     />
+
+                </div>
+
+                <div>
+                <RaisedButton label="Regresar" backgroundColor= "#901B00" labelColor="white"  href="/public" />
                 </div>
 
             </div>
+
         );
     }
 }
-export default LoadFilesPage;
+export default PuLoadFilesPage;

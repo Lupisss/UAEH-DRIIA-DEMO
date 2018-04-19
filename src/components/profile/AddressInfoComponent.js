@@ -27,6 +27,9 @@ export const AddressInfoComponent = ({addresses = [], newAddress, deleteAddress,
             <MoreVertIcon color={grey400}/>
         </IconButton>
     );
+
+
+
     let adressesListItems = addresses.length > 0 ?
         addresses.map( (address, key) => (
             <ListItem

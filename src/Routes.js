@@ -10,6 +10,7 @@ import ChooseSubjectsPage from "./components/choosesubjects/ChooseSubjectsPage";
 import AdminPage from "./components/admin/AdminPage";
 import CVPage from "./components/cv/CVPage";
 import PuProfilePage from "./components/publicprofile/PuProfilePage";
+import PuLoadFilesPage from "./components/publicprofile/PuLoadFilesPage";
 
 export const Routes = () => (
     <Switch>
@@ -23,5 +24,6 @@ export const Routes = () => (
       <Route path="/admin/" component={AdminPage}/>
       <Route path="/cv" component={CVPage}/>
       <Route path="/public" component={PuProfilePage}/>
+          <Route path="/documents" component={PuLoadFilesPage}/>
     </Switch>
 );
