@@ -2,6 +2,7 @@ import firebase from '../../firebase';
 //import {api} from '../../api/API';
 import {Auth, ProfileAPi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
+import {getDepartments} from "./departmentActions";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -366,8 +367,8 @@ export function comprobarUsuario() {
                 .then(r => {
                     dispatch(loginSuccess(r.data));
                     dispatch(getTutor());
+                    dispatch(getDepartments());
                     dispatch(fetchedSuccess());
-                    console.log(getState());
                 }).catch(e => {
                     console.log(e);
             });

@@ -6,7 +6,7 @@ import {AddressInfoComponent as AddressInfo} from './AddressInfoComponent';
 import NewAddress from './AddressInfoContainer';
 import NewCertification from './LangInfoContainer';
 import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
-import AcademicInfo from './AcademicInfoContainer';
+import {AcademicInfoForm as AcademicInfo} from './AcademicInfoForm';
 import {LangInfoComponent as LangInfo} from './LangInfoComponent';
 import {connect} from 'react-redux';
 import moment from 'moment';
@@ -265,18 +265,6 @@ class ProfilePage extends Component {
                                     newCertification={this.newCertification}
                                     deleteCertification={this.deleteCertification}
                                 />
-
-                                <FloatingActionButton
-                                    ref={comp => this.saveButton = comp}
-                                    type="submit"
-                                    style={styles.fab}
-                                    tooltip="save"
-                                    zDepth={5}
-                                >
-                                    <IconButton/>
-                                </FloatingActionButton>
-
-
                             </div>
                             <Switch>
                                 <Route path="/profile/address/:id" render={NewAddressRender}/>
