@@ -1,7 +1,13 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth, ProfileAPi, AddressApi, CertificationApi} from '../../api/repos';
+import {Auth, ProfileApi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
+import {getDepartments} from "./departmentActions";
+import {getAcademicPrograms} from "./academicProgramActions";
+import {getProfiles} from "./profilesActions";
+import {getFiles} from "./fileActions";
+import {getSubjectsToCurse} from "./subjectToCurseAction";
+import academicPrograms from "../reducers/academicProgramsReducer";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -114,7 +120,7 @@ export const signUp = user => (dispatch, getState) => {
                 .then(userR => {
                     profileProto.user = userR.data.id;
                     userR.data.profile = profileProto;
-                    return ProfileAPi.newProfile(profileProto)
+                    return ProfileApi.newProfile(profileProto)
                         .then(profileR => {
                             dispatch(loginSuccess(userR.data));
                             return Promise.resolve(userR.data);
@@ -140,13 +146,17 @@ export const updateProfileSuccess = profile => ({
 });
 
 export const updateProfile = profile => (dispatch, getState) => {
-    return ProfileAPi.updateProfile(profile)
+    return ProfileApi.updateProfile(profile)
         .then(r => {
-            console.log(r.data);
-            dispatch(updateProfileSuccess(r.data));
-            return Promise.resolve(r.data);
+            let myprofile = {...r.data};
+            myprofile.academic_program = getState().academicPrograms.list.filter(aP =>
+                aP.id == myprofile.academic_program
+            )[0];
+            console.log(myprofile);
+            dispatch(updateProfileSuccess(myprofile));
+            return Promise.resolve(myprofile);
         }).catch(e => {
-            console.log(e.response);
+            console.log(e);
             return Promise.reject(e.response)
         });
 };
@@ -366,8 +376,12 @@ export function comprobarUsuario() {
                 .then(r => {
                     dispatch(loginSuccess(r.data));
                     dispatch(getTutor());
+                    dispatch(getDepartments());
+                    dispatch(getAcademicPrograms());
+                    dispatch(getProfiles());
+                    dispatch(getFiles());
+                    dispatch(getSubjectsToCurse());
                     dispatch(fetchedSuccess());
-                    console.log(getState());
                 }).catch(e => {
                     console.log(e);
             });

@@ -6,7 +6,7 @@ import {AddressInfoComponent as AddressInfo} from './AddressInfoComponent';
 import NewAddress from './AddressInfoContainer';
 import NewCertification from './LangInfoContainer';
 import {TutorInfoForm as TutorInfo} from "./TutorInfoForm";
-import AcademicInfo from './AcademicInfoContainer';
+import {AcademicInfoForm as AcademicInfo} from './AcademicInfoForm';
 import {LangInfoComponent as LangInfo} from './LangInfoComponent';
 import {connect} from 'react-redux';
 import moment from 'moment';
@@ -18,6 +18,7 @@ import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 import {Route, Switch} from "react-router-dom";
+import academicPrograms from "../../redux/reducers/academicProgramsReducer";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -29,6 +30,7 @@ class ProfilePage extends Component {
             },
             tutor: {},
             user: {},
+            academicInfo: {},
             birth_date: "1995-09-29",
             ssn_expiry_date: "1995-09-29",
             profilePicture: {
@@ -80,7 +82,7 @@ class ProfilePage extends Component {
     handleProfileChange = e => {
         let profile = Object.assign({}, this.state.profile);
         profile[e.target.name] = e.target.value;
-        this.setState({profile});
+        this.setState({profile, });
     };
 
     handleTutorChange = e => {
@@ -92,6 +94,12 @@ class ProfilePage extends Component {
     handleDropDownChange = name => (event, index, value) => {
         let profile = Object.assign({}, this.state.profile);
         profile[name] = value;
+        if (name === 'academic_program') {
+            profile['academic_program'] = this.props.academicPrograms.filter( academicProgram =>
+                academicProgram.id == value
+            )[0];
+            console.log('oh si',profile.academic_program);
+        }
         this.setState({profile});
     };
 
@@ -124,6 +132,8 @@ class ProfilePage extends Component {
         if (profilePicture.src === "") delete profile.profilePicture;
         if (wallPicture.src === "") delete profile.wallPicture;
         profile.user = this.props.user.id;
+        profile.academic_program = profile.academic_program.id;
+        console.log('Perfil antes de guardar: ',profile);
         this.props.updateProfile(profile)
             .then(r => {
                 toastr.success("Perfil actualizado");
@@ -217,7 +227,7 @@ class ProfilePage extends Component {
                 {...props}
             />
         );
-        const {fetched, history} = this.props;
+        const {fetched, history, academicPrograms} = this.props;
         const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
         console.log(profile);
@@ -258,25 +268,19 @@ class ProfilePage extends Component {
                                     onDropDown={this.handleTutorDropDownChange}
                                     onSubmit={this.handleSubmitTutor}
                                 />
-                                <AcademicInfo/>
+                                <AcademicInfo
+                                    profile={profile}
+                                    academicPrograms={academicPrograms}
+                                    handleProfileChange={this.handleProfileChange}
+                                    handleDropDownChange={this.handleDropDownChange}
+                                    onSubmit={this.handleSubmitProfile}
+                                />
                                 <LangInfo
                                     history={history}
                                     certifications={profile.certifications}
                                     newCertification={this.newCertification}
                                     deleteCertification={this.deleteCertification}
                                 />
-
-                                <FloatingActionButton
-                                    ref={comp => this.saveButton = comp}
-                                    type="submit"
-                                    style={styles.fab}
-                                    tooltip="save"
-                                    zDepth={5}
-                                >
-                                    <IconButton/>
-                                </FloatingActionButton>
-
-
                             </div>
                             <Switch>
                                 <Route path="/profile/address/:id" render={NewAddressRender}/>
@@ -303,6 +307,8 @@ const styles = {
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
+    departments: state.departments.list,
+    academicPrograms: state.academicPrograms.list,
     tutor: state.tutor.mytutor.length > 0 ? state.tutor.mytutor[0] : tutorBlank,
     fetched: state.user.isFetched
 });

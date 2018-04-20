@@ -1,71 +1,111 @@
-import React, {Fragment} from "react";
-import {DropDownMenu,
-    Card,
-    CardHeader,
-    CardTitle,
-    CardText,
-    MenuItem, Paper, TextField} from "material-ui";
+import React from "react";
+import {DropDownMenu, MenuItem, Card, CardHeader, CardText, TextField} from "material-ui";
+import {SaveButton} from "./SaveButton";
 
-export const AcademicInfoForm = () => (
-    <Card zDepth={3} className="Paper-form"  >
+export const AcademicInfoForm = (
+    {
+        academicPrograms = [],
+        profile: {
+            academic_program : {
+                id = 0,
+                name = "",
+                number_of_semesters = undefined,
+                total_number_of_credits = undefined
+            },
+            credits_coursed = undefined,
+            credit_percentage_coursed = undefined,
+            current_semester = undefined,
+            grade = undefined
+        },
+        handleDropDownChange,
+        handleProfileChange,
+        onSubmit
+    }
+) => {
+    const academicProgramsForDropDown = academicPrograms.map((academicProgram, index) =>
+        <MenuItem key={index} value={academicProgram.id} primaryText={academicProgram.name}/>
+    );
+    const percentage = ((credits_coursed * 100) / (total_number_of_credits)).toFixed(2) + "%";
+    return (
+        <Card zDepth={3} className="Paper-form">
+            <CardHeader
+                title="Información académica actual"
+                titleStyle={{fontSize: '1.2rem'}}
+                actAsExpander
+                showExpandableButton
+            />
+            <CardText expandable>
+                <form onSubmit={onSubmit} className="Section-form">
+                    <DropDownMenu
+                        autoWidth={false}
+                        value={id}
+                        style={{marginTop: 14, width: 256}}
+                        onChange={handleDropDownChange("academic_program")}
+                    >
+                        {academicProgramsForDropDown}
+                    </DropDownMenu>
+                    <TextField
+                        // style={styles.item}
+                        floatingLabelText="Número de semestres"
+                        value={number_of_semesters}
+                        disabled
+                        hintText="ej 9"
+                        type="number"
+                    />
+                    <TextField
+                        // style={styles.item}
+                        value={total_number_of_credits}
+                        floatingLabelText="Número total de créditos"
+                        disabled
+                        hintText="ej 226"
+                    />
+                    <TextField
+                        // style={styles.item}
+                        name="grade"
+                        onChange={handleProfileChange}
+                        value={grade}
+                        floatingLabelText="Promedio general"
+                        hintText="ej 9.79"
+                        type="number"
+                        step="0.01"
+                        min={0}
+                        max={10}
+                        pattern="^\d?\d?\.\d?\d?$"
+                    />
+                    <TextField
+                        // style={styles.item}
+                        name="current_semester"
+                        onChange={handleProfileChange}
+                        value={current_semester}
+                        floatingLabelText="Semestre actual"
+                        hintText="ej 7"
+                        type="number"
+                        min={1}
+                        max={number_of_semesters}
+                    />
+                    <TextField
+                        // style={styles.item}
+                        name="credits_coursed"
+                        onChange={handleProfileChange}
+                        value={credits_coursed}
+                        step="0.01"
+                        floatingLabelText="Número de créditos cubiertos"
+                        type="number"
+                        min={1}
+                        max={total_number_of_credits}
+                        hintText="ej 163.5"
+                    />
+                    <TextField
+                        // style={styles.item}
+                        disabled
+                        value={percentage}
+                        floatingLabelText="Porcentaje de créditos"
+                        hintText="ej 72.5"
+                    />
+                    <SaveButton/>
+                </form>
+            </CardText>
+        </Card>
 
-        <CardHeader
-            title="Información académica actual"
-            titleStyle={{fontSize: '1.2rem'}}
-            // subtitle="Subtitle"
-            actAsExpander
-            showExpandableButton
-        />
-        <CardText expandable>
-
-        {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
-        <DropDownMenu autoWidth={false} value={2} style={{marginTop:14, width: 256}} >
-            <MenuItem value={1} primaryText="Instituto" disabled={true}/>
-            <MenuItem value={2} primaryText="ICBI"/>
-            <MenuItem value={3} primaryText="ICEA"/>
-            <MenuItem value={4} primaryText="ICSa"/>
-        </DropDownMenu>
-        <DropDownMenu autoWidth={false} value={2} style={{marginTop:14, width: 256}} >
-            <MenuItem value={1} primaryText="Programa educativo" disabled={true}/>
-            <MenuItem value={2} primaryText="Lic en Ciencias Computacionales"/>
-            <MenuItem value={3} primaryText="Lic en Ingenieria Civil"/>
-            <MenuItem value={4} primaryText="Lic en Arquitectura"/>
-        </DropDownMenu>
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Promedio general"
-            hintText="ej 9.79"
-            type="text"
-            pattern="^\d?\d?\.\d?\d?$"
-        />
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Número de semestres"
-            hintText="ej 9"
-            type="number"
-        />
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Semestre actual"
-            hintText="ej 7"
-            type="number"
-        />
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Número total de créditos"
-            hintText="ej 226"
-        />
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Número de créditos cubiertos"
-            hintText="ej 163.5"
-        />
-        <TextField
-            // style={styles.item}
-            floatingLabelText="Porcentaje de créditos"
-            hintText="ej 72.5"
-        />
-        </CardText>
-    </Card>
-
-);
+    )
+};
