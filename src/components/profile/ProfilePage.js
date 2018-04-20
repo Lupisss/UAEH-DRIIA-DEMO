@@ -30,6 +30,7 @@ class ProfilePage extends Component {
             },
             tutor: {},
             user: {},
+            academicInfo: {},
             birth_date: "1995-09-29",
             ssn_expiry_date: "1995-09-29",
             profilePicture: {
@@ -81,7 +82,7 @@ class ProfilePage extends Component {
     handleProfileChange = e => {
         let profile = Object.assign({}, this.state.profile);
         profile[e.target.name] = e.target.value;
-        this.setState({profile});
+        this.setState({profile, });
     };
 
     handleTutorChange = e => {
@@ -93,6 +94,12 @@ class ProfilePage extends Component {
     handleDropDownChange = name => (event, index, value) => {
         let profile = Object.assign({}, this.state.profile);
         profile[name] = value;
+        if (name === 'academic_program') {
+            profile['academic_program'] = this.props.academicPrograms.filter( academicProgram =>
+                academicProgram.id == value
+            )[0];
+            console.log('oh si',profile.academic_program);
+        }
         this.setState({profile});
     };
 
@@ -125,6 +132,8 @@ class ProfilePage extends Component {
         if (profilePicture.src === "") delete profile.profilePicture;
         if (wallPicture.src === "") delete profile.wallPicture;
         profile.user = this.props.user.id;
+        profile.academic_program = profile.academic_program.id;
+        console.log('Perfil antes de guardar: ',profile);
         this.props.updateProfile(profile)
             .then(r => {
                 toastr.success("Perfil actualizado");
@@ -262,7 +271,9 @@ class ProfilePage extends Component {
                                 <AcademicInfo
                                     profile={profile}
                                     academicPrograms={academicPrograms}
+                                    handleProfileChange={this.handleProfileChange}
                                     handleDropDownChange={this.handleDropDownChange}
+                                    onSubmit={this.handleSubmitProfile}
                                 />
                                 <LangInfo
                                     history={history}
