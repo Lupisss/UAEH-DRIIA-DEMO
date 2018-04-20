@@ -23,6 +23,12 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
             <h4>{address.address1} {address.suburb} {address.city} {address.state} {address.country} {address.zip_code}</h4>
         </div>
     ));
+
+    let certificationToShow = profile.certifications.map((certifications, key) => (
+        <div style={{width: '100%'}}>
+            <h4>Idioma:  {certifications.language}     Nivel: {certifications.name} {certifications.description} </h4>
+        </div>
+    ));
     return (
 
         <div className="Main-profile">
@@ -149,18 +155,9 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                         <h2 style={{width: '100%'}}>
                             <small>IDIOMAS</small>
                         </h2>
-                        {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
 
-                        <div>
-                            <TextField disabled style={{width: '40%'}}
-                                //style={styles.item}
-                                       value="Idioma"
-                            />
-                            <TextField disabled style={{width: '40%'}}
-                                //style={styles.item}
-                                       value="Puntos"
-                            />
-                        </div>
+                        {certificationToShow}
+
                     </Paper>
 
                     <Link to="/documents">

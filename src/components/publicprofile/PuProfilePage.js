@@ -14,7 +14,7 @@ class PuProfilePage extends Component {
     }
 
     render() {
-        const {fetched, profile, user, tutor, addresses} = this.props;
+        const {fetched, profile, user, tutor} = this.props;
         console.log('3456789kihugyftdfcghjkug',tutor);
         return (
 
@@ -26,6 +26,7 @@ class PuProfilePage extends Component {
                                         user={user}
                                         tutor={tutor}
                                         addresses={profile.addresses}
+                                        certifications={profile.certifications}
                                     />
 
                                 </Fragment>

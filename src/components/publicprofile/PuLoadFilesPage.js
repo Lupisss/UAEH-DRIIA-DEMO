@@ -102,14 +102,14 @@ class PuLoadFilesPage extends Component {
                         fileType=".pdf"
                         className="uploadfile"
                     />
-
-                </div>
-
-                <div>
-                <RaisedButton label="Regresar" backgroundColor= "#901B00" labelColor="white"  href="/public" />
+                    <div >
+                        <RaisedButton label="Regresar" backgroundColor= "#901B00" labelColor="white"  href="/public" className="boo" />
+                    </div>
                 </div>
 
             </div>
+
+
 
         );
     }
