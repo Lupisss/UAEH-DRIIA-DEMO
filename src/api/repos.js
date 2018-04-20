@@ -6,12 +6,16 @@ import Address from './addressRepository';
 import Certification from './certificationsRepository';
 import Department from './departmentsRepository';
 import AcademicProgram from './academicProgramRepository';
+import File from './filesRepository';
+import SubjectToCurse from './subjectToCurseRepository';
 
 export const Auth = AuthApi;
 export const ZipApi = Zip;
-export const ProfileAPi = Profile;
 export const TutorApi = Tutor;
 export const AddressApi = Address;
 export const CertificationApi = Certification;
 export const DepartmentApi = Department;
 export const AcademicProgramApi = AcademicProgram;
+export const ProfileApi = Profile;
+export const FileApi = File;
+export const SubjectToCurseApi = SubjectToCurse;
