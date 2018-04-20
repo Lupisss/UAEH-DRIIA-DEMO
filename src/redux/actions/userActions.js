@@ -3,6 +3,7 @@ import firebase from '../../firebase';
 import {Auth, ProfileAPi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 import {getDepartments} from "./departmentActions";
+import {getAcademicPrograms} from "./academicProgramActions";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -368,6 +369,7 @@ export function comprobarUsuario() {
                     dispatch(loginSuccess(r.data));
                     dispatch(getTutor());
                     dispatch(getDepartments());
+                    dispatch(getAcademicPrograms());
                     dispatch(fetchedSuccess());
                 }).catch(e => {
                     console.log(e);

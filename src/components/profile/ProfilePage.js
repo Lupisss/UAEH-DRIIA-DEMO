@@ -18,6 +18,7 @@ import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 import {Route, Switch} from "react-router-dom";
+import academicPrograms from "../../redux/reducers/academicProgramsReducer";
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -217,7 +218,7 @@ class ProfilePage extends Component {
                 {...props}
             />
         );
-        const {fetched, history} = this.props;
+        const {fetched, history, academicPrograms} = this.props;
         const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
         console.log(profile);
@@ -258,7 +259,11 @@ class ProfilePage extends Component {
                                     onDropDown={this.handleTutorDropDownChange}
                                     onSubmit={this.handleSubmitTutor}
                                 />
-                                <AcademicInfo/>
+                                <AcademicInfo
+                                    profile={profile}
+                                    academicPrograms={academicPrograms}
+                                    handleDropDownChange={this.handleDropDownChange}
+                                />
                                 <LangInfo
                                     history={history}
                                     certifications={profile.certifications}
@@ -291,6 +296,8 @@ const styles = {
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,
     profile: state.user.info.profile,
+    departments: state.departments.list,
+    academicPrograms: state.academicPrograms.list,
     tutor: state.tutor.mytutor.length > 0 ? state.tutor.mytutor[0] : tutorBlank,
     fetched: state.user.isFetched
 });

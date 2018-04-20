@@ -151,6 +151,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                         </h2>
                         {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
 
+                        <p>Idioma:  </p>
                         <div>
                             <TextField disabled style={{width: '40%'}}
                                 //style={styles.item}
