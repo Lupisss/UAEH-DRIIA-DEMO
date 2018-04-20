@@ -89,9 +89,10 @@ export const AcademicInfoForm = (
                         onChange={handleProfileChange}
                         value={credits_coursed}
                         step="0.01"
-                        min={0}
-                        max={total_number_of_credits}
                         floatingLabelText="Número de créditos cubiertos"
+                        type="number"
+                        min={1}
+                        max={total_number_of_credits}
                         hintText="ej 163.5"
                     />
                     <TextField

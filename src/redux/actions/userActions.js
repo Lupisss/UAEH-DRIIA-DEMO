@@ -4,6 +4,7 @@ import {Auth, ProfileAPi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 import {getDepartments} from "./departmentActions";
 import {getAcademicPrograms} from "./academicProgramActions";
+import academicPrograms from "../reducers/academicProgramsReducer";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -144,11 +145,15 @@ export const updateProfileSuccess = profile => ({
 export const updateProfile = profile => (dispatch, getState) => {
     return ProfileAPi.updateProfile(profile)
         .then(r => {
-            console.log(r.data);
-            dispatch(updateProfileSuccess(r.data));
-            return Promise.resolve(r.data);
+            let myprofile = {...r.data};
+            myprofile.academic_program = getState().academicPrograms.list.filter(aP =>
+                aP.id == myprofile.academic_program
+            )[0];
+            console.log(myprofile);
+            dispatch(updateProfileSuccess(myprofile));
+            return Promise.resolve(myprofile);
         }).catch(e => {
-            console.log(e.response);
+            console.log(e);
             return Promise.reject(e.response)
         });
 };
