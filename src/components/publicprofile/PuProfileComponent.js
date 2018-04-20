@@ -148,10 +148,6 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                             //style={styles.item}
                                    value="Porcentaje de créditos"
                         />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="otroooo"
-                        />
                     </Paper>
 
 
