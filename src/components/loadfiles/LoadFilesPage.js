@@ -12,85 +12,18 @@ class LoadFilesPage extends Component {
     }
 //Es el contenedor
     //Pagina para cargar archivos
+    // window.screen.availWidth * 0.60
+    // window.screen.availHeight * 0.80
     render() {
         return (
+            <div>
             <div className="Main-takepart">
+                <embed
+                    width={window.screen.availWidth * 0.60}
+                    height={window.screen.availHeight * 0.80}
+                    src="http://127.0.0.1:8000/media/documents/2018/04/20/8_Certificacion_idioma.pdf"
+                />
                 <div className="Main-LoadFiles">
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Acta de Nacimiento"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Tira de Materias"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Carta de Postulación"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Solicitud de Participación"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Certificado de Ingles"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Exposición de Motivos"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="Certificado Médico"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <UploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
                     <UploadFile
                         fileName="CURP"
                         fileType=".pdf"
@@ -98,6 +31,7 @@ class LoadFilesPage extends Component {
                     />
                 </div>
 
+            </div>
             </div>
         );
     }
