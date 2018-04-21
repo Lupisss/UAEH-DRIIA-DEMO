@@ -380,7 +380,8 @@ export function comprobarUsuario() {
                     dispatch(getAcademicPrograms());
                     dispatch(getProfiles());
                     dispatch(getFiles());
-                    dispatch(getSubjectsToCurse());
+                    // TODO Crear modelo de subjects to course en backend
+                    //dispatch(getSubjectsToCurse());
                     dispatch(fetchedSuccess());
                 }).catch(e => {
                     console.log(e);

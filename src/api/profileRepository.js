@@ -47,6 +47,7 @@ const profileRepository = () => {
     };
 
     const getProfile = idProfile => {
+        if (!idProfile) idProfile = "";
         return new Promise( (resolve, reject) =>  {
             const instance = axios.create({
                 baseURL: baseUrl,
@@ -59,7 +60,7 @@ const profileRepository = () => {
             instance.get(idProfile + '/')
                 .then(r => {
                     console.log(r);
-                    resolve(r);
+                    resolve(r.data);
                 }).catch(e => {
                 console.log(e.response);
                 reject(e);

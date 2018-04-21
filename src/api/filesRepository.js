@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const fileRepository = () => {
-    const baseURL = 'http://localhost:8000/api/files/';
+    const baseURL = 'http://localhost:8000/api/documents/';
     const tokenName = 'user_uaeh_token';
 
     const getLocalToken = () => {
