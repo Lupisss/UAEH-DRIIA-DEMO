@@ -1,12 +1,18 @@
 * {
     box-sizing: border-box;
 }
-.Main-takepart {
+.Main-takepart, .Container-Load-Files {
     width: 100vw;
     height: calc(100vh - 56px);
     display: flex;
     justify-content: center;
     align-items: center;
+    background-image: url("https://images.pexels.com/photos/12064/pexels-photo-12064.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
+    background-size: cover;
+}
+
+.Container-Load-Files {
+    padding: 20px;
 }
 
 .Main-form-tp{

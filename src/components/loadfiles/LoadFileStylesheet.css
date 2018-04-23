@@ -3,13 +3,14 @@
 }
 
 .Main-LoadFiles{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
+    /*display: flex;*/
+    /*flex-wrap: wrap;*/
+    /*justify-content: space-evenly;*/
     width: 40%;
-    height: 80vh;
+    height: 100%;
     box-sizing: border-box;
-    padding: 0 20%;
+    padding: 0 2%;
+    overflow-y: scroll;
 }
 
 .Document-Preview {

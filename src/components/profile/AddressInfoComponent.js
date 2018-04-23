@@ -4,7 +4,6 @@ import {
     CardHeader,
     CardText,
     FlatButton,
-    FloatingActionButton,
     IconButton,
     IconMenu,
     List,
