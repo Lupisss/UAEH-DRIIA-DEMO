@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './About.css';
 import FontAwesome from 'react-fontawesome';
-import iphone from '../../../assets/uaeh.png';
+import iphone from '../../../assets/1.png';
 
 class About extends Component {
     render() {

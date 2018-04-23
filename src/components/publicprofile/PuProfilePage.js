@@ -27,6 +27,8 @@ class PuProfilePage extends Component {
                                         tutor={tutor}
                                         addresses={profile.addresses}
                                         certifications={profile.certifications}
+
+
                                     />
 
                                 </Fragment>
@@ -43,8 +45,6 @@ const tutorBlank = {
     phone_number: "",
     cellphone_number: ""
 };
-
-
 
 const mapStateToProps = (state, ownProps) => ({
     user: state.user.info,

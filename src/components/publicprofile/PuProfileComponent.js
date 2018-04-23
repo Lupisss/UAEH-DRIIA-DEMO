@@ -29,6 +29,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
             <h4>Idioma:  {certifications.language}     Nivel: {certifications.name} {certifications.description} </h4>
         </div>
     ));
+
     return (
 
         <div className="Main-profile">
@@ -114,45 +115,20 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                         <h2 style={{width: '100%'}}>
                             <small>INFORMACIÓN ACADÉMICA ACTUAL</small>
                         </h2>
-                        {/*<CardTitle style={{width:'100%'}} subtitle="Datos del padre o tutor"/>*/}
-                        <TextField disabled style={{width: '40%'}}
-                            //style={styles.item}
-                                   value="Instituto"
-                        />
 
-                        <TextField disabled style={{width: '40%'}}
-                            //style={styles.item}
-                                   value="Programa educativo"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Promedio general"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Número de semestres"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Semestre actual"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Número total de créditos"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Número de créditos cubiertos"
-                        />
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="Porcentaje de créditos"
-                        />
 
-                        <TextField disabled style={{width: '26.6%'}}
-                            //style={styles.item}
-                                   value="otrossss"
-                        />
+
+                        <p> {profile.academic_program.department.name} </p>
+                        <p> Programa educativo: {profile.academic_program.name} </p>
+                        <p> Número de semestres: {profile.academic_program.number_of_semesters}</p>
+                        <p> Semestre actual:{profile.current_semester}</p>
+
+
+                        <p> Promedio general: {profile.grade}</p>
+                        <p> Número total de creditos:{profile.academic_program.total_number_of_credits}</p>
+                        <p> Creditos cursados: {profile.credits_coursed}</p>
+                        <p> Porcentaje de créditos cursados: {profile.credit_percentage_coursed}</p>
+
                     </Paper>
 
 
