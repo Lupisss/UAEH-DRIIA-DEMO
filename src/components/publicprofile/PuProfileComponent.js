@@ -113,7 +113,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
 
                     <Paper style={{backgroundColor: "#901B00", color: "white"}} zDepth={5} className="prueba1">
                         <h2 style={{width: '100%'}}>
-                            <small>INFORMACIÓN ACADÉMICA ACTUAL</small>
+                            <small>INFORMACIÓN ACADÉMICA ACTUAL </small>
                         </h2>
 
 
