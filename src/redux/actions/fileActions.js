@@ -40,10 +40,11 @@ export const newFileSuccess = file => ({
 export const newFile = file => (dispatch, getState) => {
     return FileApi.newFile(file)
         .then(r => {
+            console.log(r);
             dispatch(newFileSuccess(r));
-            Promise.resolve(r);
+            return Promise.resolve(r);
         }).catch(e => {
-            Promise.reject(e)
+            return Promise.reject(e)
         });
 };
 

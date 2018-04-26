@@ -41,7 +41,7 @@ class LoadFilesPage extends Component {
     //
     viewDocument = (requirement) => {
         let url = "";
-        const document = this.props.user.profile.documents.filter( document => document.code == requirement.code )[0];
+        const document = this.props.documents.filter( document => document.code == requirement.code )[0];
         if(document) url = document.docfile;
         this.setState({codeCurrentDocument:requirement.code,url, fileName:requirement.name})
     };
@@ -68,7 +68,9 @@ class LoadFilesPage extends Component {
                 console.log(toSend);
                 this.props.newFile(toSend)
                     .then(r=>{
+                        console.log("Esto recibo",r);
                         toastr.success("Documento añadido")
+                        this.viewDocument({name: r.name , code: r.code})
                     })
                     .catch(e=>{
                         console.log(e);
@@ -90,7 +92,7 @@ class LoadFilesPage extends Component {
 // />
 
     render() {
-        const {user, fetched} = this.props;
+        const {fetched} = this.props;
         const {url,fileName} = this.state;
         const list = listOfRequirements.map( (requirement,index) =>
             <ListItem key={index} primaryText={requirement.name} onClick={()=>this.viewDocument(requirement)}/>
@@ -125,8 +127,9 @@ class LoadFilesPage extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-    user: state.user.info,
-    fetched: state.user.isFetched
+    user : state.user.info,
+    documents: state.documents.list,
+    fetched: state.documents.areFetched
 });
 
 LoadFilesPage = connect(mapStateToProps, {newFile})(LoadFilesPage);

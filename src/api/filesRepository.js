@@ -23,8 +23,8 @@ const fileRepository = () => {
                     console.log(r.data);
                     resolve(r.data);
                 }).catch(e => {
-                console.log(e.response);
-                reject(e.response);
+                    console.log(e.response);
+                    reject(e.response);
             });
         });
     };

@@ -4,7 +4,7 @@ import tutor from './tutorReducer';
 import departments from './departmentReducer';
 import academicPrograms from './academicProgramsReducer';
 import profiles  from './profilesReducer';
-import files from './filesReducer';
+import documents from './filesReducer';
 import subjectToCurse from './subjectToCurseReducer';
 
 
@@ -14,6 +14,6 @@ export const rootReducer = combineReducers({
     departments,
     academicPrograms,
     profiles,
-    files,
+    documents,
     subjectToCurse
 });
