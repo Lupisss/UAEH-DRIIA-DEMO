@@ -61,18 +61,19 @@ class LoadFilesPage extends Component {
             reader.onload = ( file => e => {
                 console.log("el file", file);
                 let toSend = new FormData();
-                fileToUpload.docfile = e.target.result;
-                fileToUpload.docfile = file;
-                fileToUpload.name = this.state.fileName;
-                fileToUpload.code = this.state.codeCurrentDocument;
                 toSend.append("name",this.state.fileName);
                 toSend.append("code",this.state.codeCurrentDocument);
                 toSend.append("docfile",file, this.state.fileName + ".pdf");
                 toSend.append("profile", this.props.user.profile.id);
                 console.log(toSend);
                 this.props.newFile(toSend)
-                    .then(r=>console.log(r))
-                    .catch(e=>console.log(e))
+                    .then(r=>{
+                        toastr.success("Documento añadido")
+                    })
+                    .catch(e=>{
+                        console.log(e);
+                        toastr.error("Algo salió mal")
+                    })
             })(file);
 
             reader.readAsDataURL(file);
