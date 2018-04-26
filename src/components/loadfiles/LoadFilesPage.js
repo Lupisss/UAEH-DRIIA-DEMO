@@ -1,14 +1,15 @@
 import React, {Component, Fragment} from "react";
 import "./LoadFileStylesheet.css";
-import {Avatar, List, ListItem} from 'material-ui';
+import {Avatar, IconButton, IconMenu, List, ListItem, MenuItem} from 'material-ui';
 import {MainLoader} from "../loader/Loader"
 import {connect} from "react-redux";
 import {newFile} from '../../redux/actions/fileActions';
 import {UploadFile} from "./UploadFile";
 import Done from 'material-ui/svg-icons/action/done';
 import Lack from 'material-ui/svg-icons/content/clear';
-import {green500} from 'material-ui/styles/colors';
+import {green500, grey400} from 'material-ui/styles/colors';
 import toastr from "toastr";
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
 const listOfRequirements = [
     {name: "Documento de terminos y condiciones", code: "DTC"},
@@ -28,6 +29,16 @@ const listOfRequirements = [
     {name: "CV", code: "CVI"},
     {name: "Hoja Apertura", code: "HAP"},
 ];
+
+const iconButtonElement = (
+    <IconButton
+        touch={true}
+        tooltip="más"
+        tooltipPosition="bottom-left"
+    >
+        <MoreVertIcon color={grey400}/>
+    </IconButton>
+);
 
 class LoadFilesPage extends Component {
     constructor(props) {
@@ -109,6 +120,12 @@ class LoadFilesPage extends Component {
                             size={15}
                         />
                     }
+                    rightIconButton={document ? (
+                        <IconMenu iconButtonElement={iconButtonElement}>
+                            <MenuItem onClick={()=>console.log("Editar: ",document)}>Editar</MenuItem>
+                            <MenuItem onClick={()=>console.log("Eliminar", document)}>Eliminar</MenuItem>
+                        </IconMenu>
+                    ):null}
                     primaryText={requirement.name}
                     onClick={() => this.viewDocument(requirement)}
                 />
