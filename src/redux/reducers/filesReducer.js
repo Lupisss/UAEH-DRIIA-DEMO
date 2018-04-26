@@ -13,7 +13,7 @@ const list = (state = [], action) => {
                 return file;
             });
         case DELETE:
-            return state.filter( file => file.id !== action.file.id );
+            return state.filter( file => file.id !== action.idFile );
         default:
             return state;
     }

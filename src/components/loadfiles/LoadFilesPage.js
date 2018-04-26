@@ -3,7 +3,7 @@ import "./LoadFileStylesheet.css";
 import {Avatar, IconButton, IconMenu, List, ListItem, MenuItem} from 'material-ui';
 import {MainLoader} from "../loader/Loader"
 import {connect} from "react-redux";
-import {newFile} from '../../redux/actions/fileActions';
+import {newFile, deleteFile} from '../../redux/actions/fileActions';
 import {UploadFile} from "./UploadFile";
 import Done from 'material-ui/svg-icons/action/done';
 import Lack from 'material-ui/svg-icons/content/clear';
@@ -98,6 +98,19 @@ class LoadFilesPage extends Component {
 
     };
 
+    deleteFile = document => {
+        this.props.deleteFile(document.id)
+            .then(r=>{
+                console.log("Esto recibo",r);
+                toastr.warning("Eliminado");
+                this.viewDocument({name: document.name , code: document.code})
+            })
+            .catch(e=>{
+                console.log(e);
+                toastr.error("Algo salió mal")
+            })
+    };
+
 // <embed
 // ref={ref => this.embed = ref}
 // width={window.screen.availWidth * 0.60}
@@ -123,7 +136,7 @@ class LoadFilesPage extends Component {
                     rightIconButton={document ? (
                         <IconMenu iconButtonElement={iconButtonElement}>
                             <MenuItem onClick={()=>console.log("Editar: ",document)}>Editar</MenuItem>
-                            <MenuItem onClick={()=>console.log("Eliminar", document)}>Eliminar</MenuItem>
+                            <MenuItem onClick={()=>this.deleteFile(document)}>Eliminar</MenuItem>
                         </IconMenu>
                     ):null}
                     primaryText={requirement.name}
@@ -166,5 +179,5 @@ const mapStateToProps = (state, ownProps) => ({
     fetched: state.documents.areFetched
 });
 
-LoadFilesPage = connect(mapStateToProps, {newFile})(LoadFilesPage);
+LoadFilesPage = connect(mapStateToProps, {newFile,deleteFile})(LoadFilesPage);
 export default LoadFilesPage;
