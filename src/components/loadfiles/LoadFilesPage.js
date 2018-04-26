@@ -40,6 +40,7 @@ const iconButtonElement = (
     </IconButton>
 );
 
+let inputFile ;
 class LoadFilesPage extends Component {
     constructor(props) {
         super(props);
@@ -135,7 +136,8 @@ class LoadFilesPage extends Component {
                     }
                     rightIconButton={document ? (
                         <IconMenu iconButtonElement={iconButtonElement}>
-                            <MenuItem onClick={()=>console.log("Editar: ",document)}>Editar</MenuItem>
+                            {/*TODO finish edit*/}
+                            <MenuItem onClick={()=>{this.viewDocument(document); inputFile.click()}}>Editar</MenuItem>
                             <MenuItem onClick={()=>this.deleteFile(document)}>Eliminar</MenuItem>
                         </IconMenu>
                     ):null}
@@ -166,6 +168,14 @@ class LoadFilesPage extends Component {
                                 {list}
                             </List>
                         </div>
+                        <input
+                            onChange={()=>toastr.success("Editado")}
+                            accept=".pdf"
+                            ref={input =>{inputFile=input}}
+                            type="file"
+                            hidden
+                            formEncType="multipart/form-data"
+                        />
                     </div>
                 }
             </Fragment>
