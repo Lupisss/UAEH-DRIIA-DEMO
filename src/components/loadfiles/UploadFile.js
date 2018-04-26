@@ -20,7 +20,7 @@ export const UploadFile = (props) => {
 
     return (
             <Paper className="container-uploadfile" zDepth={5} >
-                    <div className={{display:"flex", flexDirection:"row"}}>
+                    <div>
                         {   props.fileName &&
                             <Fragment>
                                 <h2>{props.fileName}</h2>
@@ -37,7 +37,7 @@ export const UploadFile = (props) => {
                                 </IconButton>
                             </Fragment>
                         }
-                        <p>
+                        <p style={!props.fileName ? { fontSize:'2em'} : {}}>
                         {
                             props.fileName ?
                                 "Subir archivo" :

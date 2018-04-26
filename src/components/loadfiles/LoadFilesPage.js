@@ -1,10 +1,13 @@
 import React, {Component, Fragment} from "react";
 import "./LoadFileStylesheet.css";
-import {List, ListItem}  from 'material-ui';
+import {Avatar, List, ListItem} from 'material-ui';
 import {MainLoader} from "../loader/Loader"
 import {connect} from "react-redux";
 import {newFile} from '../../redux/actions/fileActions';
 import {UploadFile} from "./UploadFile";
+import Done from 'material-ui/svg-icons/action/done';
+import Lack from 'material-ui/svg-icons/content/clear';
+import {green500} from 'material-ui/styles/colors';
 import toastr from "toastr";
 
 const listOfRequirements = [
@@ -94,9 +97,23 @@ class LoadFilesPage extends Component {
     render() {
         const {fetched} = this.props;
         const {url,fileName} = this.state;
-        const list = listOfRequirements.map( (requirement,index) =>
-            <ListItem key={index} primaryText={requirement.name} onClick={()=>this.viewDocument(requirement)}/>
-        );
+        const list = listOfRequirements.map( (requirement,index) => {
+            const document = this.props.documents.filter( document => document.code == requirement.code )[0];
+            return (
+                <ListItem
+                    key={index}
+                    leftAvatar={
+                        <Avatar
+                            backgroundColor={document ? green500 : ""}
+                            icon={document ? <Done/> : <Lack/> }
+                            size={15}
+                        />
+                    }
+                    primaryText={requirement.name}
+                    onClick={() => this.viewDocument(requirement)}
+                />
+            )
+        });
         console.log(url);
         return (
             <Fragment>
