@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {IconButton, Paper} from "material-ui";
 import AddFileIcon from "material-ui/svg-icons/action/note-add";
 
@@ -19,14 +19,32 @@ export const UploadFile = (props) => {
 
 
     return (
-        <div className="container-uploadfile">
-            <Paper  className={props.className} zDepth={5} circle={true} >
-                    <input accept={props.fileType} ref={input =>{inputFile=input}} type="file" hidden/>
-                    <IconButton iconStyle={IconSize} style={IconStyle} onClick={handleClick}>
-                        <AddFileIcon/>
-                     </IconButton>
-                <p style={{margin:0}}>{props.fileName}</p>
+            <Paper className="container-uploadfile" zDepth={5} >
+                    <div className={{display:"flex", flexDirection:"row"}}>
+                        {   props.fileName &&
+                            <Fragment>
+                                <h2>{props.fileName}</h2>
+                                <input
+                                    onChange={props.uploadFile}
+                                    accept={props.fileType}
+                                    ref={input =>{inputFile=input}}
+                                    type="file"
+                                    hidden
+                                    formEncType="multipart/form-data"
+                                />
+                                <IconButton iconStyle={IconSize} style={IconStyle} onClick={handleClick}>
+                                    <AddFileIcon/>
+                                </IconButton>
+                            </Fragment>
+                        }
+                        <p>
+                        {
+                            props.fileName ?
+                                "Subir archivo" :
+                                "Selecciona un archivo"
+                        }
+                        </p>
+                    </div>
             </Paper>
-        </div>
     );
 };

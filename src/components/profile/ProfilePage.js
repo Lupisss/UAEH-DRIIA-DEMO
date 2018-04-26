@@ -133,6 +133,7 @@ class ProfilePage extends Component {
         if (wallPicture.src === "") delete profile.wallPicture;
         profile.user = this.props.user.id;
         profile.academic_program = profile.academic_program.id;
+        console.log('El perfil',profile);
         console.log('Perfil antes de guardar: ',profile);
         this.props.updateProfile(profile)
             .then(r => {
