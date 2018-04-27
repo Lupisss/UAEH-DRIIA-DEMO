@@ -159,8 +159,18 @@ class LoadFilesPage extends Component {
                                 uploadFile={this.uploadFile}
                             />
                             :
-                            <object onLoad={()=>console.log("Cargando")} data={url} type="application/pdf" width="100%" height="100%">
-                                <p><b>Example fallback content</b>: This browser does not support PDFs. Please download the PDF to view it: <a href={url}>Download PDF</a>.</p>
+                            <object
+                                onLoad={()=>console.log("Cargando")}
+                                data={url}
+                                type="application/pdf"
+                                width="100%"
+                                height="100%"
+                            >
+                                <p>
+                                    <b>Example fallback content</b>
+                                    : This browser does not support PDFs. Please download the PDF to view it:
+                                    <a href={url}>Download PDF</a>.
+                                </p>
                             </object>
                         }
                         <div className="Main-LoadFiles">
