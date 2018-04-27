@@ -11,7 +11,7 @@ import {MainLoader} from '../loader/Loader';
 
 /* se puede importar porque en AddCollege ya se exportó /* se pone export antes para que en otra .js se pueda importar */
 import {AddCollege} from "./AddCollege";
-import {CollegeAdminComponent} from "./CollegeAdminComponent";
+import CollegeSection from "./CollegeAdminPage";
 import IconFab from 'material-ui/svg-icons/content/add';
 
 
@@ -24,8 +24,6 @@ class AdminPage extends Component {
         super(props);
         //opcionalmente tiene un estado que es un objeto.. clave: valor
         this.state = {
-            search: '',
-            searchCollege: '',
             openAddCollege: false,
             college: {
                 name: '',
@@ -79,11 +77,7 @@ class AdminPage extends Component {
         console.log('Fetched',fetched);
         // render college component
         // const CollegeComponent = () => (
-        //     <CollegeAdminComponent
-        //         search={searchCollege}
-        //         onChange={this.handleChange}
-        //         data={colleges}
-        //     />
+
         // );
         //Botones que están en agregar universidad, cancelar y aceptar
         const actionsNewCollege = [
@@ -112,7 +106,7 @@ class AdminPage extends Component {
                         </Drawer>
                         <Switch>
                             <Route path="/admin/students" component={StudentSection}/>
-                            {/*<Route path="/admin/colleges" render={CollegeComponent}/>*/}
+                            <Route path="/admin/colleges" component={CollegeSection}/>
                         </Switch>
                         {/* Dialog for adding a new university */}
                         <Dialog

@@ -8,6 +8,7 @@ import Department from './departmentsRepository';
 import AcademicProgram from './academicProgramRepository';
 import File from './filesRepository';
 import SubjectToCurse from './subjectToCurseRepository';
+import Colleges from './collegeRepository';
 
 export const Auth = AuthApi;
 export const ZipApi = Zip;
@@ -19,3 +20,4 @@ export const AcademicProgramApi = AcademicProgram;
 export const ProfileApi = Profile;
 export const FileApi = File;
 export const SubjectToCurseApi = SubjectToCurse;
+export const CollegeApi = Colleges;

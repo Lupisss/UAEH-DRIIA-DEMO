@@ -5,7 +5,7 @@ import {SearchField} from "./SearchField";
 
 export const CollegeAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
-        return <MyRow key={key} rowData={field}/>
+        return <MyRow {...this.props} key={key} rowData={field}/>
     });
     return (
         <div>
@@ -14,7 +14,7 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
                 style={{width:'50%'}}
                 className="search-text"
                 hintText="Busca..."
-                name="searchCollege"
+                name="search"
                 onChange={onChange}
                 value={search}
             />
@@ -46,11 +46,11 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
     );
 };
 
-const MyRow = ({rowData}) => {
+const MyRow = ({rowData, ...props}) => {
     return (
-
         <TableRow>
             {/*Pone la información en la tabla antes creada */}
+            {props.children[0]}
             <TableRowColumn>{rowData.id}</TableRowColumn>
             <TableRowColumn>{rowData.name}</TableRowColumn>
             <TableRowColumn>{rowData.country}</TableRowColumn>

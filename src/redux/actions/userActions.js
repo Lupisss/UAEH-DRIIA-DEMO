@@ -6,6 +6,7 @@ import {getDepartments} from "./departmentActions";
 import {getAcademicPrograms} from "./academicProgramActions";
 import {getProfiles} from "./profilesActions";
 import {getFiles} from "./fileActions";
+import {getColleges} from "./collegesActions";
 import {getSubjectsToCurse} from "./subjectToCurseAction";
 import academicPrograms from "../reducers/academicProgramsReducer";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
@@ -380,6 +381,7 @@ export function comprobarUsuario() {
                     dispatch(getAcademicPrograms());
                     dispatch(getProfiles());
                     dispatch(getFiles());
+                    dispatch(getColleges());
                     // TODO Crear modelo de subjects to course en backend
                     //dispatch(getSubjectsToCurse());
                     dispatch(fetchedSuccess());
