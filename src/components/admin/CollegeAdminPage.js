@@ -3,50 +3,18 @@ import {CollegeAdminComponent} from "./CollegeAdminComponent";
 import {connect} from 'react-redux';
 import {FloatingActionButton} from "material-ui";
 import IconFab from 'material-ui/svg-icons/content/add';
-import {newCollege} from "../../redux/actions/collegesActions";
-import {AddCollege} from "./AddCollege";
-import toastr from 'toastr';
+import AddCollege from "./AddCollegeContainer";
 import {Switch,Route} from 'react-router-dom';
 
 class CollegeAdminPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: '',
-            college: {
-                name: '',
-                country: 'MX'
-            },
+            search: ''
         };
     }
 
     handleChange = e => this.setState({[e.target.name]:e.target.value});
-
-    changeCollegeField = (e) => {
-        let {college} = this.state;
-        college[e.target.name] = e.target.value;
-        this.setState({college});
-    };
-
-    changeCountryCollege = (event, index, value) => {
-        let {college} = this.state;
-        college['country'] = value;
-        this.setState({college});
-    };
-
-    addNewCollege = e => {
-        e.preventDefault();
-        const {college} = this.state;
-        console.log(college);
-        this.props.newCollege(college)
-            .then( s => {
-                toastr.success("Guardado");
-                this.closeDialogNewCollege();
-            }).catch( e => {
-                console.error(e);
-                toastr.error("Ups, ocurrio un problema");
-        });
-    };
 
     openDialogNewCollege = () => {
         this.props.history.push("/admin/colleges/new");
@@ -65,10 +33,6 @@ class CollegeAdminPage extends Component {
         items = items.filter(item => regEx.test(item.name));
         const AddCollegeRender = props => (
             <AddCollege
-                college={college}
-                onChange={this.changeCollegeField}
-                onCountryChange={this.changeCountryCollege}
-                onSubmit={this.addNewCollege}
                 closeDialogNewCollege={this.closeDialogNewCollege}
                 {...props}
             />
@@ -114,5 +78,5 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 //Conectar con redux
-CollegeAdminPage = connect(mapStateToProps,{newCollege})(CollegeAdminPage);
+CollegeAdminPage = connect(mapStateToProps,{})(CollegeAdminPage);
 export default CollegeAdminPage;

@@ -2,6 +2,8 @@ import React from 'react';
 //import {AddCollege} from "./AddCollege";
 import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui";
 import {SearchField} from "./SearchField";
+import {Link} from "react-router-dom";
+import Icon from 'material-ui/svg-icons/action/info';
 
 export const CollegeAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
@@ -28,9 +30,9 @@ export const CollegeAdminComponent = ({data, search, onChange}) => {
                     </TableRow>
                     <TableRow>
                         {/*Encabezado de la tabla  */}
-                        <TableHeaderColumn>Id</TableHeaderColumn>
                         <TableHeaderColumn>Nombre de Universidad</TableHeaderColumn>
                         <TableHeaderColumn>País</TableHeaderColumn>
+                        <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
 
@@ -51,9 +53,15 @@ const MyRow = ({rowData, ...props}) => {
         <TableRow>
             {/*Pone la información en la tabla antes creada */}
             {props.children[0]}
-            <TableRowColumn>{rowData.id}</TableRowColumn>
             <TableRowColumn>{rowData.name}</TableRowColumn>
             <TableRowColumn>{rowData.country}</TableRowColumn>
+            <TableRowColumn>
+                {/* si presionas en el icono de ! te manda al perfil del alumno */}
+                {/*<Link to='/profile'>*/}
+                <Link to={`/admin/colleges/${rowData.id}`} >
+                    <Icon title="Detalle"/>
+                </Link>
+            </TableRowColumn>
         </TableRow>
     );
 };
