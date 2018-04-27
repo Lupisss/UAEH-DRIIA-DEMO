@@ -1,5 +1,9 @@
 import React from 'react';
 import {Dialog, DropDownMenu, MenuItem, RaisedButton, TextField} from 'material-ui';
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/svg-icons/action/delete';
+import IconSend from 'material-ui/svg-icons/content/send';
+import IconCancel from 'material-ui/svg-icons/navigation/close';
 
 /* declara las constantes para cada pais (como un id)*/
 //elementos jx estos son nombre = "valor" siempre entre comillas
@@ -34,23 +38,36 @@ const COREA_SUR = 'CS';
 export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeDialogNewCollege, deleteCollege}) => {
     const {name, country} = college;
     const actionsNewCollege = [
-        <RaisedButton
-            label="Cancelar"
+        <IconButton
+            tooltip="Cancelar"
             onClick={closeDialogNewCollege}
-        />,
-        <RaisedButton
+        >
+            <IconCancel/>
+        </IconButton>,
+        <IconButton
+            tooltip="Agregar"
             form="addnewcollege"
             type="submit"
-            label="Agregar"
-            primary={true}
-        />
+        >
+            <IconSend/>
+        </IconButton>
     ];
+    {/*<RaisedButton*/}
+        {/*form="addnewcollege"*/}
+        {/*type="submit"*/}
+        {/*label="Agregar"*/}
+        {/*primary={true}*/}
+    {/*/>*/}
 
-    if(college.id) actionsNewCollege.push(
-        <RaisedButton
-            label="Eliminar"
+    if(college.id) actionsNewCollege.splice(
+        1,
+        0,
+        <IconButton
             onClick={()=>deleteCollege(college.id)}
-        />
+            tooltip="Eliminar"
+        >
+            <Icon />
+        </IconButton>
     );
 
     return (
