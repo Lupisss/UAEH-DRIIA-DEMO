@@ -31,7 +31,7 @@ const TAILANDIA = 'TL';
 const COREA_SUR = 'CS';
 
 // se pone export antes para que en otra .js se pueda importar
-export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeDialogNewCollege}) => {
+export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeDialogNewCollege, deleteCollege}) => {
     const {name, country} = college;
     const actionsNewCollege = [
         <RaisedButton
@@ -44,8 +44,15 @@ export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeD
             label="Agregar"
             primary={true}
         />
-
     ];
+
+    if(college.id) actionsNewCollege.push(
+        <RaisedButton
+            label="Eliminar"
+            onClick={()=>deleteCollege(college.id)}
+        />
+    );
+
     return (
         <Dialog
             modal={false}

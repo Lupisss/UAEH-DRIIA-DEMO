@@ -1,7 +1,7 @@
 import React, {Component,Fragment} from "react";
 import {connect} from 'react-redux';
 import {AddCollege} from "./AddCollege";
-import {newCollege,updateCollege} from "../../redux/actions/collegesActions";
+import {newCollege,updateCollege,deleteCollege} from "../../redux/actions/collegesActions";
 import toastr from 'toastr';
 
 class AddCollegeContainer extends Component {
@@ -75,6 +75,17 @@ class AddCollegeContainer extends Component {
         }
     };
 
+    deleteCollege = id => {
+        this.props.deleteCollege(id)
+            .then(s => {
+                toastr.warning("Eliminado");
+                this.props.closeDialogNewCollege();
+            }).catch(e => {
+                console.error(e);
+                toastr.error("Ups, ocurrio un problema");
+        });
+    };
+
     render() {
         const {college} = this.state;
         const {fetched} = this.props;
@@ -90,6 +101,7 @@ class AddCollegeContainer extends Component {
                             onCountryChange={this.changeCountryCollege}
                             onSubmit={this.addNewCollege}
                             closeDialogNewCollege={this.props.closeDialogNewCollege}
+                            deleteCollege={this.deleteCollege}
                         />
                     </Fragment>
                 }
@@ -114,5 +126,5 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-AddCollegeContainer = connect(mapStateToProps,{newCollege,updateCollege})(AddCollegeContainer);
+AddCollegeContainer = connect(mapStateToProps,{newCollege,updateCollege,deleteCollege})(AddCollegeContainer);
 export default AddCollegeContainer;
