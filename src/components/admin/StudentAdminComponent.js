@@ -15,7 +15,7 @@ import {SearchField} from "./SearchField";
 
 export const StudentAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
-       return <MyRow key={key} rowData={field}/>
+       return <MyRow {...this.props} key={key} rowData={field}/>
     });
     return (
         <div>
@@ -39,8 +39,8 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                     <TableRow>
                         {/*Crea las columnas de la tabla */}
                         <TableHeaderColumn>No Cuenta</TableHeaderColumn>
-                        <TableHeaderColumn>Nombre completo</TableHeaderColumn>
-                        <TableHeaderColumn>Universidad destino</TableHeaderColumn>
+                        <TableHeaderColumn>Apellido(s)</TableHeaderColumn>
+                        <TableHeaderColumn>Nombre(s)</TableHeaderColumn>
                         <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
@@ -58,14 +58,14 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
     );
 };
 
-const MyRow = ({rowData}) => {
+const MyRow = ({rowData, ...props}) => {
     return (
-        <TableRow>
-
+        <TableRow {...props}>
+            {props.children[0]}
             {/* pone los valores de la tabla, cuenta, nombre y escuela */}
-            <TableRowColumn>{rowData.id}</TableRowColumn>
-            <TableRowColumn>{rowData.fullName}</TableRowColumn>
-            <TableRowColumn>{rowData.college}</TableRowColumn>
+            <TableRowColumn>{rowData.academicId}</TableRowColumn>
+            <TableRowColumn>{rowData.surname}</TableRowColumn>
+            <TableRowColumn>{rowData.given_name}</TableRowColumn>
             <TableRowColumn>
 
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}
