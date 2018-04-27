@@ -1,33 +1,98 @@
 import React, {Component,Fragment} from "react";
 import {CollegeAdminComponent} from "./CollegeAdminComponent";
 import {connect} from 'react-redux';
+import {FloatingActionButton} from "material-ui";
+import IconFab from 'material-ui/svg-icons/content/add';
+import {newCollege} from "../../redux/actions/collegesActions";
+import {AddCollege} from "./AddCollege";
+import toastr from 'toastr';
+import {Switch,Route} from 'react-router-dom';
 
 class CollegeAdminPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            search: ''
+            search: '',
+            college: {
+                name: '',
+                country: 'MX'
+            },
         };
     }
 
     handleChange = e => this.setState({[e.target.name]:e.target.value});
 
+    changeCollegeField = (e) => {
+        let {college} = this.state;
+        college[e.target.name] = e.target.value;
+        this.setState({college});
+    };
+
+    changeCountryCollege = (event, index, value) => {
+        let {college} = this.state;
+        college['country'] = value;
+        this.setState({college});
+    };
+
+    addNewCollege = e => {
+        e.preventDefault();
+        const {college} = this.state;
+        console.log(college);
+        this.props.newCollege(college)
+            .then( s => {
+                toastr.success("Guardado");
+                this.closeDialogNewCollege();
+            }).catch( e => {
+                console.error(e);
+                toastr.error("Ups, ocurrio un problema");
+        });
+    };
+
+    openDialogNewCollege = () => {
+        this.props.history.push("/admin/colleges/new");
+    };
+
+    closeDialogNewCollege = () => {
+        this.props.history.push("/admin/colleges");
+    };
+
     render() {
-        const {search} = this.state;
+        const {search,college} = this.state;
         const {fetched, colleges} = this.props;
         console.log(colleges);
         let items = [...colleges];
         const regEx = new RegExp(search,'i');
         items = items.filter(item => regEx.test(item.name));
+        const AddCollegeRender = props => (
+            <AddCollege
+                college={college}
+                onChange={this.changeCollegeField}
+                onCountryChange={this.changeCountryCollege}
+                onSubmit={this.addNewCollege}
+                closeDialogNewCollege={this.closeDialogNewCollege}
+                {...props}
+            />
+        );
         return (
             <Fragment>
                 {
                     fetched &&
-                    <CollegeAdminComponent
-                        search={search}
-                        onChange={this.handleChange}
-                        data={items}
-                    />
+                    <Fragment>
+                        <CollegeAdminComponent
+                            search={search}
+                            onChange={this.handleChange}
+                            data={items}
+                        />
+                        <FloatingActionButton
+                            style={styles.fab}
+                            onClick={this.openDialogNewCollege}
+                        >
+                            <IconFab/>
+                        </FloatingActionButton>
+                        <Switch>
+                            <Route path="/admin/colleges/:id" render={AddCollegeRender}/>
+                        </Switch>
+                    </Fragment>
                 }
             </Fragment>
 
@@ -35,11 +100,19 @@ class CollegeAdminPage extends Component {
     }
 }
 
+const styles = {
+    fab : {
+        position: 'fixed',
+        bottom: 15,
+        right: 15
+    }
+};
+
 const mapStateToProps = (state, ownProps) => ({
     colleges: state.colleges.list,
     fetched : state.colleges.areFetched
 });
 
 //Conectar con redux
-CollegeAdminPage = connect(mapStateToProps,{})(CollegeAdminPage);
+CollegeAdminPage = connect(mapStateToProps,{newCollege})(CollegeAdminPage);
 export default CollegeAdminPage;
