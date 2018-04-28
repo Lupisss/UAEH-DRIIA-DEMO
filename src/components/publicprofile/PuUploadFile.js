@@ -1,6 +1,6 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {IconButton, Paper} from "material-ui";
-import AddFileIcon from "material-ui/svg-icons/action/assignment-returned";
+import AddFileIcon from "material-ui/svg-icons/action/note-add";
 
 let inputFile;
 
@@ -19,14 +19,22 @@ export const PuUploadFile = (props) => {
 
 
     return (
-        <div className="container-uploadfile">
-            <Paper  className={props.className} zDepth={5} circle={true} >
-                 <input accept={props.fileType} ref={input =>{inputFile=input}} type="file" hidden/>
-                <IconButton iconStyle={IconSize} style={IconStyle} onClick={handleClick}>
-                    <AddFileIcon/>
-                </IconButton>
-                <p style={{margin:0}}>{props.fileName}</p>
-            </Paper>
-        </div>
+        <Paper className="container-uploadfile" zDepth={5} >
+            <div>
+                {   props.fileName &&
+                <Fragment>
+                    <h2>{props.fileName}</h2>
+
+                </Fragment>
+                }
+                <p style={!props.fileName ? { fontSize:'2em'} : {}}>
+                    {
+                        props.fileName ?
+                            "Sin archivos" :
+                            "Selecciona un archivo"
+                    }
+                </p>
+            </div>
+        </Paper>
     );
 };
