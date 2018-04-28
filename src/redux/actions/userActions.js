@@ -32,14 +32,17 @@ export const loginSuccess = user => ({
 
 export const logIn = user => (dispatch, getState) => {
     return Auth.logIn(user)
-        .then(r => {
-            Auth.getUser()
+        .then(token => {
+            return Auth.getUser()
                 .then(r => {
+                    console.log('El perfil',r.data);
                     dispatch(loginSuccess(r.data));
+                    dispatch(fetchedSuccess());
+                    console.log(token);
+                    return Promise.resolve(token)
                 }).catch(e => {
                     console.log(e);
                 });
-            return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
             return Promise.reject(e);

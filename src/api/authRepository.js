@@ -50,9 +50,9 @@ const authRepository = () => {
                     // si es correcto, mediante resolve, retornamos la Promise
                     resolve(r.data);
                 }).catch(e => {
-                console.log(e);
-                // Si algo salio mal, mediante reject, retornamos la promise
-                reject(e.response);
+                    console.log(e);
+                    // Si algo salio mal, mediante reject, retornamos la promise
+                    reject(e);
             });
         });
     };
