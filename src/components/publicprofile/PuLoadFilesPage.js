@@ -1,117 +1,126 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import "./PuLoadFiles.css";
-import {PuUploadFile} from "./PuUploadFile"
-import RaisedButton from 'material-ui/RaisedButton';
+import {Avatar, IconButton, IconMenu, List, ListItem, MenuItem} from 'material-ui';
+import {MainLoader} from "../loader/Loader"
+import {connect} from "react-redux";
+import {newFile, deleteFile} from '../../redux/actions/fileActions';
+import {PuUploadFile} from "./PuUploadFile";
+import Done from 'material-ui/svg-icons/action/done';
+import Lack from 'material-ui/svg-icons/content/clear';
+import {green500, grey400} from 'material-ui/styles/colors';
+import toastr from "toastr";
+import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
 
+const listOfRequirements = [
+    {name: "Documento de terminos y condiciones", code: "DTC"},
+    {name: "Constancia de calificaciones", code: "CCP"},
+    {name: "Tira de materias", code: "TMA"},
+    {name: "Historial académico", code: "HAC"},
+    {name: "Carta de postulación", code: "CPO"},
+    {name: "Certificación de idioma", code: "CID"},
+    {name: "Pasaporte", code: "PAS"},
+    {name: "Carta de exposicion de motivos", code: "CEM"},
+    {name: "Carta de recomendación", code: "CRE"},
+    {name: "Certificado médico", code: "CME"},
+    {name: "Cartilla nacional de Salud", code: "CNS"},
+    {name: "Credencial elector", code: "CEL"},
+    {name: "Acta de Nacimiento", code: "ANA"},
+    {name: "CURP", code: "CUR"},
+    {name: "CV", code: "CVI"},
+    {name: "Hoja Apertura", code: "HAP"},
+];
 
-const style = {
-    margin: 12,
-    labelColor: "white"
-};
+let inputFile ;
 
 class PuLoadFilesPage extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {
+            codeCurrentDocument : "",
+            fileName : "" ,
+            url: "",
+            fileToUpload: {
+
+            }
+        };
     }
+    //
+    viewDocument = (requirement) => {
+        let url = "";
+        const document = this.props.documents.filter( document => document.code == requirement.code )[0];
+        if(document) url = document.docfile;
+        this.setState({codeCurrentDocument:requirement.code,url, fileName:requirement.name})
+    };
 
-
-//Es el contenedor
-    //Pagina para cargar archivos
     render() {
+        const {fetched} = this.props;
+        const {url,fileName} = this.state;
+        const list = listOfRequirements.map( (requirement,index) => {
+            const document = this.props.documents.filter( document => document.code == requirement.code )[0];
+            return (
+                <ListItem
+                    key={index}
+                    leftAvatar={
+                        <Avatar
+                            backgroundColor={document ? green500 : ""}
+                            icon={document ? <Done/> : <Lack/> }
+                            size={15}
+                        />
+                    }
+                    rightIconButton={document ? (
+                        <IconMenu >
+                        </IconMenu>
+                    ):null}
+                    primaryText={requirement.name}
+                    onClick={() => this.viewDocument(requirement)}
+                />
+            )
+        });
+        console.log(url);
         return (
-            <div className="Main-takepart">
-                <div className="Main-PuLoadFiles">
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Acta de Nacimiento"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Tira de Materias"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Carta de Postulación"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Solicitud de Participación"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Certificado de Ingles"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Exposición de Motivos"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="Certificado Médico"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <PuUploadFile
-                        fileName="CURP"
-                        fileType=".pdf"
-                        className="uploadfile"
-                    />
-                    <div >
-                        <RaisedButton label="Regresar" backgroundColor= "#901B00" labelColor="white"  href="/public" className="boo" />
-                    </div>
-                </div>
+            <Fragment>
+                {
+                    !fetched ? <MainLoader/> :
+                        <div className="Container-Load-Files">
+                            { url === "" ?
+                                <PuUploadFile
+                                    fileName={fileName}
+                                    fileType=".pdf"
+                                    uploadFile={this.uploadFile}
+                                />
+                                :
+                                <object
+                                    onLoad={()=>console.log("Cargando")}
+                                    data={url}
+                                    type="application/pdf"
+                                    width="100%"
+                                    height="100%"
+                                >
+                                    <p>
+                                        <b>Example fallback content</b>
+                                        : This browser does not support PDFs. Please download the PDF to view it:
+                                        <a href={url}>Download PDF</a>.
+                                    </p>
+                                </object>
+                            }
+                            <div className="Main-LoadFiles">
+                                <List style={{backgroundColor: '#FFF'}}>
+                                    {list}
+                                </List>
+                            </div>
 
-            </div>
-
-
-
+                        </div>
+                }
+            </Fragment>
         );
     }
 }
+
+const mapStateToProps = (state, ownProps) => ({
+    user : state.user.info,
+    documents: state.documents.list,
+    fetched: state.documents.areFetched
+});
+
+PuLoadFilesPage = connect(mapStateToProps)(PuLoadFilesPage);
 export default PuLoadFilesPage;
