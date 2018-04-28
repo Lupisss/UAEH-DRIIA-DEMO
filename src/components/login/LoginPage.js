@@ -42,9 +42,8 @@ class LoginPage extends Component {
                 toastr.success('Bienvenido');
                 this.props.history.push('/profile');
             }).catch(e => {
-            for (let key in e.data) {
-                toastr.error(e.data[key][0]);
-            }
+                console.log(e);
+                toastr.error("Algo salió mal");
         });
     };
 
