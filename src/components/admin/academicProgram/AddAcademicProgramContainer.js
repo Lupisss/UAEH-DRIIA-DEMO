@@ -22,8 +22,9 @@ class AddAcademicProgramContainer extends Component {
         const {fetched, academicProgram} = this.props;
         if (fetched){
             if (academicProgram) {
-                let academicP = {...academicProgram};
+                let academicP = JSON.parse(JSON.stringify(academicProgram));
                 academicP.department = academicP.department.id;
+                academicP.college = academicProgram.department.college;
                 this.setState({
                     academicProgram: academicP
                 })
@@ -35,8 +36,9 @@ class AddAcademicProgramContainer extends Component {
         const {fetched, academicProgram} = nP;
         if (fetched){
             if (academicProgram) {
-                let academicP = {...academicProgram};
+                let academicP = JSON.parse(JSON.stringify(academicProgram));
                 academicP.department = academicP.department.id;
+                academicP.college = academicProgram.department.college;
                 this.setState({
                     academicProgram: academicP
                 })

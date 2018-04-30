@@ -60,7 +60,7 @@ const MyRow = ({rowData, ...props}) => {
             <TableRowColumn>
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}
                 {/*<Link to='/profile'>*/}
-                <Link to={`/admin/departments/${rowData.id}`} >
+                <Link to={`/admin/academicPrograms/${rowData.id}`} >
                     <Icon title="Detalle"/>
                 </Link>
             </TableRowColumn>
