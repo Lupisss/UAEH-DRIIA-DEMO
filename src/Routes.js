@@ -7,7 +7,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import TakePartPage from "./components/takepart/TakePartPage";
 import LoadFilesPage from "./components/loadfiles/LoadFilesPage";
 import ChooseSubjectsPage from "./components/choosesubjects/ChooseSubjectsPage";
-import AdminPage from "./components/admin/AdminPage";
+import AdminPage from "./components/admin/main/AdminPage";
 import CVPage from "./components/cv/CVPage";
 import PuProfilePage from "./components/publicprofile/PuProfilePage";
 import PuLoadFilesPage from "./components/publicprofile/PuLoadFilesPage";
