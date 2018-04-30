@@ -2,7 +2,7 @@ import firebase from '../../firebase';
 //import {api} from '../../api/API';
 import {Auth, ProfileApi, AddressApi, CertificationApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
-import {getDepartments} from "./departmentActions";
+import {getDepartments} from "./departmentsActions";
 import {getAcademicPrograms} from "./academicProgramActions";
 import {getProfiles} from "./profilesActions";
 import {getFiles} from "./fileActions";

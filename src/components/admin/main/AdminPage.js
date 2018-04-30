@@ -1,13 +1,12 @@
 import React, {Component, Fragment} from 'react';
-import StudentSection from "./StudentAdminPage";
+import StudentSection from "../profile/StudentAdminPage";
 import {Drawer, MenuItem} from "material-ui";
 import './AdminStylesheet.css'
 import {Link, Route, Switch} from "react-router-dom";
 import {connect} from 'react-redux';
-import {MainLoader} from '../loader/Loader';
-import CollegeSection from "./CollegeAdminPage";
-
-
+import {MainLoader} from '../../loader/Loader';
+import CollegeSection from "../college/CollegeAdminPage";
+import DepartmnetSection from "../department/DepartmentPage";
 
 //La funcion principal de un contenendor es tener componentes de presentación más pequeños y contiene toda la logica
 class AdminPage extends Component {
@@ -30,10 +29,12 @@ class AdminPage extends Component {
                         <Drawer containerClassName="drawer">
                             <MenuItem containerElement={<Link to="/admin/students"/>}>Estudiantes</MenuItem>
                             <MenuItem containerElement={<Link to="/admin/colleges"/>}>Universidades</MenuItem>
+                            <MenuItem containerElement={<Link to="/admin/departments"/>}>Departamentos</MenuItem>
                         </Drawer>
                         <Switch>
                             <Route path="/admin/students" component={StudentSection}/>
                             <Route path="/admin/colleges" component={CollegeSection}/>
+                            <Route path="/admin/departments" component={DepartmnetSection}/>
                         </Switch>
                     </div>
                 }

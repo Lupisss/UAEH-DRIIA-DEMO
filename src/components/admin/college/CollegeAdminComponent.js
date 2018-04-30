@@ -1,25 +1,17 @@
 import React from 'react';
-import {
-    Table,
-    TableBody,
-    TableFooter,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn
-} from 'material-ui';
-import './AdminStylesheet.css';
+//import {AddCollege} from "./AddCollege";
+import {Table, TableBody, TableFooter, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from "material-ui";
+import {SearchField} from "../SearchField";
+import {Link} from "react-router-dom";
 import Icon from 'material-ui/svg-icons/action/info';
-import {Link} from 'react-router-dom';
-import {SearchField} from "./SearchField";
 
-export const StudentAdminComponent = ({data, search, onChange}) => {
+export const CollegeAdminComponent = ({data, search, onChange}) => {
     const dataToDisplay = data.map( (field,key) => {
-       return <MyRow {...this.props} key={key} rowData={field}/>
+        return <MyRow {...this.props} key={key} rowData={field}/>
     });
     return (
         <div>
-            {/* campo de busqueda en la administracion */}
+            {/* campo de busqueda  de universidades en la administracion */}
             <SearchField
                 style={{width:'50%'}}
                 className="search-text"
@@ -28,28 +20,26 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                 onChange={onChange}
                 value={search}
             />
-            {/* crea la tabla que muestra a los alumnos registrados */}
             <Table>
+                {/* crea la tabla que muestra a las universidades registradas */}
                 <TableHeader>
                     <TableRow >
                         <TableHeaderColumn colSpan={3} tooltip="Lista de alumnos">
-                            Lista de alumnos
+                            Lista de universidades
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
-                        {/*Crea las columnas de la tabla */}
-                        <TableHeaderColumn>No Cuenta</TableHeaderColumn>
-                        <TableHeaderColumn>Apellido(s)</TableHeaderColumn>
-                        <TableHeaderColumn>Nombre(s)</TableHeaderColumn>
+                        {/*Encabezado de la tabla  */}
+                        <TableHeaderColumn>Universidad</TableHeaderColumn>
+                        <TableHeaderColumn>País</TableHeaderColumn>
                         <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
 
-                {/* crea el cuerpo de la tabla */}
+                {/*Cuerpo de la tabla */}
                 <TableBody>
                     {dataToDisplay}
                 </TableBody>
-                {/*Pies de la tabla */}
                 <TableFooter>
 
                 </TableFooter>
@@ -60,18 +50,15 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
 
 const MyRow = ({rowData, ...props}) => {
     return (
-        <TableRow {...props}>
+        <TableRow>
+            {/*Pone la información en la tabla antes creada */}
             {props.children[0]}
-            {/* pone los valores de la tabla, cuenta, nombre y escuela */}
-            <TableRowColumn>{rowData.academicId}</TableRowColumn>
-            <TableRowColumn>{rowData.surname}</TableRowColumn>
-            <TableRowColumn>{rowData.given_name}</TableRowColumn>
+            <TableRowColumn>{rowData.name}</TableRowColumn>
+            <TableRowColumn>{rowData.country}</TableRowColumn>
             <TableRowColumn>
-
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}
                 {/*<Link to='/profile'>*/}
-                    <Link to='/public'>
-
+                <Link to={`/admin/colleges/${rowData.id}`} >
                     <Icon title="Detalle"/>
                 </Link>
             </TableRowColumn>

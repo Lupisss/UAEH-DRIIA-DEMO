@@ -40,10 +40,15 @@ export const newDepartmentSuccess = department => ({
 export const newDepartment = department => (dispatch, getState) => {
     return DepartmentApi.newDepartment(department)
         .then(r => {
-            dispatch(newDepartmentSuccess(r));
-            Promise.resolve(r);
+            let department = {...r};
+            department.college = getState().colleges.list.filter( college =>
+                college.id == r.college
+            )[0];
+            console.log(department);
+            dispatch(newDepartmentSuccess(department));
+            return Promise.resolve(r);
         }).catch(e => {
-            Promise.reject(e)
+            return Promise.reject(e)
         });
 };
 
@@ -58,11 +63,15 @@ export const updateDepartmentSuccess = department => ({
 export const updateDepartment = department => (dispatch, getState) => {
     return DepartmentApi.updateDepartment(department)
         .then(r => {
-            dispatch(updateDepartmentSuccess(r));
-            Promise.resolve(r);
+            let department = {...r};
+            department.college = getState().colleges.list.filter( college =>
+                college.id == r.college
+            )[0];
+            dispatch(updateDepartmentSuccess(department));
+            return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
-            Promise.reject(e)
+            return Promise.reject(e)
         });
 };
 
@@ -78,9 +87,9 @@ export const deleteDepartment = idDepartment => (dispatch, getState) => {
     return DepartmentApi.deleteDepartment(idDepartment)
         .then(r => {
             dispatch(deleteDepartmentSuccess(idDepartment));
-            Promise.resolve(r);
+            return Promise.resolve(r);
         }).catch(e => {
-            Promise.reject(e)
+            return Promise.reject(e)
         });
 };
 

@@ -1,7 +1,7 @@
 import React, {Component,Fragment} from "react";
 import {connect} from 'react-redux';
 import {AddCollege} from "./AddCollege";
-import {newCollege,updateCollege,deleteCollege} from "../../redux/actions/collegesActions";
+import {newCollege,updateCollege,deleteCollege} from "../../../redux/actions/collegesActions";
 import toastr from 'toastr';
 
 class AddCollegeContainer extends Component {

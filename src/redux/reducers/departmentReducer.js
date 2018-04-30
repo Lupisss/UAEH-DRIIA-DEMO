@@ -1,5 +1,5 @@
 import {combineReducers} from 'redux';
-import {CREATE, READ, UPDATE, DELETE, FETCHED} from '../actions/departmentActions';
+import {CREATE, READ, UPDATE, DELETE, FETCHED} from '../actions/departmentsActions';
 
 const list = (state = [], action) => {
     switch (action.type){
