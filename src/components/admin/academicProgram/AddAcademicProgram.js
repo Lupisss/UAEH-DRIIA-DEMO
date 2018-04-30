@@ -1,22 +1,22 @@
 import React from 'react';
-import {Dialog, DropDownMenu, MenuItem, RaisedButton, TextField} from 'material-ui';
+import {Dialog, SelectField, MenuItem, RaisedButton, TextField} from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/svg-icons/action/delete';
 import IconSend from 'material-ui/svg-icons/content/send';
 import IconCancel from 'material-ui/svg-icons/navigation/close';
 
-export const AddAcademicProgram = ({ onSubmit, department, colleges, onChange, onCollegeChange,closeDialogNewDepartment, deleteDepartment}) => {
-    const {name, abbreviation, college} = department;
-    const actionsNewDepartment = [
+export const AddAcademicProgram = ({ onSubmit, academicProgram, colleges, departments, onChange, onDepartmentChange,closeDialogNewAcademicProgram, deleteAcademicProgram}) => {
+    const {name, number_of_semesters, total_number_of_credits,department,college} = academicProgram;
+    const actionsNewAcademicProgram = [
         <IconButton
             tooltip="Cancelar"
-            onClick={closeDialogNewDepartment}
+            onClick={closeDialogNewAcademicProgram}
         >
             <IconCancel/>
         </IconButton>,
         <IconButton
             tooltip="Agregar"
-            form="addnewdepartment"
+            form="addnewacademicProgram"
             type="submit"
         >
             <IconSend/>
@@ -27,11 +27,15 @@ export const AddAcademicProgram = ({ onSubmit, department, colleges, onChange, o
         <MenuItem key={index} value={college.id} primaryText={college.name} />
     );
 
-    if (department.id) actionsNewDepartment.splice(
+    const listOfDepartments = departments.map( (department, index) =>
+        <MenuItem key={index} value={department.id} primaryText={department.name} />
+    );
+
+    if (academicProgram.id) actionsNewAcademicProgram.splice(
         1,
         0,
         <IconButton
-            onClick={()=>deleteDepartment(department.id)}
+            onClick={()=>deleteAcademicProgram(academicProgram.id)}
             tooltip="Eliminar"
         >
             <Icon />
@@ -42,15 +46,15 @@ export const AddAcademicProgram = ({ onSubmit, department, colleges, onChange, o
         <Dialog
             modal={false}
             open
-            actions={actionsNewDepartment}
-            onRequestClose={closeDialogNewDepartment}
+            actions={actionsNewAcademicProgram}
+            onRequestClose={closeDialogNewAcademicProgram}
             contentStyle={{width: '40%'}}
-            title="Agregar un departamento"
+            title="Agregar un programa académico"
         >
-            <form id="addnewdepartment" className="add-department-dialog" onSubmit={onSubmit}>
+            <form id="addnewacademicProgram" className="add-academicProgram-dialog" onSubmit={onSubmit}>
                 <TextField
-                    floatingLabelText="Nombre del departamento"
-                    hintText="ej. Instituto de Ciencias Básicas e Ingeniería"
+                    floatingLabelText="Nombre del programa académico"
+                    hintText="ej. Ciencias computacionales"
                     required
                     name="name"
                     value={name}
@@ -58,18 +62,44 @@ export const AddAcademicProgram = ({ onSubmit, department, colleges, onChange, o
                     fullWidth
                 />
                 <TextField
-                    floatingLabelText="Abreviación"
-                    hintText="ej. ICBI"
-                    required
-                    name="abbreviation"
-                    value={abbreviation}
+                    floatingLabelText="Número de semestres"
+                    hintText="ej. 9"
+                    name="number_of_semesters"
+                    value={number_of_semesters}
                     onChange={onChange}
                     fullWidth
+                    type="number"
+                    min={0}
+                    max={20}
                 />
-                {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
-                <DropDownMenu value={college} onChange={onCollegeChange} style={{width:'100%'}}>
+                <TextField
+                    floatingLabelText="Número total de créditos"
+                    hintText="ej. 560"
+                    name="total_number_of_credits"
+                    value={total_number_of_credits}
+                    onChange={onChange}
+                    fullWidth
+                    type="number"
+                    min={0}
+                    max={50000}
+                />
+
+                <SelectField
+                    floatingLabelText="Universidad"
+                    value={college}
+                    onChange={onDepartmentChange("college")}
+                    style={{width:'100%'}}>
                     {listOfColleges}
-                </DropDownMenu>
+                </SelectField>
+
+                {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
+                <SelectField
+                    floatingLabelText="Departamento"
+                    value={department}
+                    onChange={onDepartmentChange("department")}
+                    style={{width:'100%'}}>
+                    {listOfDepartments}
+                </SelectField>
             </form>
         </Dialog>
     );

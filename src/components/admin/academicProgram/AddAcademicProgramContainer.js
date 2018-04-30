@@ -1,78 +1,80 @@
 import React, {Component,Fragment} from "react";
 import {connect} from 'react-redux';
 import {AddAcademicProgram} from "./AddAcademicProgram";
-import {newDepartment,updateDepartment,deleteDepartment} from "../../../redux/actions/departmentsActions";
+import {newAcademicProgram,updateAcademicProgram,deleteAcademicProgram} from "../../../redux/actions/academicProgramActions";
 import toastr from 'toastr';
 
 class AddAcademicProgramContainer extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            department: {
+            academicProgram: {
                 name: '',
-                abbreviation: '',
-                college: ''
+                number_of_semesters: 0,
+                total_number_of_credits: 0,
+                college: '',
+                department: ''
             }
         };
     }
 
     componentWillMount(){
-        const {fetched, department} = this.props;
+        const {fetched, academicProgram} = this.props;
         if (fetched){
-            if (department) {
-                let depa = {...department};
-                depa.college = depa.college.id;
+            if (academicProgram) {
+                let academicP = {...academicProgram};
+                academicP.department = academicP.department.id;
                 this.setState({
-                    department: depa
+                    academicProgram: academicP
                 })
             }
         }
     }
 
     componentWillReceiveProps(nP){
-        const {fetched, department} = nP;
+        const {fetched, academicProgram} = nP;
         if (fetched){
-            if (department) {
-                let depa = {...department};
-                depa.college = depa.college.id;
+            if (academicProgram) {
+                let academicP = {...academicProgram};
+                academicP.department = academicP.department.id;
                 this.setState({
-                    department: depa
+                    academicProgram: academicP
                 })
             }
         }
     }
 
 
-    changeDepartmentField = (e) => {
-        let {department} = this.state;
-        department[e.target.name] = e.target.value;
-        this.setState({department});
+    changeAcademicProgramField = (e) => {
+        let {academicProgram} = this.state;
+        academicProgram[e.target.name] = e.target.value;
+        this.setState({academicProgram});
     };
 
-    changeCollegeDepartment = (event, index, value) => {
-        let {department} = this.state;
-        department['college'] = value;
-        this.setState({department});
+    changeDepartmentAcademicProgram = name => (event, index, value) => {
+        let {academicProgram} = this.state;
+        academicProgram[name] = value;
+        this.setState({academicProgram});
     };
 
-    addNewDepartment = e => {
+    addNewAcademicProgram = e => {
         e.preventDefault();
-        const {department} = this.state;
-        console.log(department);
-        if (department.id) {
-            this.props.updateDepartment(department)
+        const {academicProgram} = this.state;
+        console.log(academicProgram);
+        if (academicProgram.id) {
+            this.props.updateAcademicProgram(academicProgram)
                 .then(s => {
                     toastr.success("Editado");
-                    this.props.closeDialogNewDepartment();
+                    this.props.closeDialogNewAcademicProgram();
                 }).catch(e => {
                 console.error(e);
                 toastr.error("Ups, ocurrio un problema");
             });
         } else {
-            this.props.newDepartment(department)
+            this.props.newAcademicProgram(academicProgram)
                 .then(s => {
                     toastr.success("Guardado");
-                    this.props.closeDialogNewDepartment();
+                    this.props.closeDialogNewAcademicProgram();
                 }).catch(e => {
                 console.error(e);
                 toastr.error("Ups, ocurrio un problema");
@@ -80,11 +82,11 @@ class AddAcademicProgramContainer extends Component {
         }
     };
 
-    deleteDepartment = id => {
-        this.props.deleteDepartment(id)
+    deleteAcademicProgram = id => {
+        this.props.deleteAcademicProgram(id)
             .then(s => {
                 toastr.warning("Eliminado");
-                this.props.closeDialogNewDepartment();
+                this.props.closeDialogNewAcademicProgram();
             }).catch(e => {
             console.error(e);
             toastr.error("Ups, ocurrio un problema");
@@ -92,22 +94,28 @@ class AddAcademicProgramContainer extends Component {
     };
 
     render() {
-        const {department} = this.state;
-        const {fetched, colleges} = this.props;
-
+        const {academicProgram} = this.state;
+        const {fetched, colleges, departments} = this.props;
+        const copyDepartments = departments.filter( department =>
+            academicProgram.college == department.college.id
+        );
+        const copyColleges = colleges.filter( college =>
+            college.departments.length > 0
+        );
         return (
             <Fragment>
                 {
                     fetched &&
                     <Fragment>
                         <AddAcademicProgram
-                            department={department}
-                            colleges={colleges}
-                            onChange={this.changeDepartmentField}
-                            onCollegeChange={this.changeCollegeDepartment}
-                            onSubmit={this.addNewDepartment}
-                            closeDialogNewDepartment={this.props.closeDialogNewAcademicProgram}
-                            deleteDepartment={this.deleteDepartment}
+                            academicProgram={academicProgram}
+                            colleges={copyColleges}
+                            departments={copyDepartments}
+                            onChange={this.changeAcademicProgramField}
+                            onDepartmentChange={this.changeDepartmentAcademicProgram}
+                            onSubmit={this.addNewAcademicProgram}
+                            closeDialogNewAcademicProgram={this.props.closeDialogNewAcademicProgram}
+                            deleteAcademicProgram={this.deleteAcademicProgram}
                         />
                     </Fragment>
                 }
@@ -120,18 +128,19 @@ class AddAcademicProgramContainer extends Component {
 const mapStateToProps = (state, ownProps) => {
     const id = ownProps.match.params.id;
     console.log(id);
-    let department;
+    let academicProgram;
     if (id != 'new') {
-        department = (state.departments.list.filter( department => department.id == id )[0]);
+        academicProgram = (state.academicPrograms.list.filter( academicProgram => academicProgram.id == id )[0]);
     }
-    console.log('Te amo lupita reyes ',department);
+    console.log('Te amo lupita reyes ',academicProgram);
     return {
-        department,
+        academicProgram,
         colleges: state.colleges.list,
-        fetched: state.departments.areFetched,
+        departments: state.departments.list,
+        fetched: state.academicPrograms.areFetched,
         profileId : state.user.info.profile.id
     }
 };
 
-AddAcademicProgramContainer = connect(mapStateToProps,{newDepartment,updateDepartment,deleteDepartment})(AddAcademicProgramContainer);
+AddAcademicProgramContainer = connect(mapStateToProps,{newAcademicProgram,updateAcademicProgram,deleteAcademicProgram})(AddAcademicProgramContainer);
 export default AddAcademicProgramContainer;
