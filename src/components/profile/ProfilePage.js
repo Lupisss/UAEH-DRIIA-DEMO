@@ -49,13 +49,26 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if (this.props.fetched) {
-            let profile = Object.assign({}, this.props.profile);
+            let profile = JSON.parse(JSON.stringify(this.props.profile));
+            let tutor = JSON.parse(JSON.stringify(this.props.tutor));
+            if(tutor){
+                if(!tutor.address){
+                    tutor.address = {
+                        address1: "",
+                        suburb: "",
+                        city: "",
+                        state: "",
+                        country: "",
+                        zip_code: ""
+                    }
+                }
+            }
             birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(this.props.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: profile,
                 user: this.props.user,
-                tutor: this.props.tutor,
+                tutor,
                 birth_date: birth_date,
                 ssn_expiry_date: ssn_expiry_date
             });
@@ -66,13 +79,26 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if (nP.fetched) {
-            let profile = Object.assign({}, nP.profile);
+            let profile = JSON.parse(JSON.stringify(this.props.profile));
+            let tutor = JSON.parse(JSON.stringify(this.props.tutor));
+            if(tutor){
+                if(!tutor.address){
+                    tutor.address = {
+                        address1: "",
+                        suburb: "",
+                        city: "",
+                        state: "",
+                        country: "",
+                        zip_code: ""
+                    }
+                }
+            }
             birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
                 profile: profile,
                 user: nP.user,
-                tutor: nP.tutor,
+                tutor,
                 birth_date: birth_date,
                 ssn_expiry_date: ssn_expiry_date
             });
