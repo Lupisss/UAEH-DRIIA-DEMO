@@ -108,7 +108,6 @@ class PuLoadFilesPage extends Component {
                                     <RaisedButton label="Regresar al perfil" primary={true} className="boton"/>
                                 </Link>
 
-
                             </div>
 
                         </div>
