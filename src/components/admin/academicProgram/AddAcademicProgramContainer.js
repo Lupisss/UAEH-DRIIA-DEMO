@@ -90,9 +90,9 @@ class AddAcademicProgramContainer extends Component {
                 toastr.warning("Eliminado");
                 this.props.closeDialogNewAcademicProgram();
             }).catch(e => {
-            console.error(e);
-            toastr.error("Ups, ocurrio un problema");
-        });
+                console.error(e);
+                toastr.error("Ups, ocurrio un problema");
+            });
     };
 
     render() {

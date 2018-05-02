@@ -13,7 +13,7 @@ const list = (state = [], action) => {
                 return academicProgram;
             });
         case DELETE:
-            return state.filter( academicProgram => academicProgram.id !== action.academicProgram.id );
+            return state.filter( academicProgram => academicProgram.id !== action.idAcademicProgram );
         default:
             return state;
     }
