@@ -131,8 +131,6 @@ class ProfilePage extends Component {
         let wallPicture = {...this.state.wallPicture};
         if (profilePicture.src === "") delete profile.profilePicture;
         if (wallPicture.src === "") delete profile.wallPicture;
-        profile.user = this.props.user.id;
-        profile.academic_program = profile.academic_program.id;
         console.log('El perfil',profile);
         console.log('Perfil antes de guardar: ',profile);
         this.props.updateProfile(profile)
@@ -231,7 +229,7 @@ class ProfilePage extends Component {
         const {fetched, history, academicPrograms} = this.props;
         const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
-        console.log(profile);
+        console.log('Este es el perfil : ',profile);
         return (
             <Fragment>
                 {

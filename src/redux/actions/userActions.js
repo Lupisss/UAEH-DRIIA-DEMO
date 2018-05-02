@@ -150,15 +150,19 @@ export const updateProfileSuccess = profile => ({
 });
 
 export const updateProfile = profile => (dispatch, getState) => {
-    return ProfileApi.updateProfile(profile)
+    let copyProfile = JSON.parse(JSON.stringify(profile));
+    copyProfile.user = getState().user.info.id;
+    copyProfile.academic_program = profile.academic_program.id;
+    return ProfileApi.updateProfile(copyProfile)
         .then(r => {
-            let myprofile = {...r.data};
-            myprofile.academic_program = getState().academicPrograms.list.filter(aP =>
-                aP.id == myprofile.academic_program
-            )[0];
-            console.log(myprofile);
-            dispatch(updateProfileSuccess(myprofile));
-            return Promise.resolve(myprofile);
+            // let myprofile = {...r.data};
+            // myprofile.academic_program = getState().academicPrograms.list.filter(aP =>
+            //     aP.id == myprofile.academic_program
+            // )[0];
+            // console.log(myprofile);
+            console.log('Esto envio: ',profile);
+            dispatch(updateProfileSuccess(profile));
+            return Promise.resolve(profile);
         }).catch(e => {
             console.log(e);
             return Promise.reject(e.response)
