@@ -1,15 +1,13 @@
 import React, {Component, Fragment} from "react";
 import "./PuLoadFiles.css";
-import {Avatar, IconButton, IconMenu, List, ListItem, MenuItem} from 'material-ui';
+import {Avatar, IconMenu, List, ListItem, RaisedButton} from 'material-ui';
 import {MainLoader} from "../loader/Loader"
 import {connect} from "react-redux";
-import {newFile, deleteFile} from '../../redux/actions/fileActions';
 import {PuUploadFile} from "./PuUploadFile";
 import Done from 'material-ui/svg-icons/action/done';
 import Lack from 'material-ui/svg-icons/content/clear';
-import {green500, grey400} from 'material-ui/styles/colors';
-import toastr from "toastr";
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import {green500} from 'material-ui/styles/colors';
+import {Link} from "react-router-dom";
 
 const listOfRequirements = [
     {name: "Documento de terminos y condiciones", code: "DTC"},
@@ -30,7 +28,6 @@ const listOfRequirements = [
     {name: "Hoja Apertura", code: "HAP"},
 ];
 
-let inputFile ;
 
 class PuLoadFilesPage extends Component {
     constructor(props) {
@@ -68,8 +65,7 @@ class PuLoadFilesPage extends Component {
                         />
                     }
                     rightIconButton={document ? (
-                        <IconMenu >
-                        </IconMenu>
+                        <di> </di>
                     ):null}
                     primaryText={requirement.name}
                     onClick={() => this.viewDocument(requirement)}
@@ -107,6 +103,12 @@ class PuLoadFilesPage extends Component {
                                 <List style={{backgroundColor: '#FFF'}}>
                                     {list}
                                 </List>
+
+                                <Link to="/public">
+                                    <RaisedButton label="Regresar al perfil" primary={true} className="boton"/>
+                                </Link>
+
+
                             </div>
 
                         </div>
