@@ -50,17 +50,17 @@ export const PersonalInformationForm = (
                 />
                 <TextField
                     //style={styles.item}
-                    name="first_name"
-                    value={user.first_name}
-                    onChange={handleUserChange}
+                    name="given_name"
+                    value={profile.given_name}
+                    onChange={handleProfileChange}
                     floatingLabelText="Nombre(s)"
                     hintText="ej. Miguel"
                 />
                 <TextField
                     // style={styles.item}
-                    name="last_name"
-                    value={user.last_name}
-                    onChange={handleUserChange}
+                    name="surname"
+                    value={profile.surname}
+                    onChange={handleProfileChange}
                     floatingLabelText="Apellidos"
                     hintText="ej. González"
                 />
