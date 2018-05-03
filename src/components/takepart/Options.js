@@ -10,9 +10,8 @@ export const Options = ({index, dataSource}) => {
                 floatingLabelText="Universidad"
                 filter={AutoComplete.fuzzyFilter}
                 dataSource={dataSource}
-                maxSearchResults={5}
+                maxSearchResults={10}
             />
-
             <TextField
                 floatingLabelText="País"
                 disabled={true}
