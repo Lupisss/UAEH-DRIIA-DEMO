@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const certificationRepository = () => {
-    const baseURL = 'http://localhost:8000/api/certifications/';
+    const baseURL = 'http://localhost:8000/certifications/';
 
     const tokenName = 'user_uaeh_token';
 

@@ -93,14 +93,18 @@ let profileProto = {
     phone_number: "",
     cellphone_number: "",
     credits_coursed: null,
-    credit_percentage_coursed: null,
+    grade: 0.0,
+    current_semester: 1,
+    credit_percentage_coursed: 0.0,
     nationality: "",
     profilePicture: null,
     wallPicture: null,
     user: null,
     tutor: null,
+    nationality: "",
     academic_program: null,
-    certifications: []
+    given_name: "",
+    surname: ""
 };
 
 export const signin = (user) => (dispatch, getState) => {
@@ -123,6 +127,8 @@ export const signUp = user => (dispatch, getState) => {
             return Auth.getUser()
                 .then(userR => {
                     profileProto.user = userR.data.id;
+                    profileProto.given_name = user.given_name;
+                    profileProto.surname = user.surname;
                     userR.data.profile = profileProto;
                     return ProfileApi.newProfile(profileProto)
                         .then(profileR => {
@@ -380,7 +386,7 @@ export function comprobarUsuario() {
     return function (dispatch, getState) {
         let user = JSON.parse(localStorage.getItem(tokenName));
         if (user) {
-            Auth.getUser()
+            return Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
                     dispatch(getTutor());

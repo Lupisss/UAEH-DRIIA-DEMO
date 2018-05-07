@@ -3,7 +3,7 @@ import {Paper, RaisedButton, TextField} from "material-ui";
 import {Link} from 'react-router-dom';
 //Crear un usuario
 export const SignupComponent = ({
-                                    user:{name, email, lastName, password, password2},
+                                    user:{given_name, email, surname, password, password2},
                                     onSubmit,
                                     onChange,
                                     errors
@@ -17,18 +17,18 @@ export const SignupComponent = ({
                 <TextField
                     fullWidth={true}
                     hintText="ej. Guadalupe"
-                    floatingLabelText="Nombre"
-                    value={name}
-                    name="name"
+                    floatingLabelText="Nombre(s)"
+                    value={given_name}
+                    name="given_name"
                     onChange={onChange}
                     required={true}
                 />
                 <TextField
                     fullWidth={true}
                     hintText="ej.Reyes"
-                    floatingLabelText="Apellido"
-                    value={lastName}
-                    name="lastName"
+                    floatingLabelText="Apellido(s)"
+                    value={surname}
+                    name="surname"
                     onChange={onChange}
                     required={true}
                 />

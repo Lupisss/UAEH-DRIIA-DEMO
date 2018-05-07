@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const departmentRepository = () => {
-    const baseURL = 'http://localhost:8000/api/departments/';
+    const baseURL = 'http://localhost:8000/departments/';
     const tokenName = 'user_uaeh_token';
 
     const getLocalToken = () => {

@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const addressRepository = () => {
-    const baseURL = 'http://localhost:8000/api/addresses/';
+    const baseURL = 'http://localhost:8000/addresses/';
 
     const tokenName = 'user_uaeh_token';
 

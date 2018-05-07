@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const subjectToCurseRepository = () => {
-    const baseURL = 'http://localhost:8000/api/subjectToCurses/';
+    const baseURL = 'http://localhost:8000/subjectToCurses/';
     const tokenName = 'user_uaeh_token';
 
     const getLocalToken = () => {

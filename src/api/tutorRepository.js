@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const tutorRepository = () => {
-    const baseURL = 'http://localhost:8000/api/tutor/';
+    const baseURL = 'http://localhost:8000/tutor/';
 
     const tokenName = 'user_uaeh_token';
 

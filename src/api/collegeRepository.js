@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const collegeRepository = () => {
-    const baseURL = 'http://localhost:8000/api/colleges/';
+    const baseURL = 'http://localhost:8000/colleges/';
     const tokenName = 'user_uaeh_token';
     const getLocalToken = () => {
         return JSON.parse(localStorage.getItem(tokenName))

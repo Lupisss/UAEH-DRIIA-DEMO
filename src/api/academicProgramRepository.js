@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const academicProgramRepository = () => {
-    const baseURL = 'http://localhost:8000/api/academic_programs/';
+    const baseURL = 'http://localhost:8000/academic_programs/';
     const tokenName = 'user_uaeh_token';
 
     const getLocalToken = () => {

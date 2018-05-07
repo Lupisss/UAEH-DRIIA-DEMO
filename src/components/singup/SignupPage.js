@@ -10,8 +10,8 @@ class SignupPage extends Component {
         super(props);
         this.state = {
             user:{
-                name:'',
-                lastName:'',
+                given_name:'',
+                surname:'',
                 email:'',
                 password:'',
                 password2:''
@@ -65,11 +65,13 @@ class SignupPage extends Component {
 
     handleSubmit =(event) => {
         event.preventDefault();
-        const {email,password,password2} = this.state.user;
+        const {email,password,password2, given_name, surname} = this.state.user;
         let user = {};
         user.email = user.username = email;
         user.password1 = password;
         user.password2 = password2;
+        user.given_name = given_name;
+        user.surname = surname;
         console.log(user);
         this.props.signUp(user)
             .then( r => {
