@@ -63,6 +63,16 @@ class ProfilePage extends Component {
                     }
                 }
             }
+            if(profile){
+                if(!profile.academic_program){
+                    profile.academic_program = {
+                        id : null,
+                        name :"",
+                        number_of_semesters :0,
+                        total_number_of_credits :0
+                    }
+                }
+            }
             birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(this.props.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
@@ -90,6 +100,16 @@ class ProfilePage extends Component {
                         state: "",
                         country: "",
                         zip_code: ""
+                    }
+                }
+            }
+            if(profile){
+                if(!profile.academic_program){
+                    profile.academic_program = {
+                            id : null,
+                            name :"",
+                            number_of_semesters :0,
+                            total_number_of_credits :0
                     }
                 }
             }

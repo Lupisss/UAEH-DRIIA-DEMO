@@ -1,5 +1,5 @@
 import React from "react";
-import {DropDownMenu, MenuItem, Card, CardHeader, CardText, TextField} from "material-ui";
+import {SelectField, MenuItem, Card, CardHeader, CardText, TextField} from "material-ui";
 import {SaveButton} from "./SaveButton";
 
 export const AcademicInfoForm = (
@@ -36,14 +36,15 @@ export const AcademicInfoForm = (
             />
             <CardText expandable>
                 <form onSubmit={onSubmit} className="Section-form">
-                    <DropDownMenu
+                    <SelectField
+                        floatingLabelText="Programa académico"
                         autoWidth={false}
                         value={id}
                         style={{marginTop: 14, width: 256}}
                         onChange={handleDropDownChange("academic_program")}
                     >
                         {academicProgramsForDropDown}
-                    </DropDownMenu>
+                    </SelectField>
                     <TextField
                         // style={styles.item}
                         floatingLabelText="Número de semestres"

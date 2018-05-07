@@ -92,7 +92,7 @@ let profileProto = {
     secondary_email: "",
     phone_number: "",
     cellphone_number: "",
-    credits_coursed: null,
+    credits_coursed: 0.0,
     grade: 0.0,
     current_semester: 1,
     credit_percentage_coursed: 0.0,
