@@ -1,6 +1,6 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth, ProfileApi, AddressApi, CertificationApi} from '../../api/repos';
+import {Auth, ProfileApi, AddressApi, CertificationApi, TutorApi} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 import {getDepartments} from "./departmentsActions";
 import {getAcademicPrograms} from "./academicProgramActions";
@@ -121,6 +121,14 @@ export const signin = (user) => (dispatch, getState) => {
         });
 };
 
+const tutorBlank = {
+    full_name: "",
+    relationship: "F",
+    email: "",
+    phone_number: "",
+    cellphone_number: ""
+};
+
 export const signUp = user => (dispatch, getState) => {
     return Auth.signUp(user)
         .then(tokenR => {
@@ -130,13 +138,31 @@ export const signUp = user => (dispatch, getState) => {
                     profileProto.given_name = user.given_name;
                     profileProto.surname = user.surname;
                     userR.data.profile = profileProto;
-                    return ProfileApi.newProfile(profileProto)
-                        .then(profileR => {
-                            dispatch(loginSuccess(userR.data));
-                            return Promise.resolve(userR.data);
-                        }).catch(e => {
-                            console.log(e.response);
-                            return Promise.reject(e.response);
+                    return TutorApi.newTutor(tutorBlank)
+                        .then( tutor => {
+                            profileProto.tutor = tutor.id;
+                            return ProfileApi.newProfile(profileProto)
+                                .then( profileR => {
+                                    console.log(userR.data);
+                                    dispatch(loginSuccess(userR.data));
+                                    dispatch(getTutor());
+                                    dispatch(getDepartments());
+                                    dispatch(getAcademicPrograms());
+                                    dispatch(getProfiles());
+                                    dispatch(getFiles());
+                                    dispatch(getColleges());
+                                    dispatch(fetchedSuccess());
+                                    return Promise.resolve(userR.data);
+                                    debugger;
+                                }).catch(e => {
+                                    console.log("No se pudo crear el tutor");
+                                    console.log(e.response);
+                                    return Promise.reject(e.response);
+                                });
+
+                        })
+                        .catch(e => {
+                            console.log(e);
                         });
                 }).catch(e => {
                     console.log(e.response);
