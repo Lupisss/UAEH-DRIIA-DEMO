@@ -143,6 +143,7 @@ export const signUp = user => (dispatch, getState) => {
                             profileProto.tutor = tutor.id;
                             return ProfileApi.newProfile(profileProto)
                                 .then( profileR => {
+                                    userR.data.profile.id = profileR.id;
                                     console.log(userR.data);
                                     dispatch(loginSuccess(userR.data));
                                     dispatch(getTutor());
@@ -153,7 +154,6 @@ export const signUp = user => (dispatch, getState) => {
                                     dispatch(getColleges());
                                     dispatch(fetchedSuccess());
                                     return Promise.resolve(userR.data);
-                                    debugger;
                                 }).catch(e => {
                                     console.log("No se pudo crear el tutor");
                                     console.log(e.response);
@@ -185,6 +185,7 @@ export const updateProfile = profile => (dispatch, getState) => {
     let copyProfile = JSON.parse(JSON.stringify(profile));
     copyProfile.user = getState().user.info.id;
     copyProfile.academic_program = profile.academic_program.id;
+    console.log("Esta es la copia delp erfil que se debe mandar: ",copyProfile);
     return ProfileApi.updateProfile(copyProfile)
         .then(r => {
             // let myprofile = {...r.data};

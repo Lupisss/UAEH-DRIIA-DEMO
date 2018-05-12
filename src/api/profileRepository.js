@@ -17,10 +17,10 @@ const profileRepository = () => {
             instance.post("", profile)
                 .then(r => {
                     console.log(r);
-                    resolve(r);
+                    resolve(r.data);
                 }).catch(e => {
                     console.log(e.response);
-                    reject(e);
+                    reject(e.response);
             });
         });
     };
@@ -80,11 +80,11 @@ const profileRepository = () => {
 
             instance.patch(profile.id + "/", profile)
                 .then(r => {
-                    console.log(r);
-                    resolve(r);
+                    console.log(r.data);
+                    resolve(r.data);
                 }).catch(e => {
                 console.log(e.response);
-                reject(e);
+                reject(e.response);
             });
         });
     };
