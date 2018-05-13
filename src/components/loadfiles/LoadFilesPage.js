@@ -137,7 +137,7 @@ class LoadFilesPage extends Component {
                     rightIconButton={document ? (
                         <IconMenu iconButtonElement={iconButtonElement}>
                             {/*TODO finish edit*/}
-                            <MenuItem onClick={()=>{this.viewDocument(document); inputFile.click()}}>Editar</MenuItem>
+                            {/*<MenuItem onClick={()=>{this.viewDocument(document); inputFile.click()}}>Editar</MenuItem>*/}
                             <MenuItem onClick={()=>this.deleteFile(document)}>Eliminar</MenuItem>
                         </IconMenu>
                     ):null}
