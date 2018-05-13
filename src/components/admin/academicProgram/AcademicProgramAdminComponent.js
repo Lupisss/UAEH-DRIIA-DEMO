@@ -20,9 +20,9 @@ export const AcademicProgramAdminComponent = ({data, search, onChange}) => {
                 onChange={onChange}
                 value={search}
             />
-            <Table>
+            <Table selectable={false}>
                 {/* crea la tabla que muestra a las universidades registradas */}
-                <TableHeader>
+                <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                     <TableRow >
                         <TableHeaderColumn colSpan={3} tooltip="Lista de alumnos">
                             Lista de programas académicos
@@ -33,15 +33,15 @@ export const AcademicProgramAdminComponent = ({data, search, onChange}) => {
                         <TableHeaderColumn>Programa académico</TableHeaderColumn>
                         <TableHeaderColumn>Número de semestres</TableHeaderColumn>
                         <TableHeaderColumn>Créditos</TableHeaderColumn>
-                        <TableHeaderColumn>Detalle</TableHeaderColumn>
+                        <TableHeaderColumn>Editar</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
 
                 {/*Cuerpo de la tabla */}
-                <TableBody>
+                <TableBody displayRowCheckbox={false}>
                     {dataToDisplay}
                 </TableBody>
-                <TableFooter>
+                <TableFooter adjustForCheckbox={false}>
 
                 </TableFooter>
             </Table>

@@ -14,7 +14,8 @@ class AddAcademicProgramContainer extends Component {
                 total_number_of_credits: 0,
                 college: '',
                 department: ''
-            }
+            },
+            errors: {}
         };
     }
 
@@ -56,11 +57,14 @@ class AddAcademicProgramContainer extends Component {
     changeDepartmentAcademicProgram = name => (event, index, value) => {
         let {academicProgram} = this.state;
         academicProgram[name] = value;
-        this.setState({academicProgram});
+        this.setState({academicProgram} , () => {
+            this.isSomethingBad();
+        });
     };
 
     addNewAcademicProgram = e => {
         e.preventDefault();
+        if (this.isSomethingBad()) return;
         const {academicProgram} = this.state;
         console.log(academicProgram);
         if (academicProgram.id) {
@@ -84,6 +88,30 @@ class AddAcademicProgramContainer extends Component {
         }
     };
 
+    isSomethingBad = () => {
+        let academicProgram = {...this.state.academicProgram};
+        let {errors} = this.state;
+        let error = false;
+
+        if(academicProgram.college === ""){
+            errors['college'] = 'Debes indicar una universidad'
+            error = true;
+        }else {
+            delete errors['college'];
+        }
+
+
+        if(academicProgram.department === ""){
+            error = true;
+            errors['department'] = 'Debes indicar un departamento'
+        }else {
+            delete errors['department'];
+        }
+
+        this.setState({errors});
+        return error;
+    };
+
     deleteAcademicProgram = id => {
         this.props.deleteAcademicProgram(id)
             .then(s => {
@@ -96,7 +124,7 @@ class AddAcademicProgramContainer extends Component {
     };
 
     render() {
-        const {academicProgram} = this.state;
+        const {academicProgram, errors} = this.state;
         const {fetched, colleges, departments} = this.props;
         const copyDepartments = departments.filter( department =>
             academicProgram.college == department.college.id
@@ -118,6 +146,7 @@ class AddAcademicProgramContainer extends Component {
                             onSubmit={this.addNewAcademicProgram}
                             closeDialogNewAcademicProgram={this.props.closeDialogNewAcademicProgram}
                             deleteAcademicProgram={this.deleteAcademicProgram}
+                            errors={errors}
                         />
                     </Fragment>
                 }

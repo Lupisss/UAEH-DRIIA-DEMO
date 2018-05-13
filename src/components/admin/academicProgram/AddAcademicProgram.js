@@ -5,7 +5,7 @@ import Icon from 'material-ui/svg-icons/action/delete';
 import IconSend from 'material-ui/svg-icons/content/send';
 import IconCancel from 'material-ui/svg-icons/navigation/close';
 
-export const AddAcademicProgram = ({ onSubmit, academicProgram, colleges, departments, onChange, onDepartmentChange,closeDialogNewAcademicProgram, deleteAcademicProgram}) => {
+export const AddAcademicProgram = ({ onSubmit, academicProgram, colleges, departments, onChange, onDepartmentChange,closeDialogNewAcademicProgram, deleteAcademicProgram, errors: {department : departmentError, college : collegeError}}) => {
     const {name, number_of_semesters, total_number_of_credits,department,college} = academicProgram;
     const actionsNewAcademicProgram = [
         <IconButton
@@ -70,7 +70,7 @@ export const AddAcademicProgram = ({ onSubmit, academicProgram, colleges, depart
                     fullWidth
                     type="number"
                     min={0}
-                    max={20}
+                    max={99}
                 />
                 <TextField
                     floatingLabelText="Número total de créditos"
@@ -81,23 +81,29 @@ export const AddAcademicProgram = ({ onSubmit, academicProgram, colleges, depart
                     fullWidth
                     type="number"
                     min={0}
-                    max={50000}
+                    max={99999}
                 />
 
                 <SelectField
+                    required
                     floatingLabelText="Universidad"
                     value={college}
                     onChange={onDepartmentChange("college")}
-                    style={{width:'100%'}}>
+                    style={{width:'100%'}}
+                    errorText={collegeError}
+                >
                     {listOfColleges}
                 </SelectField>
 
                 {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
                 <SelectField
+                    required
                     floatingLabelText="Departamento"
                     value={department}
                     onChange={onDepartmentChange("department")}
-                    style={{width:'100%'}}>
+                    style={{width:'100%'}}
+                    errorText={departmentError}
+                >
                     {listOfDepartments}
                 </SelectField>
             </form>
