@@ -14,7 +14,8 @@ import {Link} from 'react-router-dom';
 import {SearchField} from "../SearchField";
 
 export const StudentAdminComponent = ({data, search, onChange}) => {
-    const dataToDisplay = data.map( (field,key) => {
+    const filtered = data.filter( field => !field.user.is_staff) ;
+    const dataToDisplay = filtered.map( (field,key) => {
        return <MyRow {...this.props} key={key} rowData={field}/>
     });
     return (
@@ -29,28 +30,29 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
                 value={search}
             />
             {/* crea la tabla que muestra a los alumnos registrados */}
-            <Table>
-                <TableHeader>
+            <Table selectable={false}>
+                <TableHeader adjustForCheckbox={false} displaySelectAll={false}>
                     <TableRow >
-                        <TableHeaderColumn colSpan={3} tooltip="Lista de alumnos">
+                        <TableHeaderColumn colSpan={5} tooltip="Lista de alumnos">
                             Lista de alumnos
                         </TableHeaderColumn>
                     </TableRow>
                     <TableRow>
                         {/*Crea las columnas de la tabla */}
-                        <TableHeaderColumn>No Cuenta</TableHeaderColumn>
+                        <TableHeaderColumn>No. Cuenta</TableHeaderColumn>
                         <TableHeaderColumn>Apellido(s)</TableHeaderColumn>
                         <TableHeaderColumn>Nombre(s)</TableHeaderColumn>
+                        <TableHeaderColumn>Email</TableHeaderColumn>
                         <TableHeaderColumn>Detalle</TableHeaderColumn>
                     </TableRow>
                 </TableHeader>
 
                 {/* crea el cuerpo de la tabla */}
-                <TableBody>
+                <TableBody displayRowCheckbox={false}>
                     {dataToDisplay}
                 </TableBody>
                 {/*Pies de la tabla */}
-                <TableFooter>
+                <TableFooter adjustForCheckbox={false}>
 
                 </TableFooter>
             </Table>
@@ -63,9 +65,10 @@ const MyRow = ({rowData, ...props}) => {
         <TableRow {...props}>
             {props.children[0]}
             {/* pone los valores de la tabla, cuenta, nombre y escuela */}
-            <TableRowColumn>{rowData.academicId}</TableRowColumn>
+            <TableRowColumn>{ rowData.academicId = "" || !rowData.academicId? "No asignado" : rowData.academicId }</TableRowColumn>
             <TableRowColumn>{rowData.surname}</TableRowColumn>
             <TableRowColumn>{rowData.given_name}</TableRowColumn>
+            <TableRowColumn>{rowData.user.email}</TableRowColumn>
             <TableRowColumn>
 
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}

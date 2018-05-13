@@ -19,7 +19,7 @@ class StudentAdminPage extends Component {
         console.log(profiles);
         let items = [...profiles];
         const regEx = new RegExp(search,'i');
-        items = items.filter(item => regEx.test(item.surname)|| regEx.test(item.academicId) || regEx.test(item.given_name));
+        items = items.filter(item => regEx.test(item.surname)|| regEx.test(item.academicId) || regEx.test(item.given_name) || regEx.test(item.user.email));
         return (
             <Fragment>
                 {
