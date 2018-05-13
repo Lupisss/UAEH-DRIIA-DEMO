@@ -30,7 +30,7 @@ class CollegeAdminPage extends Component {
         console.log(colleges);
         let items = [...colleges];
         const regEx = new RegExp(search,'i');
-        items = items.filter(item => regEx.test(item.name));
+        items = items.filter(item => regEx.test(item.name) || regEx.test(item.country));
         const AddCollegeRender = props => (
             <AddCollege
                 closeDialogNewCollege={this.closeDialogNewCollege}

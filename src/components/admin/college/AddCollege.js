@@ -86,6 +86,7 @@ export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeD
                     value={name}
                     onChange={onChange}
                     fullWidth={true}
+                    required
                 />
                 {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
                 <DropDownMenu value={country} onChange={onCountryChange} style={{width:'100%'}}>
