@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DropDownMenu, MenuItem, RaisedButton, TextField} from 'material-ui';
+import {Dialog, DropDownMenu, MenuItem, RaisedButton, SelectField, TextField} from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/svg-icons/action/delete';
 import IconSend from 'material-ui/svg-icons/content/send';
@@ -77,7 +77,7 @@ export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeD
             actions={actionsNewCollege}
             onRequestClose={closeDialogNewCollege}
             contentStyle={{width: '40%'}}
-            title="Agregar una universidad"
+            title={college.id ? "Editar Universidad" : "Agregar una universidad"}
         >
             <form id="addnewcollege" className="add-college-dialog" onSubmit={onSubmit}>
                 <TextField
@@ -87,9 +87,10 @@ export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeD
                     onChange={onChange}
                     fullWidth={true}
                     required
+                    maxLength={60}
                 />
                 {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
-                <DropDownMenu value={country} onChange={onCountryChange} style={{width:'100%'}}>
+                <SelectField floatingLabelText={"País"} value={country} onChange={onCountryChange} style={{width:'100%'}}>
                     <MenuItem value={USA}               primaryText='Estados Unidos de América' />
                     <MenuItem value={CANADA}            primaryText='Canadá'                    />
                     <MenuItem value={MEXICO}            primaryText='México'                    />
@@ -116,7 +117,7 @@ export const AddCollege = ({ onSubmit, college, onChange, onCountryChange,closeD
                     <MenuItem value={INDIA}             primaryText='India'                     />
                     <MenuItem value={TAILANDIA}         primaryText='Tailandia'                 />
                     <MenuItem value={COREA_SUR}         primaryText='Corea del Sur'             />
-                </DropDownMenu>
+                </SelectField>
             </form>
         </Dialog>
     );

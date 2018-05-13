@@ -1,5 +1,5 @@
 import React from 'react';
-import {Dialog, DropDownMenu, MenuItem, RaisedButton, TextField} from 'material-ui';
+import {Dialog, DropDownMenu, MenuItem, RaisedButton, SelectField, TextField} from 'material-ui';
 import IconButton from 'material-ui/IconButton';
 import Icon from 'material-ui/svg-icons/action/delete';
 import IconSend from 'material-ui/svg-icons/content/send';
@@ -45,7 +45,7 @@ export const AddDepartment = ({ onSubmit, department, colleges, onChange, onColl
             actions={actionsNewDepartment}
             onRequestClose={closeDialogNewDepartment}
             contentStyle={{width: '40%'}}
-            title="Agregar un departamento"
+            title={department.id ? "Editar departamento": "Agregar un departamento"}
         >
             <form id="addnewdepartment" className="add-department-dialog" onSubmit={onSubmit}>
                 <TextField
@@ -56,6 +56,7 @@ export const AddDepartment = ({ onSubmit, department, colleges, onChange, onColl
                     value={name}
                     onChange={onChange}
                     fullWidth
+                    maxLength={100}
                 />
                 <TextField
                     floatingLabelText="Abreviación"
@@ -65,11 +66,12 @@ export const AddDepartment = ({ onSubmit, department, colleges, onChange, onColl
                     value={abbreviation}
                     onChange={onChange}
                     fullWidth
+                    maxLength={10}
                 />
                 {/*Menu que está en el formulario para agregar universidad, el value son las constantes declaradas arriba  */}
-                <DropDownMenu value={college} onChange={onCollegeChange} style={{width:'100%'}}>
+                <SelectField floatingLabelText="Universidad" value={college} onChange={onCollegeChange} style={{width:'100%'}}>
                     {listOfColleges}
-                </DropDownMenu>
+                </SelectField>
             </form>
         </Dialog>
     );
