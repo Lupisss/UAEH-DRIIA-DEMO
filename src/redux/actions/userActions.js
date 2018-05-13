@@ -82,12 +82,12 @@ export const logIn = user => (dispatch, getState) => {
 let profileProto = {
     gender: "M",
     academicId: "",
-    birth_date: null,
+    birth_date: "1990-01-01",
     curp: "",
     about: "",
     passport_number: "",
     ssn_number: "",
-    ssn_expiry_date: null,
+    ssn_expiry_date: "2020-02-02",
     vote_key: "",
     secondary_email: "",
     phone_number: "",
@@ -99,7 +99,6 @@ let profileProto = {
     nationality: "",
     profilePicture: null,
     wallPicture: null,
-    user: null,
     tutor: null,
     nationality: "",
     academic_program: null,
@@ -183,6 +182,7 @@ export const updateProfileSuccess = profile => ({
 
 export const updateProfile = profile => (dispatch, getState) => {
     let copyProfile = JSON.parse(JSON.stringify(profile));
+    let copyProfile2 = JSON.parse(JSON.stringify(profile));
     copyProfile.user = getState().user.info.id;
     copyProfile.academic_program = profile.academic_program.id;
     console.log("Esta es la copia delp erfil que se debe mandar: ",copyProfile);
@@ -193,9 +193,9 @@ export const updateProfile = profile => (dispatch, getState) => {
             //     aP.id == myprofile.academic_program
             // )[0];
             // console.log(myprofile);
-            console.log('Esto envio: ',profile);
-            dispatch(updateProfileSuccess(profile));
-            return Promise.resolve(profile);
+            console.log('Esto envio: ',copyProfile2);
+            dispatch(updateProfileSuccess(copyProfile2));
+            return Promise.resolve(copyProfile2);
         }).catch(e => {
             console.log(e);
             return Promise.reject(e.response)

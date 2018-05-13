@@ -7,7 +7,7 @@ import {
     CardHeader,
     Card,
     CardText,
-    RaisedButton
+    RaisedButton, SelectField
 } from "material-ui";
 import {SaveButton} from "./SaveButton";
 //import IconSVG from 'material-ui/svg-icons/navigation/arrow-downward';
@@ -64,7 +64,8 @@ export const PersonalInformationForm = (
                     floatingLabelText="Apellidos"
                     hintText="ej. González"
                 />
-                <DropDownMenu
+                <SelectField
+                    floatingLabelText="Género"
                     autoWidth={false}
                     value={profile.gender}
                     onChange={handleDropDownChange("gender")}
@@ -73,7 +74,7 @@ export const PersonalInformationForm = (
                     <MenuItem value="M" primaryText="Masculino"/>
                     <MenuItem value="F" primaryText="Femenino"/>
                     <MenuItem value="U" primaryText="Prefiero no decir"/>
-                </DropDownMenu>
+                </SelectField>
                 <TextField
                     // style={styles.item}
                     name="nationality"

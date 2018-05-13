@@ -76,7 +76,7 @@ class ProfilePage extends Component {
             birth_date = profile.birth_date ? moment(this.props.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(this.props.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
-                profile: profile,
+                profile,
                 user: this.props.user,
                 tutor,
                 birth_date: birth_date,
@@ -89,8 +89,8 @@ class ProfilePage extends Component {
         let birth_date = {};
         let ssn_expiry_date = {};
         if (nP.fetched) {
-            let profile = JSON.parse(JSON.stringify(this.props.profile));
-            let tutor = JSON.parse(JSON.stringify(this.props.tutor));
+            let profile = JSON.parse(JSON.stringify(nP.profile));
+            let tutor = JSON.parse(JSON.stringify(nP.tutor));
             if(tutor){
                 if(!tutor.address){
                     tutor.address = {
@@ -116,7 +116,7 @@ class ProfilePage extends Component {
             birth_date = profile.birth_date ? moment(nP.profile.birth_date, "YYYY-MM-DD").toDate() : {};
             ssn_expiry_date = profile.ssn_expiry_date ? moment(nP.profile.ssn_expiry_date, "YYYY-MM-DD").toDate() : {};
             this.setState({
-                profile: profile,
+                profile,
                 user: nP.user,
                 tutor,
                 birth_date: birth_date,
