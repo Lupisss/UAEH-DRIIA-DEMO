@@ -52,10 +52,12 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
                     >
                         {
                             !user.is_staff &&
-                            <Fragment>
-                                <MenuItem containerElement={ <Link to="/takePart"/> } primaryText="Iniciar proceso" />
-                                <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
-                            </Fragment>
+                            <MenuItem containerElement={<Link to="/takePart"/>} primaryText="Iniciar proceso"/>
+                        }
+                        {
+                            !user.is_staff &&
+                            <MenuItem containerElement={ <Link to="/loadFiles"/> } primaryText="Subir archivos" />
+
                         }
 
                         <MenuItem onClick={logOut} containerElement={ <Link to="/"/> } primaryText="Cerrar sesión" />
