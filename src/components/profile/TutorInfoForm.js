@@ -7,7 +7,7 @@ import {
     CardTitle,
     CardText,
     Subheader,
-    TextField
+    TextField, SelectField, Divider
 } from "material-ui";
 import {SaveButton} from "./SaveButton";
 
@@ -44,6 +44,7 @@ export const TutorInfoForm = (
                         onChange={onChange}
                         floatingLabelText="Nombre completo"
                         hintText="ej Miguel R. Gonzalez Duron"
+                        maxLength={100}
                     />
                     {/*<TextField*/}
                     {/*// style={styles.item}*/}
@@ -58,21 +59,22 @@ export const TutorInfoForm = (
                         onChange={onChange}
                         floatingLabelText="Email"
                         hintText="ej algo@ejemplo.com"
+                        maxLength={60}
                     />
-                    <DropDownMenu
+                    <SelectField
                         autoWidth={false}
                         value={relationship}
                         onChange={onDropDown("relationship")}
                         style={{marginTop: 14, width: 256}}
+                        floatingLabelText={"Parentesco"}
                     >
-                        <Subheader>Parentesco</Subheader>
                         <MenuItem value="GM" primaryText="Abuela"/>
                         <MenuItem value="GF" primaryText="Abuelo"/>
                         <MenuItem value="M" primaryText="Madre"/>
                         <MenuItem value="F" primaryText="Padre"/>
                         <MenuItem value="U" primaryText="Tío"/>
                         <MenuItem value="A" primaryText="Tía"/>
-                    </DropDownMenu>
+                    </SelectField>
 
                     <TextField
                         // style={styles.item}
@@ -80,8 +82,9 @@ export const TutorInfoForm = (
                         value={phone_number}
                         onChange={onChange}
                         floatingLabelText="Teléfono fijo"
-                        hintText="ej 771 567 XX XX"
+                        hintText="ej 7715671213"
                         type="tel"
+                        pattern="[0-9]{10}"
                     />
                     <TextField
                         // style={styles.item}
@@ -89,9 +92,13 @@ export const TutorInfoForm = (
                         value={cellphone_number}
                         onChange={onChange}
                         floatingLabelText="Telefono móvil"
-                        hintText="ej 771 567 XX XX"
+                        hintText="ej 7715671213"
                         type="tel"
+                        pattern="[0-9]{10}"
                     />
+                    <span style={{width:'60%', marginTop:20, marginBottom: 10}}>{""}</span>
+                    <p style={{fontSize: '1.2rem', width: '100%'}}>Dirección del tutor</p>
+                    {/* TODO make functionality */}
                     <TextField
                         // style={styles.item}
                         name="address.address1"
