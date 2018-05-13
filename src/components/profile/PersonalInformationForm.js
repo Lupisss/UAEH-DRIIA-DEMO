@@ -47,6 +47,9 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Numero de Cuenta"
                     hintText="244755"
+                    type="number"
+                    min={1}
+                    max={999999}
                 />
                 <TextField
                     //style={styles.item}
@@ -55,6 +58,7 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Nombre(s)"
                     hintText="ej. Miguel"
+                    maxLength={100}
                 />
                 <TextField
                     // style={styles.item}
@@ -63,6 +67,7 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Apellidos"
                     hintText="ej. González"
+                    maxLength={100}
                 />
                 <SelectField
                     floatingLabelText="Género"
@@ -82,6 +87,7 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Nacionalidad"
                     hintText="ej Mexicana"
+                    maxLength={30}
                 />
                 <DatePicker
                     name="birth_date"
@@ -97,6 +103,7 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Curp"
                     hintText="ej GODM90290995HDFNRG06"
+                    maxLength={20}
                 />
                 <TextField
                     // style={styles.item}
@@ -105,11 +112,13 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Número de pasaporte"
                     hintText="ej G15XXXXXX"
+                    maxLength={20}
                 />
                 <TextField
                     name="ssn_number"
                     value={profile.ssn_number}
                     onChange={handleProfileChange}
+                    maxLength={20}
                     // style={styles.item}
                     floatingLabelText="Número de seguro social"
                     hintText="ej 13MD1323"
@@ -128,6 +137,7 @@ export const PersonalInformationForm = (
                     onChange={handleProfileChange}
                     floatingLabelText="Clave de Elector"
                     hintText="ej GSDH45654XXXX"
+                    maxLength={20}
                 />
                 <TextField
                     // style={styles.item}
@@ -137,6 +147,7 @@ export const PersonalInformationForm = (
                     floatingLabelText="Email alterno"
                     hintText="ej alguien@ejemplo.com"
                     type="email"
+                    maxLength={100}
                 />
                 <TextField
                     // style={styles.item}
@@ -144,8 +155,9 @@ export const PersonalInformationForm = (
                     value={profile.phone_number}
                     onChange={handleProfileChange}
                     floatingLabelText="Teléfono fijo"
-                    hintText="ej 771 567 XX XX"
+                    hintText="ej 7715677069"
                     type="tel"
+                    pattern="[0-9]{10}"
                 />
                 <TextField
                     // style={styles.item}
@@ -153,8 +165,9 @@ export const PersonalInformationForm = (
                     value={profile.cellphone_number}
                     onChange={handleProfileChange}
                     floatingLabelText="Telefono móvil"
-                    hintText="ej 771 567 XX XX"
+                    hintText="ej 7715677069"
                     type="tel"
+                    pattern="[0-9]{10}"
                 />
                 <SaveButton/>
                 {/*<div style={{width:'100%', margin:'20px 10px 10px'}}>*/}
