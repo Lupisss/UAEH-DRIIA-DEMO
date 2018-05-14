@@ -37,6 +37,12 @@ export const logIn = user => (dispatch, getState) => {
                 .then(r => {
                     console.log('El perfil',r.data);
                     dispatch(loginSuccess(r.data));
+                    dispatch(getTutor());
+                    dispatch(getDepartments());
+                    dispatch(getAcademicPrograms());
+                    dispatch(getProfiles());
+                    dispatch(getFiles());
+                    dispatch(getColleges());
                     dispatch(fetchedSuccess());
                     console.log(token);
                     return Promise.resolve(token)
