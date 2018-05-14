@@ -9,7 +9,11 @@ class PuProfilePage extends Component {
         super(props);
         this.state = {};
     }
-
+    /* TODO
+    *   Arreglar información
+    *   Hacer que se vea más bonito
+    *   Quitar campos que no estan completos
+    */
     render() {
         const {fetched, profile, user, tutor} = this.props;
         console.log('3456789kihugyftdfcghjkug', tutor);

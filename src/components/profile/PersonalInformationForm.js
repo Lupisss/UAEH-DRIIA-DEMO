@@ -169,6 +169,17 @@ export const PersonalInformationForm = (
                     type="tel"
                     pattern="[0-9]{10}"
                 />
+                <TextField
+                    // style={styles.item}
+                    name="about"
+                    value={profile.about}
+                    onChange={handleProfileChange}
+                    floatingLabelText="Acerca de mí"
+                    hintText="Soy ... me gusta ..."
+                    maxLength={500}
+                    multiLine={true}
+                    rowsMax={6}
+                />
                 <SaveButton/>
                 {/*<div style={{width:'100%', margin:'20px 10px 10px'}}>*/}
                 {/*<IconButton tooltip="Guardar cambios" onClick={scrollToSave}>*/}

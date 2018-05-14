@@ -190,6 +190,7 @@ export const updateProfile = profile => (dispatch, getState) => {
     let copyProfile = JSON.parse(JSON.stringify(profile));
     let copyProfile2 = JSON.parse(JSON.stringify(profile));
     copyProfile.user = getState().user.info.id;
+    copyProfile.tutor = copyProfile.tutor.id;
     copyProfile.academic_program = profile.academic_program.id;
     console.log("Esta es la copia delp erfil que se debe mandar: ",copyProfile);
     return ProfileApi.updateProfile(copyProfile)
