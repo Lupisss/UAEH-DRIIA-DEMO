@@ -2,9 +2,6 @@ import React, {Component, Fragment} from "react";
 import {connect} from 'react-redux';
 import {PuProfileComponent} from "./PuProfileComponent";
 import {MainLoader} from '../loader/Loader';
-import IconButton from 'material-ui/svg-icons/content/save'
-import { FloatingActionButton} from 'material-ui';
-
 
 
 class PuProfilePage extends Component {
@@ -15,23 +12,18 @@ class PuProfilePage extends Component {
 
     render() {
         const {fetched, profile, user, tutor} = this.props;
-        console.log('3456789kihugyftdfcghjkug',tutor);
+        console.log('3456789kihugyftdfcghjkug', tutor);
         return (
-
-                    !fetched ? <MainLoader/> :
-
-                                <Fragment>
-                                    <PuProfileComponent
-                                        profile={profile}
-                                        user={user}
-                                        tutor={tutor}
-                                        addresses={profile.addresses}
-                                        certifications={profile.certifications}
-
-
-                                    />
-
-                                </Fragment>
+            !fetched ? <MainLoader/> :
+                <Fragment>
+                    <PuProfileComponent
+                        profile={profile}
+                        user={user}
+                        tutor={tutor}
+                        addresses={profile.addresses}
+                        certifications={profile.certifications}
+                    />
+                </Fragment>
         );
     }
 }
@@ -46,12 +38,20 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
-const mapStateToProps = (state, ownProps) => ({
-    user: state.user.info,
-    profile: state.user.info.profile,
-    tutor: state.tutor.mytutor.length>0 ? state.tutor.mytutor[0] : tutorBlank,
-    fetched: state.user.isFetched
-});
+const mapStateToProps = (state, ownProps) => {
+    const id = ownProps.match.params.id;
+    const profile = state.profiles.list.filter(profile => profile.id == id)[0];
+    let profileCopy = {};
+    if (profile) {
+        profileCopy = JSON.parse(JSON.stringify(profile));
+    }
+    return {
+        user: profileCopy.user,
+        profile: profileCopy,
+        tutor: profileCopy.tutor ? profileCopy.tutor : tutorBlank,
+        fetched: state.profiles.areFetched
+    }
+};
 
 PuProfilePage = connect(mapStateToProps)(PuProfilePage);
 export default PuProfilePage;

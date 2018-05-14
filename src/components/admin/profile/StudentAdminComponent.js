@@ -65,7 +65,7 @@ const MyRow = ({rowData, ...props}) => {
         <TableRow {...props}>
             {props.children[0]}
             {/* pone los valores de la tabla, cuenta, nombre y escuela */}
-            <TableRowColumn>{ rowData.academicId = "" || !rowData.academicId? "No asignado" : rowData.academicId }</TableRowColumn>
+            <TableRowColumn>{rowData.academicId = "" || !rowData.academicId? "No asignado" : rowData.academicId }</TableRowColumn>
             <TableRowColumn>{rowData.surname}</TableRowColumn>
             <TableRowColumn>{rowData.given_name}</TableRowColumn>
             <TableRowColumn>{rowData.user.email}</TableRowColumn>
@@ -73,7 +73,7 @@ const MyRow = ({rowData, ...props}) => {
 
                 {/* si presionas en el icono de ! te manda al perfil del alumno */}
                 {/*<Link to='/profile'>*/}
-                    <Link to='/public'>
+                    <Link to={`/public/${rowData.id}`}>
 
                     <Icon title="Detalle"/>
                 </Link>
