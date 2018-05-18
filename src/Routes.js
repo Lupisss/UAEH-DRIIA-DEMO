@@ -23,6 +23,7 @@ export const Routes = () => (
         <Route path="/loadfiles" component={LoadFilesPage}/>
         <Route path="/admin/" component={AdminPage}/>
         <Route path="/cv" component={CVPage}/>
-        <Route path="/public/:id" component={PuProfilePage}/><Route path="/documents" component={PuLoadFilesPage}/>
+        <Route path="/public/:id" component={PuProfilePage}/>
+        <Route path="/documents/:id" component={PuLoadFilesPage}/>
     </Switch>
 );

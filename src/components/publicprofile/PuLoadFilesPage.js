@@ -50,7 +50,7 @@ class PuLoadFilesPage extends Component {
     };
 
     render() {
-        const {fetched} = this.props;
+        const {fetched, profile} = this.props;
         const {url,fileName} = this.state;
         const list = listOfRequirements.map( (requirement,index) => {
             const document = this.props.documents.filter( document => document.code == requirement.code )[0];
@@ -77,51 +77,66 @@ class PuLoadFilesPage extends Component {
             <Fragment>
                 {
                     !fetched ? <MainLoader/> :
-                        <div className="Container-Load-Files">
-                            { url === "" ?
-                                <PuUploadFile
-                                    fileName={fileName}
-                                    fileType=".pdf"
-                                    uploadFile={this.uploadFile}
-                                />
-                                :
-                                <object
-                                    onLoad={()=>console.log("Cargando")}
-                                    data={url}
-                                    type="application/pdf"
-                                    width="100%"
-                                    height="100%"
-                                >
-                                    <p>
-                                        <b>Example fallback content</b>
-                                        : This browser does not support PDFs. Please download the PDF to view it:
-                                        <a href={url}>Download PDF</a>.
-                                    </p>
-                                </object>
-                            }
-                            <div className="Main-LoadFiles">
-                                <List style={{backgroundColor: '#FFF'}}>
-                                    {list}
-                                </List>
+                        <Fragment>
+                            <h2 style={{width: '100%'}}>Documentos de {profile.given_name + " " + profile.surname}</h2>
+                            <div className="Container-Load-Files">
+                                { url === "" ?
+                                    <PuUploadFile
+                                        fileName={fileName}
+                                        fileType=".pdf"
+                                        uploadFile={this.uploadFile}
+                                    />
+                                    :
+                                    <object
+                                        onLoad={()=>console.log("Cargando")}
+                                        data={url}
+                                        type="application/pdf"
+                                        width="100%"
+                                        height="100%"
+                                    >
+                                        <p>
+                                            <b>Example fallback content</b>
+                                            : This browser does not support PDFs. Please download the PDF to view it:
+                                            <a href={url}>Download PDF</a>.
+                                        </p>
+                                    </object>
+                                }
+                                <div className="Main-LoadFiles">
+                                    <List style={{backgroundColor: '#FFF'}}>
+                                        {list}
+                                    </List>
 
-                                <Link to="/public">
-                                    <RaisedButton label="Regresar al perfil" primary={true} className="boton"/>
-                                </Link>
-
+                                    <Link to={`/public/${profile.id}`}>
+                                        <RaisedButton label="Regresar al perfil" primary={true} className="boton"/>
+                                    </Link>
+                                </div>
                             </div>
-
-                        </div>
+                        </Fragment>
                 }
             </Fragment>
         );
     }
 }
 
-const mapStateToProps = (state, ownProps) => ({
-    user : state.user.info,
-    documents: state.documents.list,
-    fetched: state.documents.areFetched
-});
+const mapStateToProps = (state, ownProps) => {
+    const id = ownProps.match.params.id;
+    const profile = state.profiles.list.filter(profile => profile.id == id)[0];
+    let profileCopy = {};
+    if (profile) {
+        profileCopy = JSON.parse(JSON.stringify(profile));
+    }
+    if (Object.keys(profileCopy).length === 0) {
+        profileCopy.documents = [];
+        profileCopy.user = {};
+    }
+    console.log('El perfil',profileCopy);
+    return {
+        user : profileCopy.user,
+        profile: profileCopy,
+        documents: profileCopy.documents,
+        fetched: state.profiles.areFetched
+    }
+};
 
 PuLoadFilesPage = connect(mapStateToProps)(PuLoadFilesPage);
 export default PuLoadFilesPage;
