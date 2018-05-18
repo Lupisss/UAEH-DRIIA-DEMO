@@ -35,7 +35,7 @@ export const logIn = user => (dispatch, getState) => {
         .then(token => {
             return Auth.getUser()
                 .then(r => {
-                    console.log('El perfil',r.data);
+                    console.log('El perfil', r.data);
                     dispatch(loginSuccess(r.data));
                     dispatch(getTutor());
                     dispatch(getDepartments());
@@ -134,6 +134,16 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
+const tutorAddress = {
+    address1: "",
+    suburb: "",
+    city: "",
+    state: "",
+    country: "",
+    zip_code: "",
+    profile: null
+};
+
 export const signUp = user => (dispatch, getState) => {
     return Auth.signUp(user)
         .then(tokenR => {
@@ -143,36 +153,43 @@ export const signUp = user => (dispatch, getState) => {
                     profileProto.given_name = user.given_name;
                     profileProto.surname = user.surname;
                     userR.data.profile = profileProto;
-                    return TutorApi.newTutor(tutorBlank)
-                        .then( tutor => {
-                            profileProto.tutor = tutor.id;
-                            return ProfileApi.newProfile(profileProto)
-                                .then( profileR => {
-                                    userR.data.profile.id = profileR.id;
-                                    console.log(userR.data);
-                                    dispatch(loginSuccess(userR.data));
-                                    dispatch(getTutor());
-                                    dispatch(getDepartments());
-                                    dispatch(getAcademicPrograms());
-                                    dispatch(getProfiles());
-                                    dispatch(getFiles());
-                                    dispatch(getColleges());
-                                    dispatch(fetchedSuccess());
-                                    return Promise.resolve(userR.data);
-                                }).catch(e => {
-                                    console.log("No se pudo crear el tutor");
-                                    console.log(e.response);
-                                    return Promise.reject(e.response);
-                                });
+                    return AddressApi.newAddress(tutorAddress)
+                        .then(tutorAddr => {
+                            tutorBlank.address = tutorAddr.id;
+                            return TutorApi.newTutor(tutorBlank)
+                                .then(tutor => {
+                                    profileProto.tutor = tutor.id;
+                                    return ProfileApi.newProfile(profileProto)
+                                        .then(profileR => {
+                                            userR.data.profile.id = profileR.id;
+                                            console.log(userR.data);
+                                            dispatch(loginSuccess(userR.data));
+                                            dispatch(getTutor());
+                                            dispatch(getDepartments());
+                                            dispatch(getAcademicPrograms());
+                                            dispatch(getProfiles());
+                                            dispatch(getFiles());
+                                            dispatch(getColleges());
+                                            dispatch(fetchedSuccess());
+                                            return Promise.resolve(userR.data);
+                                        }).catch(e => {
+                                            console.log("No se pudo crear el tutor");
+                                            console.log(e.response);
+                                            return Promise.reject(e.response);
+                                        });
 
+                                })
+                                .catch(e => {
+                                    console.log(e);
+                                });
                         })
                         .catch(e => {
-                            console.log(e);
-                        });
+                            return Promise.reject(e.response);
+                        })
                 }).catch(e => {
                     console.log(e.response);
                     return Promise.reject(e.response)
-            });
+                });
         }).catch(e => {
             console.log(e.response);
             return Promise.reject(e.response)
@@ -192,7 +209,7 @@ export const updateProfile = profile => (dispatch, getState) => {
     copyProfile.user = getState().user.info.id;
     copyProfile.tutor = copyProfile.tutor.id;
     copyProfile.academic_program = profile.academic_program.id;
-    console.log("Esta es la copia delp erfil que se debe mandar: ",copyProfile);
+    console.log("Esta es la copia delp erfil que se debe mandar: ", copyProfile);
     return ProfileApi.updateProfile(copyProfile)
         .then(r => {
             // let myprofile = {...r.data};
@@ -200,7 +217,7 @@ export const updateProfile = profile => (dispatch, getState) => {
             //     aP.id == myprofile.academic_program
             // )[0];
             // console.log(myprofile);
-            console.log('Esto envio: ',copyProfile2);
+            console.log('Esto envio: ', copyProfile2);
             dispatch(updateProfileSuccess(copyProfile2));
             return Promise.resolve(copyProfile2);
         }).catch(e => {
@@ -230,7 +247,7 @@ export const addNewAddressToProfile = address => (dispatch, getState) => {
 
 };
 
- // ACTUALIZAR LA DIRECCION DEL PERFIL
+// ACTUALIZAR LA DIRECCION DEL PERFIL
 export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
 
 export const updateAddressToProfileSuccess = address => ({
@@ -413,7 +430,7 @@ export const IS_FETCHED = "IS_FETCHED";
 
 export const fetchedSuccess = () => ({
     type: IS_FETCHED,
-    isFetched:true
+    isFetched: true
 });
 
 export function comprobarUsuario() {
@@ -434,7 +451,7 @@ export function comprobarUsuario() {
                     dispatch(fetchedSuccess());
                 }).catch(e => {
                     console.log(e);
-            });
+                });
         }
     }
 }
