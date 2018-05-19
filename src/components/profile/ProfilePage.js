@@ -19,6 +19,7 @@ import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 import {Route, Switch} from "react-router-dom";
 import academicPrograms from "../../redux/reducers/academicProgramsReducer";
+import {ProfileApi} from '../../api/repos';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -183,6 +184,14 @@ class ProfilePage extends Component {
             .then(r => {
                 toastr.success("Perfil actualizado");
                 console.log(r);
+                let profilePicture = {...this.state.profilePicture};
+                let wallPicture = {...this.state.wallPicture};
+                profilePicture.src = wallPicture.src = "" ;
+                profilePicture.file = wallPicture.file = "";
+                this.setState({
+                    profilePicture,
+                    wallPicture
+                })
             }).catch(e => {
                 console.log(e);
         });
@@ -226,14 +235,21 @@ class ProfilePage extends Component {
                 let img = e.target.result;
                 pictureToChange.src = img;
                 pictureToChange.file = file;
-                profile[name] = pictureToChange.src;
-                this.setState({profile, [name]: pictureToChange});
-            })(file);
+                let profileToSend = {
+                    [name] : img,
+                    id : profile.id
+                };
+                ProfileApi.updateProfile(profileToSend)
+                    .then( p => {
+                        profile[name] = img;
+                        this.setState({profile, [name]: pictureToChange});
+                    }).catch( e => {
+                        console.log('Error al subir la imagen ',e);
+                });
 
+            })(file);
             reader.readAsDataURL(file);
         }
-
-
     };
 
     newAddress = () => this.props.history.push('/profile/address/newAddress');

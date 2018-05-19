@@ -211,12 +211,14 @@ export const updateProfile = profile => (dispatch, getState) => {
     copyProfile.academic_program = profile.academic_program.id;
     console.log("Esta es la copia delp erfil que se debe mandar: ", copyProfile);
     return ProfileApi.updateProfile(copyProfile)
-        .then(r => {
+        .then(p => {
             // let myprofile = {...r.data};
             // myprofile.academic_program = getState().academicPrograms.list.filter(aP =>
             //     aP.id == myprofile.academic_program
             // )[0];
             // console.log(myprofile);
+            copyProfile2.profilePicture = p['profilePicture'];
+            copyProfile2.wallPicture = p['wallPicture'];
             console.log('Esto envio: ', copyProfile2);
             dispatch(updateProfileSuccess(copyProfile2));
             return Promise.resolve(copyProfile2);
