@@ -1,4 +1,4 @@
-import {TutorApi} from '../../api/repos';
+import {TutorApi, AddressApi} from '../../api/repos';
 
 //FETCHED
 // Determine if tutors have fetched from server
@@ -78,10 +78,54 @@ export const deleteTutor = idTutor => (dispatch, getState) => {
     return TutorApi.deleteTutor(idTutor)
         .then(r => {
             dispatch(deleteTutorSuccess(idTutor));
-            Promise.resolve(r);
+            return Promise.resolve(r);
         }).catch(e => {
-            Promise.reject(e)
+            return Promise.reject(e)
         });
+};
+
+export const UP_ADDR_TUTOR = "UP_ADDR_TUTOR";
+
+export const updateAddressTutorSuccess = address => ({
+    type: UP_ADDR_TUTOR,
+    address
+});
+
+export const updateAddressTutor = address => (dispatch, getState) => {
+    return AddressApi.updateAddress(address)
+        .then(r => {
+            dispatch(updateAddressTutorSuccess(r));
+            return Promise.resolve(r);
+        }).catch(e => {
+            return Promise.reject(e)
+        });
+};
+
+export const UP_TUTOR = "UP_TUTOR";
+
+export const updateAddrTutorSuccess = tutor => ({
+    type: UP_TUTOR,
+    tutor
+});
+
+export const updateAddrTutor = (tutor,address) => (dispatch, getState) => {
+    console.log(tutor);
+    console.log(address);
+    return AddressApi.updateAddress(address)
+        .then(a => {
+            return TutorApi.updateTutor(tutor)
+                .then(t => {
+                    t.address = a;
+                    dispatch(updateAddrTutorSuccess(t));
+                    return Promise.resolve(t);
+                }).catch(e => {
+                    console.log(e);
+                    return Promise.reject(e)
+                });
+        }).catch(e => {
+            return Promise.reject(e)
+        });
+
 };
 
 

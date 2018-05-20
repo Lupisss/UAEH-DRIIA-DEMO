@@ -11,15 +11,15 @@ import {LangInfoComponent as LangInfo} from './LangInfoComponent';
 import {connect} from 'react-redux';
 import moment from 'moment';
 import {updateProfile,deleteAddressToProfile, deleteCertificationToProfile} from '../../redux/actions/userActions';
-import {updateTutor} from '../../redux/actions/tutorActions';
+import {updateTutor,updateAddrTutor} from '../../redux/actions/tutorActions';
 import {MainLoader} from '../loader/Loader';
-import { FloatingActionButton, LinearProgress} from 'material-ui';
+import {FloatingActionButton, LinearProgress, MenuItem} from 'material-ui';
 import IconButton from 'material-ui/svg-icons/content/save'
 import toastr from 'toastr';
 import scrollToComponent from 'react-scroll-to-component';
 import {Route, Switch} from "react-router-dom";
 import academicPrograms from "../../redux/reducers/academicProgramsReducer";
-import {ProfileApi} from '../../api/repos';
+import {ProfileApi, ZipApi} from '../../api/repos';
 
 class ProfilePage extends Component {
     constructor(props) {
@@ -30,6 +30,9 @@ class ProfilePage extends Component {
                 ssn_expiry_date: "1995-09-29"
             },
             tutor: {},
+            tutorAddress: {},
+            currentColonia: "",
+            isSearched: false,
             user: {},
             academicInfo: {},
             birth_date: "1995-09-29",
@@ -49,6 +52,8 @@ class ProfilePage extends Component {
     componentWillMount() {
         let birth_date = {};
         let ssn_expiry_date = {};
+        let tutorAddress = {};
+        let currentColonia = "";
         if (this.props.fetched) {
             let profile = JSON.parse(JSON.stringify(this.props.profile));
             let tutor = JSON.parse(JSON.stringify(this.props.tutor));
@@ -62,6 +67,16 @@ class ProfilePage extends Component {
                         country: "",
                         zip_code: ""
                     }
+                }else {
+                    tutorAddress = {
+                        id : tutor.address.id,
+                        codigo_postal: tutor.address.zip_code,
+                        colonias: [tutor.address.suburb],
+                        estado: tutor.address.state,
+                        municipio: tutor.address.city,
+                        calleNumero: tutor.address.address1
+                    };
+                    currentColonia = tutor.address.suburb;
                 }
             }
             if(profile){
@@ -80,6 +95,8 @@ class ProfilePage extends Component {
                 profile,
                 user: this.props.user,
                 tutor,
+                tutorAddress,
+                currentColonia,
                 birth_date: birth_date,
                 ssn_expiry_date: ssn_expiry_date
             });
@@ -89,6 +106,8 @@ class ProfilePage extends Component {
     componentWillReceiveProps(nP) {
         let birth_date = {};
         let ssn_expiry_date = {};
+        let tutorAddress = {};
+        let currentColonia = "";
         if (nP.fetched) {
             let profile = JSON.parse(JSON.stringify(nP.profile));
             let tutor = JSON.parse(JSON.stringify(nP.tutor));
@@ -102,6 +121,16 @@ class ProfilePage extends Component {
                         country: "",
                         zip_code: ""
                     }
+                }else {
+                    tutorAddress = {
+                        id : tutor.address.id,
+                        codigo_postal: tutor.address.zip_code,
+                        colonias: [tutor.address.suburb],
+                        estado: tutor.address.state,
+                        municipio: tutor.address.city,
+                        calleNumero: tutor.address.address1
+                    };
+                    currentColonia = tutor.address.suburb;
                 }
             }
             if(profile){
@@ -120,6 +149,8 @@ class ProfilePage extends Component {
                 profile,
                 user: nP.user,
                 tutor,
+                tutorAddress,
+                currentColonia,
                 birth_date: birth_date,
                 ssn_expiry_date: ssn_expiry_date
             });
@@ -275,6 +306,71 @@ class ProfilePage extends Component {
 
     closeNewAddress = () => this.props.history.push('/profile');
 
+    getAddress = e => {
+        // Prevenimos las acciones por default de un formulario
+        e.preventDefault();
+        // obtenemos el valor del codigo_postal (valor del innput con el nombre codigo_postal)
+        const {tutorAddress: {codigo_postal}} = this.state;
+        ZipApi.getAddress(codigo_postal)
+            .then(r => {
+                console.log('La direccion', r);
+                if (r.estado !== "") {
+                    // indicamos que se ha realzado una busqueda
+                    r.calleNumero = '';
+                    r.id = this.state.tutorAddress.id;
+                    this.setState({isSearched: true, tutorAddress: r, currentColonia: r.colonias[0]});
+                } else {
+                    throw new Error("Código postal inválido");
+                }
+            }).catch(e => {
+                console.log(e);
+                toastr.warning('Código postal inválido')
+        });
+
+    };
+
+    handleTutorAddressChange = e => {
+        // clona la propiedad del state llamada tutorAddress
+        const tutorAddress = Object.assign({}, this.state.tutorAddress);
+        // Asigna a la llave llamada name el valor que le llega
+        tutorAddress[e.target.name] = e.target.value;
+        if (e.target.name === 'codigo_postal') {
+            this.setState({isSearched: false});
+        }
+        // Actualiza el state
+        this.setState({tutorAddress});
+    };
+
+    updateTutorAddress = e => {
+        e.preventDefault();
+        const tutorAddress = {...this.state.tutorAddress};
+        const tutor = {...this.state.tutor};
+        tutor.address = tutor.address.id;
+        const address = {
+            id: tutorAddress.id,
+            address1 : tutorAddress.calleNumero,
+            suburb : this.state.currentColonia,
+            city : tutorAddress.municipio,
+            state : tutorAddress.estado,
+            country : 'México',
+            zip_code : tutorAddress.codigo_postal
+        };
+        console.log(address);
+        if(address.id){
+            this.props.updateAddrTutor(tutor,address)
+                .then(r => {
+                    toastr.success("Tutor editado");
+                })
+                .catch(e => {
+                    console.log(e);
+                    toastr.error(e)
+                });
+        }
+
+    };
+
+    handleDropDownTutoAddChange = (event, index, value) => this.setState({currentColonia: value});
+
     render() {
         const NewAddressRender = props => (
             <NewAddress
@@ -289,9 +385,18 @@ class ProfilePage extends Component {
             />
         );
         const {fetched, history, academicPrograms} = this.props;
-        const {user = {}, profile = {}, tutor = {}, birth_date, ssn_expiry_date, loadingPictures} = this.state;
+        const {user = {}, profile = {}, tutor = {}, tutorAddress, isSearched, currentColonia, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
         console.log('Este es el perfil : ',profile);
+        let dataDropDown = [];
+        if(tutorAddress){
+            console.log("El tutor address",tutorAddress);
+            if (tutorAddress.colonias) {
+                dataDropDown = tutorAddress.colonias.map((colonia, key) =>
+                    <MenuItem key={key} value={colonia} primaryText={colonia}/>
+                );
+            }
+        }
         return (
             <Fragment>
                 {
@@ -325,6 +430,14 @@ class ProfilePage extends Component {
                                 />
                                 <TutorInfo
                                     tutor={tutor}
+                                    tutorAddress={tutorAddress}
+                                    dataDropDown={dataDropDown}
+                                    updateTutorAddress={this.updateTutorAddress}
+                                    handleDropDownTutoAddChange={this.handleDropDownTutoAddChange}
+                                    isSearched={isSearched}
+                                    currentColonia={currentColonia}
+                                    handleTutorAddressChange={this.handleTutorAddressChange}
+                                    getAddress={this.getAddress}
                                     onChange={this.handleTutorChange}
                                     onDropDown={this.handleTutorDropDownChange}
                                     onSubmit={this.handleSubmitTutor}
@@ -382,5 +495,5 @@ const tutorBlank = {
     cellphone_number: ""
 };
 
-ProfilePage = connect(mapStateToProps, {updateProfile, deleteAddressToProfile, deleteCertificationToProfile, updateTutor})(ProfilePage);
+ProfilePage = connect(mapStateToProps, {updateProfile, deleteAddressToProfile, deleteCertificationToProfile, updateTutor,updateAddrTutor})(ProfilePage);
 export default ProfilePage;

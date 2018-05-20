@@ -7,7 +7,7 @@ import {
     CardTitle,
     CardText,
     Subheader,
-    TextField, SelectField, Divider
+    TextField, SelectField, Divider, FlatButton
 } from "material-ui";
 import {SaveButton} from "./SaveButton";
 
@@ -23,7 +23,15 @@ export const TutorInfoForm = (
         },
         onChange,
         onDropDown,
-        onSubmit
+        onSubmit,
+        isSearched,
+        currentColonia,
+        tutorAddress: {codigo_postal, estado, municipio, calleNumero},
+        getAddress,
+        handleTutorAddressChange,
+        updateTutorAddress,
+        handleDropDownTutoAddChange,
+        dataDropDown
     }
 ) => {
     return (
@@ -96,34 +104,66 @@ export const TutorInfoForm = (
                         type="tel"
                         pattern="[0-9]{10}"
                     />
-                    <span style={{width:'60%', marginTop:20, marginBottom: 10}}>{""}</span>
-                    <p style={{fontSize: '1.2rem', width: '100%'}}>Dirección del tutor</p>
                     {/* TODO make functionality */}
+                    {/*<SaveButton/>*/}
+                </form>
+                <span style={{width:'60%', marginTop:20, marginBottom: 10}}>{""}</span>
+                <p style={{fontSize: '1.2rem', width: '100%'}}>Dirección del tutor</p>
+                <form onSubmit={getAddress} className="zip-address-search">
                     <TextField
-                        // style={styles.item}
-                        name="address.address1"
-                        value={address.address1}
-                        onChange={onChange}
-                        floatingLabelText="Calle y número"
-                        hintText="ej. Cipres 104"
+                        name="codigo_postal"
+                        value={codigo_postal}
+                        floatingLabelText="Código postal"
+                        onChange={handleTutorAddressChange}
+                        required
+                        pattern="[0-9]{5}"
+                        //onBlur={this.getAddress}
+                    />
+                    <div>
+                        <FlatButton
+                            label="Buscar"
+                            //onClick={getAddress}
+                            type="submit"
+                            primary
+                        />
+                    </div>
+                </form>
+                <form onSubmit={updateTutorAddress} id="addAddress" className="zip-address-extend">
+                    <TextField
+                        name="codigo_postal"
+                        value={codigo_postal}
+                        disabled
+                        floatingLabelText="Código Postal"
+                        //onBlur={this.getAddress}
+                    />
+                    <DropDownMenu
+                        onChange={handleDropDownTutoAddChange}
+                        autoWidth={false}
+                        value={currentColonia}
+                        style={{marginTop: 14, width: 256}}
+                    >
+                        {dataDropDown}
+                    </DropDownMenu>
+                    <TextField
+                        name="estado"
+                        value={estado}
+                        floatingLabelText="Estado"
+                        disabled={true}
                     />
                     <TextField
-                        // style={styles.item}
-                        name="address.suburb"
-                        value={address.suburb}
-                        onChange={onChange}
-                        floatingLabelText="Colonia"
-                        hintText="ej. Los Arrayanes"
+                        name="municipio"
+                        value={municipio}
+                        floatingLabelText="Municipio"
+                        disabled={true}
                     />
                     <TextField
-                        // style={styles.item}
-                        name="address.city"
-                        value={address.city}
-                        onChange={onChange}
-                        floatingLabelText="Ciudad"
-                        hintText="ej. Pachuca"
+                        name="calleNumero"
+                        value={calleNumero}
+                        onChange={handleTutorAddressChange}
+                        floatingLabelText="Calle y Número"
+                        style={{width:'80%'}}
+                        required
                     />
-                    {/*<p>{JSON.stringify(address)}</p>*/}
                     <SaveButton/>
                 </form>
             </CardText>
