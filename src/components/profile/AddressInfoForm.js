@@ -1,6 +1,8 @@
 import React from "react";
-import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, SelectField} from "material-ui";
-
+import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, SelectField, IconButton} from "material-ui";
+import Icon from 'material-ui/svg-icons/action/delete';
+import IconSend from 'material-ui/svg-icons/content/send';
+import IconCancel from 'material-ui/svg-icons/navigation/close';
 export const AddressInfoForm = (
     {
         isSearched,
@@ -16,19 +18,20 @@ export const AddressInfoForm = (
     }
 ) => {
     const Actions = [
-        <FlatButton
+        <IconButton
+            tooltip="Cancelar"
             onClick={closeModal}
-            secondary
-            label="Cancelar"
-        />,
-        <RaisedButton
-            type="submit"
+        >
+            <IconCancel/>
+        </IconButton>,
+        <IconButton
+            tooltip={ address ? 'Editar' : 'Guardar'}
             form="addAddress"
-            keyboardFocused
-            primary
-            label={ address ? 'Editar' : 'Guardar'}
+            type="submit"
             disabled={!isSearched}
-        />
+        >
+            <IconSend/>
+        </IconButton>
     ];
     return (
         <Dialog

@@ -1,5 +1,9 @@
 import React from "react";
-import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, MenuItem} from "material-ui";
+import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, MenuItem, SelectField} from "material-ui";
+import IconButton from 'material-ui/IconButton';
+import Icon from 'material-ui/svg-icons/action/delete';
+import IconSend from 'material-ui/svg-icons/content/send';
+import IconCancel from 'material-ui/svg-icons/navigation/close';
 
 export const LangInfoForm = (
     {
@@ -17,19 +21,19 @@ export const LangInfoForm = (
     }
 ) => {
     const Actions = [
-        <FlatButton
+        <IconButton
+            tooltip="Cancelar"
             onClick={closeModal}
-            secondary
-            label="Cancelar"
-        />,
-        <RaisedButton
-            type="submit"
+        >
+            <IconCancel/>
+        </IconButton>,
+        <IconButton
+            tooltip={edit ? 'Editar' : 'Guardar'}
             form="addCertification"
-            keyboardFocused
-            primary
-            label={edit ? 'Editar' : 'Guardar'}
-
-        />
+            type="submit"
+        >
+            <IconSend/>
+        </IconButton>,
     ];
     return (
         <Dialog
@@ -46,6 +50,8 @@ export const LangInfoForm = (
                     onChange={handleCertificationChange}
                     floatingLabelText="Nombre"
                     hintText="B1"
+                    maxLength={100}
+                    required
                     //onBlur={this.getAddress}
                 />
                 <TextField
@@ -54,6 +60,8 @@ export const LangInfoForm = (
                     onChange={handleCertificationChange}
                     floatingLabelText="Descripción"
                     hintText="550 puntos"
+                    maxLength={100}
+                    required
                     //onBlur={this.getAddress}
                 />
                 <TextField
@@ -62,17 +70,20 @@ export const LangInfoForm = (
                     onChange={handleCertificationChange}
                     floatingLabelText="Lenguaje"
                     hintText="Inglés"
+                    maxLength={100}
+                    required
                     //onBlur={this.getAddress}
                 />
-                <DropDownMenu
+                <SelectField
                     autoWidth={false}
                     style={{marginTop: 14, width: 256}}
                     value={type}
                     onChange={handleDropDownChange("type")}
+                    floatingLabelText={"Tipo de certificación"}
                 >
                     <MenuItem value="CE" primaryText="Certificado" />
                     <MenuItem value="CO" primaryText="Constancia" />
-                </DropDownMenu>
+                </SelectField>
             </form>
 
 
