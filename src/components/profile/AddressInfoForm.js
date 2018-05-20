@@ -1,5 +1,5 @@
 import React from "react";
-import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog} from "material-ui";
+import {DropDownMenu, RaisedButton, FlatButton, TextField, Dialog, SelectField} from "material-ui";
 
 export const AddressInfoForm = (
     {
@@ -27,7 +27,7 @@ export const AddressInfoForm = (
             keyboardFocused
             primary
             label={ address ? 'Editar' : 'Guardar'}
-
+            disabled={!isSearched}
         />
     ];
     return (
@@ -46,6 +46,8 @@ export const AddressInfoForm = (
                     onChange={handleZipAdressChange}
                     required
                     pattern="[0-9]{5}"
+                    maxLength={5}
+                    hintText={"ej 42119"}
                     //onBlur={this.getAddress}
                 />
                 <div>
@@ -68,25 +70,26 @@ export const AddressInfoForm = (
                         floatingLabelText="Código Postal"
                         //onBlur={this.getAddress}
                     />
-                    <DropDownMenu
+                    <SelectField
                         onChange={handleDropDownZipChange}
                         autoWidth={false}
                         value={currentColonia}
                         style={{marginTop: 14, width: 256}}
+                        floatingLabelText={"Colonia"}
                     >
                         {dataDropDown}
-                    </DropDownMenu>
+                    </SelectField>
                     <TextField
                         name="estado"
                         value={estado}
                         floatingLabelText="Estado"
-                        disabled={true}
+                        disabled
                     />
                     <TextField
                         name="municipio"
                         value={municipio}
                         floatingLabelText="Municipio"
-                        disabled={true}
+                        disabled
                     />
                     <TextField
                         name="calleNumero"
@@ -95,6 +98,7 @@ export const AddressInfoForm = (
                         floatingLabelText="Calle y Número"
                         style={{width:'80%'}}
                         required
+                        maxLength={100}
                     />
                 </form>
             }

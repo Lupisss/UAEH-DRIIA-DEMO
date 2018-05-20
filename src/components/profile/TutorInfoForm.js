@@ -93,6 +93,7 @@ export const TutorInfoForm = (
                         hintText="ej 7715671213"
                         type="tel"
                         pattern="[0-9]{10}"
+                        maxLength={10}
                     />
                     <TextField
                         // style={styles.item}
@@ -103,6 +104,7 @@ export const TutorInfoForm = (
                         hintText="ej 7715671213"
                         type="tel"
                         pattern="[0-9]{10}"
+                        maxLength={10}
                     />
                     {/* TODO make functionality */}
                     {/*<SaveButton/>*/}
@@ -117,6 +119,8 @@ export const TutorInfoForm = (
                         onChange={handleTutorAddressChange}
                         required
                         pattern="[0-9]{5}"
+                        maxLength={5}
+                        hintText={"ej 42119"}
                         //onBlur={this.getAddress}
                     />
                     <div>
@@ -136,25 +140,26 @@ export const TutorInfoForm = (
                         floatingLabelText="Código Postal"
                         //onBlur={this.getAddress}
                     />
-                    <DropDownMenu
+                    <SelectField
                         onChange={handleDropDownTutoAddChange}
                         autoWidth={false}
                         value={currentColonia}
                         style={{marginTop: 14, width: 256}}
+                        floatingLabelText={"Colonia"}
                     >
                         {dataDropDown}
-                    </DropDownMenu>
+                    </SelectField>
                     <TextField
                         name="estado"
                         value={estado}
                         floatingLabelText="Estado"
-                        disabled={true}
+                        disabled
                     />
                     <TextField
                         name="municipio"
                         value={municipio}
                         floatingLabelText="Municipio"
-                        disabled={true}
+                        disabled
                     />
                     <TextField
                         name="calleNumero"
@@ -162,6 +167,7 @@ export const TutorInfoForm = (
                         onChange={handleTutorAddressChange}
                         floatingLabelText="Calle y Número"
                         style={{width:'80%'}}
+                        maxLength={100}
                         required
                     />
                     <SaveButton/>
