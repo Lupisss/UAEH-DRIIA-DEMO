@@ -7,7 +7,7 @@ import {getAcademicPrograms} from "./academicProgramActions";
 import {getProfiles} from "./profilesActions";
 import {getFiles} from "./fileActions";
 import {getColleges} from "./collegesActions";
-import {getSubjectsToCurse} from "./subjectToCurseAction";
+import {getSubjectsToCourse} from "./subjectsToCourseActions";
 import academicPrograms from "../reducers/academicProgramsReducer";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
@@ -43,6 +43,7 @@ export const logIn = user => (dispatch, getState) => {
                     dispatch(getProfiles());
                     dispatch(getFiles());
                     dispatch(getColleges());
+                    dispatch(getSubjectsToCourse());
                     dispatch(fetchedSuccess());
                     console.log(token);
                     return Promise.resolve(token)
@@ -170,6 +171,7 @@ export const signUp = user => (dispatch, getState) => {
                                             dispatch(getProfiles());
                                             dispatch(getFiles());
                                             dispatch(getColleges());
+                                            dispatch(getSubjectsToCourse());
                                             dispatch(fetchedSuccess());
                                             return Promise.resolve(userR.data);
                                         }).catch(e => {
@@ -447,6 +449,7 @@ export function comprobarUsuario() {
                     dispatch(getAcademicPrograms());
                     dispatch(getProfiles());
                     dispatch(getFiles());
+                    dispatch(getSubjectsToCourse());
                     dispatch(getColleges());
                     // TODO Crear modelo de subjects to course en backend
                     //dispatch(getSubjectsToCurse());

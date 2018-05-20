@@ -7,8 +7,8 @@ import Certification from './certificationsRepository';
 import Department from './departmentsRepository';
 import AcademicProgram from './academicProgramRepository';
 import File from './filesRepository';
-import SubjectToCurse from './subjectToCurseRepository';
 import Colleges from './collegeRepository';
+import SubjectToCourse from './subjectToCourseApi';
 
 export const Auth = AuthApi;
 export const ZipApi = Zip;
@@ -19,5 +19,5 @@ export const DepartmentApi = Department;
 export const AcademicProgramApi = AcademicProgram;
 export const ProfileApi = Profile;
 export const FileApi = File;
-export const SubjectToCurseApi = SubjectToCurse;
+export const SubjectToCourseApi = SubjectToCourse;
 export const CollegeApi = Colleges;
