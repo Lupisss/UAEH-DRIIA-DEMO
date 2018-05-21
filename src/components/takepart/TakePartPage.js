@@ -60,6 +60,7 @@ class TakePartPage extends Component {
                             <Tab label="1ra opción" >
                                 <div className="Tab-style">
                                     {/*<h2 style={{marginLeft:50}}><small>Universidades Destino <span style={{color:'gray'}}><small>Selecciona tus opciones</small></span></small></h2>*/}
+                                    <Title>Primera opción</Title>
                                     <Options
                                         index={"1ra"}
                                         dataSource={colleges}
@@ -83,6 +84,7 @@ class TakePartPage extends Component {
                             </Tab>
                             <Tab label="2da opción" >
                                 <div className="Tab-style">
+                                    <Title>Segunda opción</Title>
                                     <Options
                                         index={"2da"}
                                         dataSource={colleges}
@@ -106,6 +108,7 @@ class TakePartPage extends Component {
                             </Tab>
                             <Tab label="3ra opción">
                                 <div className="Tab-style">
+                                    <Title>Tercera opción</Title>
                                     <Options
                                         index={"3ra"}
                                         dataSource={colleges}
@@ -134,6 +137,12 @@ class TakePartPage extends Component {
         );
     }
 }
+
+const Title = (props) => (
+    <div style={{width:'100%'}}>
+        <h2 style={{width:'50%', textAlign:'center', margin: 'auto', marginBottom: 20}}>{props.children}</h2>
+    </div>
+);
 
 const mapStateToProps = (state, ownProps) => {
     const nameOfColleges = state.colleges.list.map(college => college.name);
