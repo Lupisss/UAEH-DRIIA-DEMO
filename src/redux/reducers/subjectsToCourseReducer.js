@@ -1,7 +1,9 @@
 import {combineReducers} from 'redux';
-import {CREATE, READ, UPDATE, DELETE, FETCHED} from '../actions/subjectsToCourseActions';
+import {CREATE, READ, UPDATE, DELETE, FETCHED, ADD_HOMOLOGACION} from '../actions/subjectsToCourseActions';
 
 const list = (state = [], action) => {
+    let subjectToCourse;
+    let subjectsToCourse;
     switch (action.type){
         case CREATE:
             return [...state, action.subjectToCourse];
@@ -14,6 +16,17 @@ const list = (state = [], action) => {
             });
         case DELETE:
             return state.filter( subjectToCourse => subjectToCourse.id !== action.subjectToCourse.id );
+        case ADD_HOMOLOGACION:
+            subjectsToCourse = JSON.parse(JSON.stringify(state));
+            subjectToCourse = subjectsToCourse.filter( subjectToCourse => subjectToCourse.id !== action.subjectToCourseId );
+            subjectToCourse.homologaciones.push(action.homologacion);
+            let subjects = subjectsToCourse.map( subject => {
+                if (subjectToCourse.id == action.subjectToCourseId) {
+                    return subjectToCourse
+                }
+                return subject;
+            });
+            return subjects;
         default:
             return state;
     }

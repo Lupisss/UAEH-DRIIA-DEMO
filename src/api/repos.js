@@ -9,6 +9,7 @@ import AcademicProgram from './academicProgramRepository';
 import File from './filesRepository';
 import Colleges from './collegeRepository';
 import SubjectToCourse from './subjectToCourseApi';
+import Homologaciones from './homologacionesRepository';
 
 export const Auth = AuthApi;
 export const ZipApi = Zip;
@@ -21,3 +22,4 @@ export const ProfileApi = Profile;
 export const FileApi = File;
 export const SubjectToCourseApi = SubjectToCourse;
 export const CollegeApi = Colleges;
+export const HomologacionApi = Homologaciones;

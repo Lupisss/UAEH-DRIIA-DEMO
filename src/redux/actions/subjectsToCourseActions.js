@@ -1,4 +1,4 @@
-import {SubjectToCourseApi} from "../../api/repos";
+import {SubjectToCourseApi,HomologacionApi} from "../../api/repos";
 
 
 //FETCHED
@@ -85,4 +85,24 @@ export const deleteSubjectToCourse = idSubjectToCourse => (dispatch, getState) =
         });
 };
 
+export const ADD_HOMOLOGACION = "ADD_HOMOLOGACION";
+
+export const addHomologacionSuccess = homoObject => ({
+    type: ADD_HOMOLOGACION,
+    homoObject
+});
+
+export const addHomologacion = (homologacion, subjectToCourseId) => (dispatch, getState) => {
+    return HomologacionApi.newHomologacion(homologacion)
+        .then(h => {
+            let homoObject = {
+                homologacion: h,
+                subjectToCourseId
+            };
+            dispatch(addHomologacionSuccess(homoObject));
+            return Promise.resolve(h);
+        }).catch(e => {
+            return Promise.reject(e)
+        });
+};
 
