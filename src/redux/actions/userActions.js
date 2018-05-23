@@ -1,6 +1,14 @@
 import firebase from '../../firebase';
 //import {api} from '../../api/API';
-import {Auth, ProfileApi, AddressApi, CertificationApi, TutorApi} from '../../api/repos';
+import {
+    Auth,
+    ProfileApi,
+    AddressApi,
+    CertificationApi,
+    TutorApi,
+    SubjectToCourseApi,
+    HomologacionApi
+} from '../../api/repos';
 import {getTutor} from "./tutorActions";
 import {getDepartments} from "./departmentsActions";
 import {getAcademicPrograms} from "./academicProgramActions";
@@ -9,6 +17,7 @@ import {getFiles} from "./fileActions";
 import {getColleges} from "./collegesActions";
 import {getSubjectsToCourse} from "./subjectsToCourseActions";
 import academicPrograms from "../reducers/academicProgramsReducer";
+import axios from "axios/index";
 //import {usuarioVerificado} from "./usuarioVerificadoActions";
 //import {store} from '../../index';
 
@@ -145,6 +154,38 @@ const tutorAddress = {
     profile: null
 };
 
+let homologacion = {
+    "academic_program": "",
+    "key": "",
+    "name": "",
+    "priority": '1',
+    "subjectToCourse": null,
+    "college": null
+};
+
+class Homologacion {
+    constructor( priority, subjectc){
+        this.academic_program = "";
+        this.key = "";
+        this.name = "";
+        this.priority = priority;
+        this.subjectToCourse = subjectc;
+        this.college = null;
+    }
+}
+
+let subjectToCourse = {
+    "key": "",
+    "name": "",
+    "profile": null
+};
+
+const getLocalToken = () => {
+    return JSON.parse(localStorage.getItem(tokenName))
+};
+const baseURLSubjects = 'http://localhost:8000/subjectsToCourse/';
+const baseURLHomologaciones = 'http://localhost:8000/homologaciones/';
+
 export const signUp = user => (dispatch, getState) => {
     return Auth.signUp(user)
         .then(tokenR => {
@@ -164,6 +205,71 @@ export const signUp = user => (dispatch, getState) => {
                                         .then(profileR => {
                                             userR.data.profile.id = profileR.id;
                                             console.log(userR.data);
+                                            subjectToCourse.profile = profileR.id;
+                                            let addSubjects = [];
+                                            let addHomo = [];
+                                            for (let i = 1; i <= 4; i++) {
+                                                let promise = new Promise((resolve, reject) => {
+                                                    const instance = axios.create({
+                                                        baseURL: baseURLSubjects,
+                                                        headers: {
+                                                            "Content-Type": "application/json",
+                                                            "Authorization": "Token " + getLocalToken()
+                                                        }
+                                                    });
+
+                                                    instance.post("", subjectToCourse)
+                                                        .then(r => {
+                                                            console.log(r.data);
+                                                            resolve(r.data);
+                                                        }).catch(e => {
+                                                        console.log(e.response);
+                                                        reject(e.response);
+                                                    });
+                                                });
+                                                addSubjects.push(promise);
+                                            }
+                                            Promise.all(addSubjects)
+                                                .then(values => {
+                                                    console.log('Esto regresa promise all', values);
+                                                    values.forEach(value => {
+                                                        for (let f = 1; f <= 3; f++) {
+                                                            let homologacion = new Homologacion(f,value.id);
+                                                            console.log(homologacion);
+                                                            let promise = new Promise( (resolve, reject) => {
+                                                                const instance = axios.create({
+                                                                    baseURL: baseURLHomologaciones,
+                                                                    headers: {
+                                                                        "Content-Type" : "application/json",
+                                                                        "Authorization": "Token " + getLocalToken()
+                                                                    }
+                                                                });
+
+                                                                instance.post("",homologacion)
+                                                                    .then(r => {
+                                                                        console.log(r.data);
+                                                                        resolve(r.data);
+                                                                    }).catch(e => {
+                                                                        console.log(e.response);
+                                                                        reject(e.response);
+                                                                });
+                                                            });
+                                                            addHomo.push(promise);
+                                                        }
+                                                    });
+                                                    console.log(addHomo);
+                                                    Promise.all(addHomo)
+                                                        .then(homosValues => {
+                                                            console.log("Todo correcto", homosValues);
+                                                            dispatch(getSubjectsToCourse());
+                                                        })
+                                                        .catch(e => {
+                                                            console.log(e);
+                                                        });
+                                                })
+                                                .catch(e => {
+                                                    console.log(e);
+                                                });
                                             dispatch(loginSuccess(userR.data));
                                             dispatch(getTutor());
                                             dispatch(getDepartments());
@@ -171,7 +277,6 @@ export const signUp = user => (dispatch, getState) => {
                                             dispatch(getProfiles());
                                             dispatch(getFiles());
                                             dispatch(getColleges());
-                                            dispatch(getSubjectsToCourse());
                                             dispatch(fetchedSuccess());
                                             return Promise.resolve(userR.data);
                                         }).catch(e => {
