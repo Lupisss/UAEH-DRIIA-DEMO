@@ -1,4 +1,5 @@
 import React from "react";
+import ExifOrientationImg from 'react-exif-orientation-img'
 import toastr from "toastr";
 
 const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
@@ -43,7 +44,7 @@ export const PortadaDisplay = ({profile,changePicture}) => {
                     {/*Cambiar la foto de perfil*/}
                     <span>Cambiar Foto</span>
                 </div>
-                <img
+                <ExifOrientationImg
                     //src={photoURL ? photoURL:defaultImg}
                     src={profile.profilePicture ? profile.profilePicture : defaultImg}
                     alt="user"
