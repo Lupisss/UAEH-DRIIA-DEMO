@@ -26,6 +26,14 @@ class TakePartPage extends Component {
         };
     }
 
+    componentWillMount(){
+
+    }
+
+    componentWillReceiveProps(){
+
+    }
+
     handleChange = index => e => {
         let {name,value} = e.target;
         switch (index){
@@ -140,14 +148,16 @@ class TakePartPage extends Component {
 
 const Title = (props) => (
     <div style={{width:'100%'}}>
-        <h2 style={{width:'50%', textAlign:'center', margin: 'auto', marginBottom: 20}}>{props.children}</h2>
+        {/*<h2 style={{width:'50%', textAlign:'center', margin: 'auto', marginBottom: 20}}>{props.children}</h2>*/}
+        <p id={"title"}>{props.children}</p>
     </div>
 );
 
+
 const mapStateToProps = (state, ownProps) => {
-    const nameOfColleges = state.colleges.list.map(college => college.name);
     return {
-        colleges: nameOfColleges
+        colleges: state.colleges.list,
+        fetched: state.colleges.areFetched
     }
 };
 
