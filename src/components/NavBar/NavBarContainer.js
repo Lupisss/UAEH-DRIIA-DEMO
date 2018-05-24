@@ -1,4 +1,4 @@
-import React, {Component} from "react";
+import React, {Component, Fragment} from "react";
 import {NavBarComponent} from "./NavBarComponent";
 import {connect} from 'react-redux';
 import {logOut} from '../../redux/actions/userActions';
@@ -26,13 +26,13 @@ class NavBarContainer extends Component {
         const {user} = this.props;
         const userLogged = Object.keys(user).length > 0;
         return (
-            <div>
+            <Fragment>
                 <NavBarComponent
                     logOut={this.logOut}
                     user={user}
                     userLogged={userLogged}
                 />
-            </div>
+            </Fragment>
         );
     }
 }

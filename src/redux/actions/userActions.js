@@ -55,7 +55,7 @@ export const logIn = user => (dispatch, getState) => {
                     dispatch(getSubjectsToCourse());
                     dispatch(fetchedSuccess());
                     console.log(token);
-                    return Promise.resolve(token)
+                    return Promise.resolve(r.data)
                 }).catch(e => {
                     console.log(e);
                 });

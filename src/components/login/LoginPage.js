@@ -40,7 +40,8 @@ class LoginPage extends Component {
             .then(r => {
                 console.log(r);
                 toastr.success('Bienvenido');
-                this.props.history.push('/profile');
+                const route = r.is_staff ? '/admin' : '/profile';
+                this.props.history.push(route);
             }).catch(e => {
                 console.log(e);
                 toastr.error("Algo salió mal");

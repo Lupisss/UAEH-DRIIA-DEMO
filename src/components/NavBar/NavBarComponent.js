@@ -7,26 +7,43 @@ import {
     Toolbar,
     ToolbarGroup,
     ToolbarSeparator,
-    ToolbarTitle
+    ToolbarTitle,
+    Avatar
 } from "material-ui";
 import ExpandMoreIcon from "material-ui/svg-icons/navigation/expand-more";
 import MenuIcon from "material-ui/svg-icons/navigation/menu";
 import {Link} from "react-router-dom";
 
+const style = {
+    color: "#919191",
+    fontSize: '0.9em',
+    marginLeft: 15
+};
+
+const defaultImg = "http://www.nlsgrp.co/wp-content/uploads/2016/06/Brian-Avatar.png";
+
+const Title  = (props) => (
+    <p style={props.style}>{props.children}</p>
+);
 
 //menú pricipal, arriba
 export const NavBarComponent = ({logOut,user,userLogged}) => {
+    let userText = "";
+    let srcImg = defaultImg;
+    if (user) {
+        if ( user.profile )  {
+            userText = `${user.profile.given_name} ${user.profile.surname}`;
+            srcImg = user.profile.profilePicture ? user.profile.profilePicture : defaultImg;
+        }
+    }
     return (
         <Toolbar className="NavBar">
            <ToolbarGroup>
-               <IconButton touch={true}>
-                   <MenuIcon/>
-               </IconButton>
+               <Link to="/" style={{textDecoration:"none", color: '#919191'}} >
+                   <ToolbarTitle text="UAEH DRIIA"/>
+               </Link>
            </ToolbarGroup>
             <ToolbarGroup>
-                <Link to="/" style={{textDecoration:"none", color: '#919191'}} >
-                    <ToolbarTitle text="UAEH DRIIA"/>
-                </Link>
                 <ToolbarSeparator/>
                 {
                     userLogged ?
@@ -41,6 +58,11 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
                             <RaisedButton label="Iniciar sesión" primary={true}/>
                         </Link>
                 }
+                { Object.keys(user).length > 0 && !user.is_staff  &&
+                    <Link to={"/profile"}>
+                        <Avatar src={srcImg} style={{marginLeft: 15, cursor: 'pointer'}}/>
+                    </Link>
+                }
                 {
                     userLogged &&
                     <IconMenu
@@ -50,6 +72,7 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
                             </IconButton>
                         }
                     >
+                        <MenuItem primaryText={userText} disabled/>
                         {
                             !user.is_staff &&
                             <MenuItem containerElement={<Link to="/takePart"/>} primaryText="Iniciar proceso"/>
