@@ -47,6 +47,9 @@ class TakePartPage extends Component {
         let optionOne = new Option();
         let optionTwo = new Option();
         let optionThree = new Option();
+        let i = 0;
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird"];
+        let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
@@ -64,11 +67,15 @@ class TakePartPage extends Component {
                     if (third.college) {
                         optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
-                debugger;
             }
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
         });
 
-        this.setState({optionOne, optionTwo, optionThree});
+        state["optionOne"] = optionOne;
+        state["optionTwo"] = optionTwo;
+        state["optionThree"] = optionThree;
+
+        this.setState(state);
     }
 
     componentWillReceiveProps(nP) {
@@ -76,28 +83,35 @@ class TakePartPage extends Component {
         let optionOne = new Option();
         let optionTwo = new Option();
         let optionThree = new Option();
+        let i = 0;
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird"];
+        let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
                 if(first)
-                if (first.college) {
-                    optionOne = new Option(first.college.id, first.college.country, first.academic_program);
-                }
+                    if (first.college) {
+                        optionOne = new Option(first.college.id, first.college.country, first.academic_program);
+                    }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
                 if(second)
-                if (second.college) {
-                    optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
-                }
+                    if (second.college) {
+                        optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
+                    }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
                 if(third)
-                if (third.college) {
-                    optionThree = new Option(third.college.id, third.college.country, third.academic_program);
-                }
-                debugger;
+                    if (third.college) {
+                        optionThree = new Option(third.college.id, third.college.country, third.academic_program);
+                    }
             }
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
         });
 
-        this.setState({optionOne, optionTwo, optionThree});
+        state["optionOne"] = optionOne;
+        state["optionTwo"] = optionTwo;
+        state["optionThree"] = optionThree;
+
+        this.setState(state);
     }
 
     handleChange = index => e => {
