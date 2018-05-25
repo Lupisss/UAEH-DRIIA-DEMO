@@ -30,7 +30,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
             <h4>Idioma: {certifications.language} Nivel: {certifications.name} {certifications.description} </h4>
         </div>
     ));
-
+    const percentage = ((profile.credits_coursed * 100) / (profile.academic_program.total_number_of_credits)).toFixed(2) + "%";
     return (
 
         <div className="Main-profile">
@@ -115,6 +115,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
 
                     </Paper>
 
+
                     {
                         profile.academic_program &&
                         <Paper style={{backgroundColor: "#901B00", color: "white"}} zDepth={5} className="prueba1">
@@ -127,12 +128,11 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                             <p> Programa educativo: {profile.academic_program.name} </p>
                             <p> Número de semestres: {profile.academic_program.number_of_semesters}</p>
                             <p> Semestre actual:{profile.current_semester}</p>
-
-
                             <p> Promedio general: {profile.grade}</p>
                             <p> Número total de creditos:{profile.academic_program.total_number_of_credits}</p>
                             <p> Creditos cursados: {profile.credits_coursed}</p>
-                            <p> Porcentaje de créditos cursados: {profile.credit_percentage_coursed}</p>
+
+                            <p> Porcentaje de créditos cursados: {percentage}</p>
 
                         </Paper>
                     }
