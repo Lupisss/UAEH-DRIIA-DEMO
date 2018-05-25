@@ -36,6 +36,7 @@ class TakePartPage extends Component {
             subjectUAEHFirst: new SubjectUAEH(),
             subjectUAEHSecond: new SubjectUAEH(),
             subjectUAEHThird: new SubjectUAEH(),
+            subjectUAEHForth: new SubjectUAEH(),
             optionOne: new Option(),
             optionTwo: new Option(),
             optionThree: new Option()
@@ -48,7 +49,7 @@ class TakePartPage extends Component {
         let optionTwo = new Option();
         let optionThree = new Option();
         let i = 0;
-        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird"];
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
         let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
@@ -84,7 +85,7 @@ class TakePartPage extends Component {
         let optionTwo = new Option();
         let optionThree = new Option();
         let i = 0;
-        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird"];
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
         let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
@@ -133,6 +134,11 @@ class TakePartPage extends Component {
                 subjectUAEHThird[name] = value;
                 this.setState({subjectUAEHThird});
                 break;
+            case 4:
+                let subjectUAEHForth = {...this.state.subjectUAEHForth};
+                subjectUAEHForth[name] = value;
+                this.setState({subjectUAEHForth});
+                break;
             default:
                 console.log('No a option');
         }
@@ -155,7 +161,7 @@ class TakePartPage extends Component {
 
     render() {
         const {colleges, fetched} = this.props;
-        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird, optionOne, optionTwo, optionThree} = this.state;
+        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird,subjectUAEHForth, optionOne, optionTwo, optionThree} = this.state;
         return (
             <Fragment>
                 {!fetched ? <MainLoader/> :
@@ -188,6 +194,11 @@ class TakePartPage extends Component {
                                             index={3}
                                             onChange={this.handleChange}
                                         />
+                                        <SubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
+                                            onChange={this.handleChange}
+                                        />
                                         <Title>Primera opción</Title>
                                         <SubmitButton/>
                                     </form>
@@ -218,6 +229,11 @@ class TakePartPage extends Component {
                                             index={3}
                                             onChange={this.handleChange}
                                         />
+                                        <SubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
+                                            onChange={this.handleChange}
+                                        />
                                         <SubmitButton/>
                                     </form>
                                 </Tab>
@@ -245,6 +261,11 @@ class TakePartPage extends Component {
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
+                                            onChange={this.handleChange}
+                                        />
+                                        <SubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
                                             onChange={this.handleChange}
                                         />
                                         <SubmitButton/>
