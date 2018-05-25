@@ -60,7 +60,7 @@
 }
 .aviso{
     color:rgba(255, 255, 255, 0.7);
-    font-size: 10px;
+    font-size: 13px;
     font-family: 'Open Sans', sans-serif;
 }
 @media(max-width: 769px){
@@ -90,4 +90,8 @@
     bottom: 0;
     min-width: 100%;
     min-height: 100%;
+}
+
+.contacto{
+    color: #222222;
 }

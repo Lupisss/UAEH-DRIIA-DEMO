@@ -15,7 +15,7 @@ class Categorias extends Component {
                             <div className="cubierta">
                                 <div className="vino">
                                 <p className='icon' ><FontAwesome name='shopping-basket' size='1x'/></p>
-                                <span >Lorem ipsum </span></div>
+                                <span >hyujjuygfdfgbhnn</span></div>
                             </div>
                         </div>
                     </div>

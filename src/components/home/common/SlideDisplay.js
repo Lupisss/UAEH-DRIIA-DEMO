@@ -2,6 +2,7 @@ import React from 'react';
 import './Slide.css';
 //import logo from '../../../assets/uaehh.png';
 import {RaisedButton} from 'material-ui';
+import {Link} from "react-router-dom";
 
 
 //Texto y boton sobre imagen principal
@@ -16,12 +17,17 @@ export const SlideDisplay = () => {
                     </video>
 
                     <div className="slogan">
-                        <h2>Lorem ipsum dolor sit amet, consectetur</h2>
+                        <h2>Universidad Autónoma del Estado de Hidalgo</h2>
+                        <br/>
                         <p className="text">
-                            Lorem ipsum dolor sit amet
+                            Dirección de Relaciones Internacionales e Intercambio Académico
                         </p>
+                        <br/>
+                        <Link to="/signup">
                         <RaisedButton  label="Registro" primary={true} type="submit" />
-                        <p className="aviso">Necesitas ayuda? Contáctanos</p>
+                        </Link>
+                        <br/>
+                        <p className="aviso">Necesitas ayuda? <a href="mailto:lupiz_1810@hotmail.com" className="contacto"> Contáctanos </a> </p>
                     </div>
                 </div>
             </div>
