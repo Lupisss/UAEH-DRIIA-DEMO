@@ -5,6 +5,8 @@ import {Options} from "./Options";
 import {SubjectToStudy} from "./SubjectToStudy";
 import {MainLoader} from '../loader/Loader';
 import {connect} from 'react-redux';
+import HomolaacionApi from '../../api/homologacionesRepository';
+import toastr from 'toastr';
 
 class SubjectUAEH {
     constructor(key = "", name = "") {
@@ -18,7 +20,8 @@ class SubjectUAEH {
 }
 
 class Subject {
-    constructor(key = "", name = "") {
+    constructor(id, key = "", name = "") {
+        this.id = id;
         this.key = key;
         this.name = name;
     }
@@ -79,21 +82,21 @@ class TakePartPage extends Component {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
                 if(first) {
-                    state[`homo${j++}`] = new Subject(first.key, first.name);
+                    state[`homo${j++}`] = new Subject(first.id,first.key, first.name);
                     if (first.college) {
                         optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
                 }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
                 if(second) {
-                    state[`homo${j++}`] = new Subject(second.key, second.name);
+                    state[`homo${j++}`] = new Subject(second.id,second.key, second.name);
                     if (second.college) {
                         optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
                 }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
                 if(third) {
-                    state[`homo${j++}`] = new Subject(third.key, third.name);
+                    state[`homo${j++}`] = new Subject(third.id, third.key, third.name);
                     if (third.college) {
                         optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
@@ -122,21 +125,21 @@ class TakePartPage extends Component {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
                 if(first) {
-                    state[`homo${j++}`] = new Subject(first.key, first.name);
+                    state[`homo${j++}`] = new Subject(first.id, first.key, first.name);
                     if (first.college) {
                         optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
                 }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
                 if(second) {
-                    state[`homo${j++}`] = new Subject(second.key, second.name);
+                    state[`homo${j++}`] = new Subject(second.id, second.key, second.name);
                     if (second.college) {
                         optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
                 }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
                 if(third) {
-                    state[`homo${j++}`] = new Subject(third.key, third.name);
+                    state[`homo${j++}`] = new Subject(third.id, third.key, third.name);
                     if (third.college) {
                         optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
@@ -202,6 +205,38 @@ class TakePartPage extends Component {
     };
 
 
+    handleSubmit1 = e => {
+        e.preventDefault();
+        let homo1 = JSON.parse(JSON.stringify(this.state.homo1));
+        let homo4 = JSON.parse(JSON.stringify(this.state.homo4));
+        let homo7 = JSON.parse(JSON.stringify(this.state.homo7));
+        let homo10 = JSON.parse(JSON.stringify(this.state.homo10));
+        let homos = [homo1,homo4,homo7,homo10];
+        let homosToUpdate = homos.map( homo => {
+            homo.academic_program = this.state.optionOne.academicProgram;
+            homo.college = this.state.optionOne.college;
+            return HomolaacionApi.updateHomologacion(homo)
+        });
+        setTimeout(()=> console.log(homo10),1000);
+        Promise.all(homosToUpdate)
+            .then(values => {
+                console.log(values);
+                toastr.success("Materias actualizadas");
+            }).catch( e => {
+                console.log(e)
+        });// End promise All
+    };
+
+    handleSubmit2 = e => {
+        e.preventDefault();
+        alert("2");
+    };
+
+    handleSubmit3 = e => {
+        e.preventDefault();
+        alert("3");
+    };
+
     render() {
         const {colleges, fetched} = this.props;
         const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird,subjectUAEHForth, homo1,homo2,homo3,homo4,homo5, homo6, homo7, homo8, homo9, homo10, homo11, homo12, optionOne, optionTwo, optionThree} = this.state;
@@ -212,7 +247,7 @@ class TakePartPage extends Component {
                         <Paper className="Main-form-tp" zDepth={3}>
                             <Tabs>
                                 <Tab label="1ra opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit1} className="Tab-style">
                                         {/*<h2 style={{marginLeft:50}}><small>Universidades Destino <span style={{color:'gray'}}><small>Selecciona tus opciones</small></span></small></h2>*/}
                                         <Options
                                             handleCollegeOptionChange={this.handleCollegeOptionChange}
@@ -259,7 +294,7 @@ class TakePartPage extends Component {
                                     </form>
                                 </Tab>
                                 <Tab label="2da opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit2} className="Tab-style">
                                         <Title>Segunda opción</Title>
                                         <Options
                                             handleOptionChange={this.handleOptionChange}
@@ -305,7 +340,7 @@ class TakePartPage extends Component {
                                     </form>
                                 </Tab>
                                 <Tab label="3ra opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit3} className="Tab-style">
                                         <Title>Tercera opción</Title>
                                         <Options
                                             handleOptionChange={this.handleOptionChange}
