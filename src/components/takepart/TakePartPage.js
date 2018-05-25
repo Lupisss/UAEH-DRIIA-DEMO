@@ -16,13 +16,28 @@ class SubjectUAEH {
     }
 }
 
+class Option {
+    constructor(college = null, country = "", academicProgram = ""){
+        this.college = college;
+        this.country =  country;
+        this.academicProgram = academicProgram;
+    }
+
+    toString(){
+        return this.college + this.country +  this.academicProgram ;
+    }
+}
+
 class TakePartPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
             subjectUAEHFirst : new SubjectUAEH(),
             subjectUAEHSecond : new SubjectUAEH(),
-            subjectUAEHThird : new SubjectUAEH()
+            subjectUAEHThird : new SubjectUAEH(),
+            optionOne: new Option(),
+            optionTwo: new Option(),
+            optionThree: new Option()
         };
     }
 
@@ -57,21 +72,39 @@ class TakePartPage extends Component {
         }
     };
 
+    handleCollegeOptionChange = name =>  (event, index, value) => {
+        let option = JSON.parse(JSON.stringify(this.state[name]));
+        option.college = value;
+        let college = this.props.colleges.filter(college => college.id == value)[0];
+        option.country = college.country;
+        this.setState({[name]:option});
+    };
+
+    handleOptionChange = name => event => {
+        let option = JSON.parse(JSON.stringify(this.state[name]));
+        option[event.target.name] = event.target.value;
+        this.setState({[name]:option});
+    };
+
+
     render() {
         const {colleges} = this.props;
-        const {subjectUAEHFirst,subjectUAEHSecond,subjectUAEHThird} = this.state;
+        const {subjectUAEHFirst,subjectUAEHSecond,subjectUAEHThird, optionOne, optionTwo, optionThree} = this.state;
         return (
             <div className="Main-takepart">
                 <Paper className="Main-form-tp" zDepth={3}>
-                    <form  style={{textAlign:'left'}}>
+                    <form style={{textAlign:'left'}}>
                         <Tabs>
                             <Tab label="1ra opción" >
                                 <div className="Tab-style">
                                     {/*<h2 style={{marginLeft:50}}><small>Universidades Destino <span style={{color:'gray'}}><small>Selecciona tus opciones</small></span></small></h2>*/}
-                                    <Title>Primera opción</Title>
                                     <Options
+                                        handleCollegeOptionChange={this.handleCollegeOptionChange}
+                                        handleOptionChange={this.handleOptionChange}
                                         index={"1ra"}
                                         dataSource={colleges}
+                                        option={optionOne}
+                                        optionName={"optionOne"}
                                     />
                                     <SubjectToStudy
                                         subjectUAEH={subjectUAEHFirst}
@@ -88,14 +121,19 @@ class TakePartPage extends Component {
                                         index={3}
                                         onChange={this.handleChange}
                                     />
+                                    <Title>Primera opción</Title>
                                 </div>
                             </Tab>
                             <Tab label="2da opción" >
                                 <div className="Tab-style">
                                     <Title>Segunda opción</Title>
                                     <Options
+                                        handleOptionChange={this.handleOptionChange}
+                                        handleCollegeOptionChange={this.handleCollegeOptionChange}
                                         index={"2da"}
                                         dataSource={colleges}
+                                        option={optionTwo}
+                                        optionName={"optionTwo"}
                                     />
                                     <SubjectToStudy
                                         subjectUAEH={subjectUAEHFirst}
@@ -118,8 +156,12 @@ class TakePartPage extends Component {
                                 <div className="Tab-style">
                                     <Title>Tercera opción</Title>
                                     <Options
+                                        handleOptionChange={this.handleOptionChange}
+                                        handleCollegeOptionChange={this.handleCollegeOptionChange}
                                         index={"3ra"}
                                         dataSource={colleges}
+                                        option={optionThree}
+                                        optionName={"optionThree"}
                                     />
                                     <SubjectToStudy
                                         subjectUAEH={subjectUAEHFirst}
