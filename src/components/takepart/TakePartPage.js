@@ -17,6 +17,17 @@ class SubjectUAEH {
     }
 }
 
+class Subject {
+    constructor(key = "", name = "") {
+        this.key = key;
+        this.name = name;
+    }
+
+    toString() {
+        return this.key + this.name;
+    }
+}
+
 class Option {
     constructor(college = null, country = "", academicProgram = "") {
         this.college = college;
@@ -37,6 +48,18 @@ class TakePartPage extends Component {
             subjectUAEHSecond: new SubjectUAEH(),
             subjectUAEHThird: new SubjectUAEH(),
             subjectUAEHForth: new SubjectUAEH(),
+            homo1: new Subject(),
+            homo2: new Subject(),
+            homo3: new Subject(),
+            homo4: new Subject(),
+            homo5: new Subject(),
+            homo6: new Subject(),
+            homo7: new Subject(),
+            homo8: new Subject(),
+            homo9: new Subject(),
+            homo10: new Subject(),
+            homo11: new Subject(),
+            homo12: new Subject(),
             optionOne: new Option(),
             optionTwo: new Option(),
             optionThree: new Option()
@@ -115,6 +138,12 @@ class TakePartPage extends Component {
         this.setState(state);
     }
 
+    handleHomoChange = name => e => {
+        let homo = JSON.parse(JSON.stringify(this.state[name]));
+        homo[e.target.name] = e.target.value;
+        this.setState({[name]:homo});
+    };
+
     handleChange = index => e => {
         let {name, value} = e.target;
         switch (index) {
@@ -161,7 +190,7 @@ class TakePartPage extends Component {
 
     render() {
         const {colleges, fetched} = this.props;
-        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird,subjectUAEHForth, optionOne, optionTwo, optionThree} = this.state;
+        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird,subjectUAEHForth, homo1,homo2,homo3,homo4,homo5, homo6, homo7, homo8, homo9, homo10, homo11, homo12, optionOne, optionTwo, optionThree} = this.state;
         return (
             <Fragment>
                 {!fetched ? <MainLoader/> :
@@ -183,21 +212,33 @@ class TakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo1"}
+                                            homo={homo1}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo2"}
+                                            homo={homo2}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo3"}
+                                            homo={homo3}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
                                             index={4}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo4"}
+                                            homo={homo4}
                                         />
                                         <Title>Primera opción</Title>
                                         <SubmitButton/>
@@ -218,21 +259,33 @@ class TakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo5"}
+                                            homo={homo5}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo6"}
+                                            homo={homo6}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo7"}
+                                            homo={homo7}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
                                             index={4}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo8"}
+                                            homo={homo8}
                                         />
                                         <SubmitButton/>
                                     </form>
@@ -252,21 +305,33 @@ class TakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo9"}
+                                            homo={homo9}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo10"}
+                                            homo={homo10}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo11"}
+                                            homo={homo11}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
                                             index={4}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo12"}
+                                            homo={homo12}
                                         />
                                         <SubmitButton/>
                                     </form>
