@@ -72,25 +72,32 @@ class TakePartPage extends Component {
         let optionTwo = new Option();
         let optionThree = new Option();
         let i = 0;
+        let j = 1;
         let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
         let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
-                if(first)
+                if(first) {
+                    state[`homo${j++}`] = new Subject(first.key, first.name);
                     if (first.college) {
                         optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
+                }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
-                if(second)
+                if(second) {
+                    state[`homo${j++}`] = new Subject(second.key, second.name);
                     if (second.college) {
                         optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
+                }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
-                if(third)
+                if(third) {
+                    state[`homo${j++}`] = new Subject(third.key, third.name);
                     if (third.college) {
                         optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
+                }
             }
             state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
         });
@@ -108,25 +115,32 @@ class TakePartPage extends Component {
         let optionTwo = new Option();
         let optionThree = new Option();
         let i = 0;
+        let j = 1;
         let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
         let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
-                if(first)
+                if(first) {
+                    state[`homo${j++}`] = new Subject(first.key, first.name);
                     if (first.college) {
                         optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
+                }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
-                if(second)
+                if(second) {
+                    state[`homo${j++}`] = new Subject(second.key, second.name);
                     if (second.college) {
                         optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
+                }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
-                if(third)
+                if(third) {
+                    state[`homo${j++}`] = new Subject(third.key, third.name);
                     if (third.college) {
                         optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
+                }
             }
             state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
         });
@@ -221,24 +235,24 @@ class TakePartPage extends Component {
                                             index={2}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo2"}
-                                            homo={homo2}
+                                            homoName={"homo4"}
+                                            homo={homo4}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo3"}
-                                            homo={homo3}
+                                            homoName={"homo7"}
+                                            homo={homo7}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
                                             index={4}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo4"}
-                                            homo={homo4}
+                                            homoName={"homo10"}
+                                            homo={homo10}
                                         />
                                         <Title>Primera opción</Title>
                                         <SubmitButton/>
@@ -260,32 +274,32 @@ class TakePartPage extends Component {
                                             index={1}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo5"}
-                                            homo={homo5}
+                                            homoName={"homo2"}
+                                            homo={homo2}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo6"}
-                                            homo={homo6}
+                                            homoName={"homo5"}
+                                            homo={homo5}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo7"}
-                                            homo={homo7}
+                                            homoName={"homo8"}
+                                            homo={homo8}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
                                             index={4}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo8"}
-                                            homo={homo8}
+                                            homoName={"homo11"}
+                                            homo={homo11}
                                         />
                                         <SubmitButton/>
                                     </form>
@@ -306,24 +320,24 @@ class TakePartPage extends Component {
                                             index={1}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo9"}
-                                            homo={homo9}
+                                            homoName={"homo3"}
+                                            homo={homo3}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo10"}
-                                            homo={homo10}
+                                            homoName={"homo6"}
+                                            homo={homo6}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
                                             handleHomoChange={this.handleHomoChange}
-                                            homoName={"homo11"}
-                                            homo={homo11}
+                                            homoName={"homo9"}
+                                            homo={homo9}
                                         />
                                         <SubjectToStudy
                                             subjectUAEH={subjectUAEHForth}
