@@ -10,24 +10,24 @@ class About extends Component {
             <div className="about">
                 <div className="fx space">
                     <div className="process borde">
-                        <FontAwesome name='hand-pointer-o' className='icon_about' size='3x'/>
-                        <h3 >Lorem ipsum</h3>
-                        <p>Lorem ipsum dolor sit</p>
+                        <FontAwesome name='laptop' className='icon_about' size='3x'/>
+                        <h2>Visitas totales</h2>
+                        <h3>+55,792</h3>
                     </div>
                     <div className="process borde">
-                        <FontAwesome name='hand-pointer-o' className='icon_about' size='3x'/>
-                        <h3>Lorem ipsum</h3>
-                        <p>Lorem ipsum dolor sit</p>
+                        <FontAwesome name='plane' className='icon_about' size='3x'/>
+                        <h2>Intercambios realizados</h2>
+                        <h3>+800</h3>
                     </div>
                     <div className="process borde">
-                        <FontAwesome name='hand-pointer-o' className='icon_about' size='3x'/>
-                        <h3>Lorem ipsum</h3>
-                        <p>Lorem ipsum dolor sit </p>
+                        <FontAwesome name='child' className='icon_about' size='3x'/>
+                        <h2>Alumnos extranjeros recibidos</h2>
+                        <h3>+500</h3>
                     </div>
                     <div className="process borde_left">
-                        <FontAwesome name='hand-pointer-o' className='icon_about' size='3x'/>
-                        <h3>Lorem ipsum</h3>
-                        <p>Lorem ipsum dolor sit</p>
+                        <FontAwesome name='heartbeat' className='icon_about' size='3x'/>
+                        <h2>Alumnos felices</h2>
+                        <h3>+100,000</h3>
                     </div>
                 </div>
                 <div className="nos">
@@ -35,8 +35,9 @@ class About extends Component {
                         <div className="info">
 
                             {/* Pagina principal abajo de la pagina principal*/}
-                            <h2>Lorem ipsum dolor sit amet, consectetur<br/> Lorem ipsum dolor</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod</p>
+                            <br/>
+                            <h2>Nuestro objetivo es fortalecer y consolidar la internacionalización de la UAEH, mediante la movilidad educativa entrante y saliente a nivel nacional e internacional, del profesorado, alumnado y funcionariado</h2>
+
                         </div>
                         <div className="infor">
                             <img src={iphone} alt=""/>

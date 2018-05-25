@@ -39,9 +39,9 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
     return (
         <Toolbar className="NavBar">
            <ToolbarGroup>
-               <Link to="/" style={{textDecoration:"none", color: '#919191'}} >
+               {/* <Link to="/" style={{textDecoration:"none", color: '#919191'}} > */}
                    <ToolbarTitle text="UAEH DRIIA"/>
-               </Link>
+               {/* </Link> */}
            </ToolbarGroup>
             <ToolbarGroup>
                 <ToolbarSeparator/>
