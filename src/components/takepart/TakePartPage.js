@@ -6,6 +6,7 @@ import {SubjectToStudy} from "./SubjectToStudy";
 import {MainLoader} from '../loader/Loader';
 import {connect} from 'react-redux';
 import HomolaacionApi from '../../api/homologacionesRepository';
+import {getSubjectsToCourse} from '../../redux/actions/subjectsToCourseActions';
 import toastr from 'toastr';
 
 class SubjectUAEH {
@@ -221,6 +222,7 @@ class TakePartPage extends Component {
         Promise.all(homosToUpdate)
             .then(values => {
                 console.log(values);
+                this.props.getSubjectsToCourse();
                 toastr.success("Materias actualizadas");
             }).catch( e => {
                 console.log(e)
@@ -413,5 +415,5 @@ const mapStateToProps = (state, ownProps) => {
     }
 };
 
-TakePartPage = connect(mapStateToProps, {})(TakePartPage);
+TakePartPage = connect(mapStateToProps, {getSubjectsToCourse})(TakePartPage);
 export default TakePartPage;
