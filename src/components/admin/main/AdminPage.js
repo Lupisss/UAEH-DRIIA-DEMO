@@ -27,6 +27,7 @@ class AdminPage extends Component {
             <Fragment>
                 {   !fetched ? <MainLoader/> :
                     <div className="Main-admin">
+
                         <Drawer containerClassName="drawer">
                             <MenuItem containerElement={<Link to="/admin/students"/>}>Estudiantes</MenuItem>
                             <MenuItem containerElement={<Link to="/admin/colleges"/>}>Universidades</MenuItem>
@@ -54,4 +55,3 @@ const mapStateToProps = (state, ownProps) => ({
 //Conectar con redux
 AdminPage = connect(mapStateToProps,{})(AdminPage);
 export default AdminPage;
-

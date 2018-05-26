@@ -19,7 +19,7 @@ export const StudentAdminComponent = ({data, search, onChange}) => {
        return <MyRow {...this.props} key={key} rowData={field}/>
     });
     return (
-        <div>
+        <div >
             {/* campo de busqueda en la administracion */}
             <SearchField
                 style={{width:'50%'}}
