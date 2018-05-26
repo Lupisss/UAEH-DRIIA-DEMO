@@ -150,7 +150,7 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
 
                     </Paper>
 
-                    <Link to="/university">
+                    <Link to={`/university/${profile.id}`}>
                         <Paper style={{backgroundColor: "#901B00", color: "white"}} zDepth={5} className="prueba1">
                             <h2 style={{width: '100%'}}>
                                 <small>VER UNIVERSIDADES DE DESTINO</small>

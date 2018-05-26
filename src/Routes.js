@@ -26,6 +26,6 @@ export const Routes = () => (
         <Route path="/cv" component={CVPage}/>
         <Route path="/public/:id" component={PuProfilePage}/>
         <Route path="/documents/:id" component={PuLoadFilesPage}/>
-            <Route path="/university" component={PuTakePartPage}/>
+        <Route path="/university/:id" component={PuTakePartPage}/>
     </Switch>
 );

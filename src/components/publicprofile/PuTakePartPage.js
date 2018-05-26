@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import './PuTakePartStylesheet.css';
+import '../takepart/TakePartStylesheet.css';
 import {Paper, RaisedButton, Tab, Tabs} from 'material-ui';
 import {PuOptions} from "./PuOptions";
 import {PuSubjectToStudy} from "./PuSubjectToStudy";
@@ -7,7 +7,8 @@ import {MainLoader} from '../loader/Loader';
 import {connect} from 'react-redux';
 
 class SubjectUAEH {
-    constructor(key = "", name = "") {
+    constructor(id, key = "", name = "") {
+        this.id = id;
         this.key = key;
         this.name = name;
     }
@@ -17,7 +18,19 @@ class SubjectUAEH {
     }
 }
 
-class PuOption {
+class Subject {
+    constructor(id, key = "", name = "") {
+        this.id = id;
+        this.key = key;
+        this.name = name;
+    }
+
+    toString() {
+        return this.key + this.name;
+    }
+}
+
+class Option {
     constructor(college = null, country = "", academicProgram = "") {
         this.college = college;
         this.country = country;
@@ -36,69 +49,116 @@ class PuTakePartPage extends Component {
             subjectUAEHFirst: new SubjectUAEH(),
             subjectUAEHSecond: new SubjectUAEH(),
             subjectUAEHThird: new SubjectUAEH(),
-            optionOne: new PuOption(),
-            optionTwo: new PuOption(),
-            optionThree: new PuOption()
+            subjectUAEHForth: new SubjectUAEH(),
+            homo1: new Subject(),
+            homo2: new Subject(),
+            homo3: new Subject(),
+            homo4: new Subject(),
+            homo5: new Subject(),
+            homo6: new Subject(),
+            homo7: new Subject(),
+            homo8: new Subject(),
+            homo9: new Subject(),
+            homo10: new Subject(),
+            homo11: new Subject(),
+            homo12: new Subject(),
+            optionOne: new Option(),
+            optionTwo: new Option(),
+            optionThree: new Option()
         };
     }
 
     componentWillMount() {
         let subjectsToCourse = JSON.parse(JSON.stringify(this.props.subjectsToCourse));
-        let optionOne = new PuOption();
-        let optionTwo = new PuOption();
-        let optionThree = new PuOption();
+        let optionOne = new Option();
+        let optionTwo = new Option();
+        let optionThree = new Option();
+        let i = 0;
+        let j = 1;
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
+        let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
-                if(first)
+                if(first) {
+                    state[`homo${j++}`] = new Subject(first.id,first.key, first.name);
                     if (first.college) {
-                        optionOne = new PuOption(first.college.id, first.college.country, first.academic_program);
+                        optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
+                }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
-                if(second)
+                if(second) {
+                    state[`homo${j++}`] = new Subject(second.id,second.key, second.name);
                     if (second.college) {
-                        optionTwo = new PuOption(second.college.id, second.college.country, second.academic_program);
+                        optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
+                }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
-                if(third)
+                if(third) {
+                    state[`homo${j++}`] = new Subject(third.id, third.key, third.name);
                     if (third.college) {
-                        optionThree = new PuOption(third.college.id, third.college.country, third.academic_program);
+                        optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
-                debugger;
+                }
             }
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.id, subject.key, subject.name);
         });
 
-        this.setState({optionOne, optionTwo, optionThree});
+        state["optionOne"] = optionOne;
+        state["optionTwo"] = optionTwo;
+        state["optionThree"] = optionThree;
+
+        this.setState(state);
     }
 
     componentWillReceiveProps(nP) {
         let subjectsToCourse = JSON.parse(JSON.stringify(nP.subjectsToCourse));
-        let optionOne = new PuOption();
-        let optionTwo = new PuOption();
-        let optionThree = new PuOption();
+        let optionOne = new Option();
+        let optionTwo = new Option();
+        let optionThree = new Option();
+        let i = 0;
+        let j = 1;
+        let namesSubjets = ["subjectUAEHFirst","subjectUAEHSecond","subjectUAEHThird","subjectUAEHForth"];
+        let state = {};
         subjectsToCourse.forEach(subject => {
             if (subject.homologaciones) {
                 let first = subject.homologaciones.filter(homologacion => homologacion.priority == '1')[0];
-                if(first)
+                if(first) {
+                    state[`homo${j++}`] = new Subject(first.id, first.key, first.name);
                     if (first.college) {
-                        optionOne = new PuOption(first.college.id, first.college.country, first.academic_program);
+                        optionOne = new Option(first.college.id, first.college.country, first.academic_program);
                     }
+                }
                 let second = subject.homologaciones.filter(homologacion => homologacion.priority == '2')[0];
-                if(second)
+                if(second) {
+                    state[`homo${j++}`] = new Subject(second.id, second.key, second.name);
                     if (second.college) {
-                        optionTwo = new PuOption(second.college.id, second.college.country, second.academic_program);
+                        optionTwo = new Option(second.college.id, second.college.country, second.academic_program);
                     }
+                }
                 let third = subject.homologaciones.filter(homologacion => homologacion.priority == '3')[0];
-                if(third)
+                if(third) {
+                    state[`homo${j++}`] = new Subject(third.id, third.key, third.name);
                     if (third.college) {
-                        optionThree = new PuOption(third.college.id, third.college.country, third.academic_program);
+                        optionThree = new Option(third.college.id, third.college.country, third.academic_program);
                     }
-                debugger;
+                }
             }
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.id, subject.key, subject.name);
         });
 
-        this.setState({optionOne, optionTwo, optionThree});
+        state["optionOne"] = optionOne;
+        state["optionTwo"] = optionTwo;
+        state["optionThree"] = optionThree;
+
+        this.setState(state);
     }
+
+    handleHomoChange = name => e => {
+        let homo = JSON.parse(JSON.stringify(this.state[name]));
+        homo[e.target.name] = e.target.value;
+        this.setState({[name]:homo});
+    };
 
     handleChange = index => e => {
         let {name, value} = e.target;
@@ -119,6 +179,11 @@ class PuTakePartPage extends Component {
                 subjectUAEHThird[name] = value;
                 this.setState({subjectUAEHThird});
                 break;
+            case 4:
+                let subjectUAEHForth = {...this.state.subjectUAEHForth};
+                subjectUAEHForth[name] = value;
+                this.setState({subjectUAEHForth});
+                break;
             default:
                 console.log('No a option');
         }
@@ -138,10 +203,9 @@ class PuTakePartPage extends Component {
         this.setState({[name]: option});
     };
 
-
     render() {
         const {colleges, fetched} = this.props;
-        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird, optionOne, optionTwo, optionThree} = this.state;
+        const {subjectUAEHFirst, subjectUAEHSecond, subjectUAEHThird,subjectUAEHForth, homo1,homo2,homo3,homo4,homo5, homo6, homo7, homo8, homo9, homo10, homo11, homo12, optionOne, optionTwo, optionThree} = this.state;
         return (
             <Fragment>
                 {!fetched ? <MainLoader/> :
@@ -149,7 +213,7 @@ class PuTakePartPage extends Component {
                         <Paper className="Main-form-tp" zDepth={3}>
                             <Tabs>
                                 <Tab label="1ra opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit1} className="Tab-style">
                                         {/*<h2 style={{marginLeft:50}}><small>Universidades Destino <span style={{color:'gray'}}><small>Selecciona tus opciones</small></span></small></h2>*/}
                                         <PuOptions
                                             handleCollegeOptionChange={this.handleCollegeOptionChange}
@@ -163,23 +227,39 @@ class PuTakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo1"}
+                                            homo={homo1}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo4"}
+                                            homo={homo4}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo7"}
+                                            homo={homo7}
+                                        />
+                                        <PuSubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
+                                            onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo10"}
+                                            homo={homo10}
                                         />
                                         <Title>Primera opción</Title>
-
                                     </form>
                                 </Tab>
                                 <Tab label="2da opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit2} className="Tab-style">
                                         <Title>Segunda opción</Title>
                                         <PuOptions
                                             handleOptionChange={this.handleOptionChange}
@@ -193,22 +273,38 @@ class PuTakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo2"}
+                                            homo={homo2}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo5"}
+                                            homo={homo5}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo8"}
+                                            homo={homo8}
                                         />
-
+                                        <PuSubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
+                                            onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo11"}
+                                            homo={homo11}
+                                        />
                                     </form>
                                 </Tab>
                                 <Tab label="3ra opción">
-                                    <form className="Tab-style">
+                                    <form onSubmit={this.handleSubmit3} className="Tab-style">
                                         <Title>Tercera opción</Title>
                                         <PuOptions
                                             handleOptionChange={this.handleOptionChange}
@@ -222,16 +318,33 @@ class PuTakePartPage extends Component {
                                             subjectUAEH={subjectUAEHFirst}
                                             index={1}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo3"}
+                                            homo={homo3}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHSecond}
                                             index={2}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo6"}
+                                            homo={homo6}
                                         />
                                         <PuSubjectToStudy
                                             subjectUAEH={subjectUAEHThird}
                                             index={3}
                                             onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo9"}
+                                            homo={homo9}
+                                        />
+                                        <PuSubjectToStudy
+                                            subjectUAEH={subjectUAEHForth}
+                                            index={4}
+                                            onChange={this.handleChange}
+                                            handleHomoChange={this.handleHomoChange}
+                                            homoName={"homo12"}
+                                            homo={homo12}
                                         />
                                     </form>
                                 </Tab>
@@ -251,11 +364,21 @@ const Title = (props) => (
     </div>
 );
 
+const SubmitButton = ({...props}) => (
+    <RaisedButton className={"submitButton"} type={"submit"} primary label={"Guardar"}/>
+);
+
 const mapStateToProps = (state, ownProps) => {
+    const id = ownProps.match.params.id;
+    let profile = { subjectsToCourse: [] };
+    if (state.profiles.areFetched) {
+        profile = state.profiles.list.filter(profile => profile.id == id)[0];
+    }
+    console.log(JSON.stringify(profile));
     return {
         colleges: state.colleges.list,
-        subjectsToCourse: state.subjectsToCourse.list,
-        fetched: state.colleges.areFetched
+        subjectsToCourse: profile.subjectsToCourse,
+        fetched: state.profiles.areFetched
     }
 };
 
