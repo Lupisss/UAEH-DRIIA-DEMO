@@ -30,7 +30,10 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
             <h4>Idioma: {certifications.language} Nivel: {certifications.name} {certifications.description} </h4>
         </div>
     ));
-    const percentage = ((profile.credits_coursed * 100) / (profile.academic_program.total_number_of_credits)).toFixed(2) + "%";
+    let percentage = 0;
+    if(profile.academic_program){
+        percentage = ((profile.credits_coursed * 100) / (profile.academic_program.total_number_of_credits)).toFixed(2) + "%";
+    }
     return (
 
         <div className="Main-profile">
