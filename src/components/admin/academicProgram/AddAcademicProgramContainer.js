@@ -168,8 +168,7 @@ const mapStateToProps = (state, ownProps) => {
         academicProgram,
         colleges: state.colleges.list,
         departments: state.departments.list,
-        fetched: state.academicPrograms.areFetched,
-        profileId : state.user.info.profile.id
+        fetched: state.academicPrograms.areFetched
     }
 };
 

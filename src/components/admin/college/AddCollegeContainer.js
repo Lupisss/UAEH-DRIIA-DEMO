@@ -121,8 +121,7 @@ const mapStateToProps = (state, ownProps) => {
     console.log('Te amo lupita reyes ',college);
     return {
         college,
-        fetched: state.colleges.areFetched,
-        profileId : state.user.info.profile.id
+        fetched: state.colleges.areFetched
     }
 };
 
