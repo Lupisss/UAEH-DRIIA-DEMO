@@ -19,14 +19,20 @@ export const SlideDisplay = () => {
                     <div className="slogan">
                         <h2>Universidad Autónoma del Estado de Hidalgo</h2>
                         <br/>
+                        <br/>
                         <p className="text">
                             Dirección de Relaciones Internacionales e Intercambio Académico
                         </p>
                         <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+
                         <Link to="/signup">
                         <RaisedButton  label="Registro" primary={true} type="submit" />
                         </Link>
                         <br/>
+
                         <p className="aviso">Necesitas ayuda? <a href="mailto:lupiz_1810@hotmail.com" className="contacto"> Contáctanos </a> </p>
                     </div>
                 </div>

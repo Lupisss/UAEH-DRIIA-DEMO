@@ -8,7 +8,7 @@ class Info extends Component {
         return (
             <div className="informacion">
                 <div className="box_info">
-                    <FontAwesome name='check' className='icon_about' size='3x'/>
+                    <FontAwesome name='university' className='icon_about' size='3x'/>
                     <h2>Politicas</h2>
                     <p>Garantizar que la movilidad se desarrolle en Instituciones de Educación Superior con reconocimiento académico y valor curricular.</p>
                     <p>Privilegiar los destinos académicos impartidos en lenguas distintas al español.</p>

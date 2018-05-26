@@ -11,6 +11,7 @@ import AdminPage from "./components/admin/main/AdminPage";
 import CVPage from "./components/cv/CVPage";
 import PuProfilePage from "./components/publicprofile/PuProfilePage";
 import PuLoadFilesPage from "./components/publicprofile/PuLoadFilesPage";
+import PuTakePartPage from "./components/publicprofile/PuTakePartPage";
 
 export const Routes = () => (
     <Switch>
@@ -25,5 +26,6 @@ export const Routes = () => (
         <Route path="/cv" component={CVPage}/>
         <Route path="/public/:id" component={PuProfilePage}/>
         <Route path="/documents/:id" component={PuLoadFilesPage}/>
+            <Route path="/university" component={PuTakePartPage}/>
     </Switch>
 );

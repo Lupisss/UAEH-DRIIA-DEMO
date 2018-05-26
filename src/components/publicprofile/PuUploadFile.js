@@ -1,6 +1,7 @@
 import React, {Fragment} from "react";
 import {IconButton, Paper} from "material-ui";
 import AddFileIcon from "material-ui/svg-icons/action/note-add";
+import FontAwesome from 'react-fontawesome';
 
 let inputFile;
 

@@ -36,7 +36,10 @@ class About extends Component {
 
                             {/* Pagina principal abajo de la pagina principal*/}
                             <br/>
-                            <h2>Nuestro objetivo es fortalecer y consolidar la internacionalización de la UAEH, mediante la movilidad educativa entrante y saliente a nivel nacional e internacional, del profesorado, alumnado y funcionariado</h2>
+                            <br/>
+                            <br/>
+                            <br/>
+                            <p >Nuestro objetivo es fortalecer y consolidar la internacionalización de la UAEH, mediante la movilidad educativa entrante y saliente a nivel nacional e internacional, del profesorado, alumnado y funcionariado</p>
 
                         </div>
                         <div className="infor">
