@@ -6,11 +6,13 @@ import {SubjectToStudy} from "./SubjectToStudy";
 import {MainLoader} from '../loader/Loader';
 import {connect} from 'react-redux';
 import HomolaacionApi from '../../api/homologacionesRepository';
+import SubjectApi from '../../api/subjectToCourseApi';
 import {getSubjectsToCourse} from '../../redux/actions/subjectsToCourseActions';
 import toastr from 'toastr';
 
 class SubjectUAEH {
-    constructor(key = "", name = "") {
+    constructor(id, key = "", name = "") {
+        this.id = id;
         this.key = key;
         this.name = name;
     }
@@ -103,7 +105,7 @@ class TakePartPage extends Component {
                     }
                 }
             }
-            state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.id, subject.key, subject.name);
         });
 
         state["optionOne"] = optionOne;
@@ -146,7 +148,7 @@ class TakePartPage extends Component {
                     }
                 }
             }
-            state[namesSubjets[i++]] = new SubjectUAEH(subject.key, subject.name);
+            state[namesSubjets[i++]] = new SubjectUAEH(subject.id, subject.key, subject.name);
         });
 
         state["optionOne"] = optionOne;
@@ -212,6 +214,14 @@ class TakePartPage extends Component {
         let homo4 = JSON.parse(JSON.stringify(this.state.homo4));
         let homo7 = JSON.parse(JSON.stringify(this.state.homo7));
         let homo10 = JSON.parse(JSON.stringify(this.state.homo10));
+        let subject1 = JSON.parse(JSON.stringify(this.state.subjectUAEHFirst));
+        let subject2 = JSON.parse(JSON.stringify(this.state.subjectUAEHSecond));
+        let subject3 = JSON.parse(JSON.stringify(this.state.subjectUAEHThird));
+        let subject4 = JSON.parse(JSON.stringify(this.state.subjectUAEHForth));
+        let subjects = [subject1,subject2, subject3, subject4];
+        let subjectsToUpdate = subjects.map( subject => {
+            return SubjectApi.updateSubjectToCourse(subject)
+        });
         let homos = [homo1,homo4,homo7,homo10];
         let homosToUpdate = homos.map( homo => {
             homo.academic_program = this.state.optionOne.academicProgram;
@@ -219,14 +229,21 @@ class TakePartPage extends Component {
             return HomolaacionApi.updateHomologacion(homo)
         });
         setTimeout(()=> console.log(homo10),1000);
-        Promise.all(homosToUpdate)
-            .then(values => {
-                console.log(values);
-                this.props.getSubjectsToCourse();
-                toastr.success("Materias actualizadas");
-            }).catch( e => {
-                console.log(e)
-        });// End promise All
+        Promise.all(subjectsToUpdate)
+            .then(subjects => {
+                console.log(subjects);
+                Promise.all(homosToUpdate)
+                    .then(values => {
+                        console.log(values);
+                        this.props.getSubjectsToCourse();
+                        toastr.success("Materias actualizadas");
+                    }).catch( e => {
+                        toastr.error("Oops algo salió mal");
+                        console.log(e)
+                });// End promise All homos to update
+            }).catch(e => {
+                toastr.error("Oops algo salió mal");
+        });// End promise All subjects
     };
 
     handleSubmit2 = e => {
