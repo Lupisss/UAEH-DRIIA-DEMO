@@ -12,6 +12,7 @@ export const SubjectToStudy = ({onChange,subjectUAEH = {},index,handleHomoChange
                     name={"key"}
                     value={homo.key}
                     onChange={handleHomoChange(homoName)}
+                    maxLength={10}
                 />
                 <TextField
                     style={{width:'30%'}}
@@ -19,6 +20,7 @@ export const SubjectToStudy = ({onChange,subjectUAEH = {},index,handleHomoChange
                     name={"name"}
                     value={homo.name}
                     onChange={handleHomoChange(homoName)}
+                    maxLength={100}
                 />
                 <TextField
                     style={{width:'15%'}}
@@ -26,6 +28,7 @@ export const SubjectToStudy = ({onChange,subjectUAEH = {},index,handleHomoChange
                     name="key"
                     value={key}
                     onChange={onChange(index)}
+                    maxLength={10}
                 />
                 <TextField
                     value={name}
@@ -33,6 +36,7 @@ export const SubjectToStudy = ({onChange,subjectUAEH = {},index,handleHomoChange
                     name="name"
                     floatingLabelText="Materia a homologar"
                     onChange={onChange(index)}
+                    maxLength={100}
                 />
             </div>
     );
