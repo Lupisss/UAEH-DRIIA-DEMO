@@ -44,7 +44,7 @@ const subjectToCourseRepository = () => {
                 .then(r => {
                     resolve(r.data);
                 }).catch(e => {
-                console.log(e);
+                console.log(e.response);
                 reject(e.response);
             });
         });

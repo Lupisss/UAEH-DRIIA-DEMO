@@ -128,8 +128,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         department,
         colleges: state.colleges.list,
-        fetched: state.departments.areFetched,
-        profileId : state.user.info.profile.id
+        fetched: state.departments.areFetched
     }
 };
 

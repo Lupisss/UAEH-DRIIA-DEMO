@@ -46,14 +46,16 @@ export const logIn = user => (dispatch, getState) => {
                 .then(r => {
                     console.log('El perfil', r.data);
                     dispatch(loginSuccess(r.data));
-                    dispatch(getTutor());
                     dispatch(getDepartments());
                     dispatch(getAcademicPrograms());
                     dispatch(getProfiles());
-                    dispatch(getFiles());
                     dispatch(getColleges());
-                    dispatch(getSubjectsToCourse());
                     dispatch(fetchedSuccess());
+                    if(!r.is_staff){
+                        dispatch(getTutor());
+                        dispatch(getFiles());
+                        dispatch(getSubjectsToCourse());
+                    }
                     console.log(token);
                     return Promise.resolve(r.data)
                 }).catch(e => {
@@ -271,13 +273,16 @@ export const signUp = user => (dispatch, getState) => {
                                                     console.log(e);
                                                 });
                                             dispatch(loginSuccess(userR.data));
-                                            dispatch(getTutor());
                                             dispatch(getDepartments());
                                             dispatch(getAcademicPrograms());
                                             dispatch(getProfiles());
-                                            dispatch(getFiles());
                                             dispatch(getColleges());
                                             dispatch(fetchedSuccess());
+                                            if(!userR.data.is_staff){
+                                                dispatch(getTutor());
+                                                dispatch(getFiles());
+                                                dispatch(getSubjectsToCourse());
+                                            }
                                             return Promise.resolve(userR.data);
                                         }).catch(e => {
                                             console.log("No se pudo crear el tutor");
@@ -549,13 +554,15 @@ export function comprobarUsuario() {
             return Auth.getUser()
                 .then(r => {
                     dispatch(loginSuccess(r.data));
-                    dispatch(getTutor());
                     dispatch(getDepartments());
                     dispatch(getAcademicPrograms());
                     dispatch(getProfiles());
-                    dispatch(getFiles());
-                    dispatch(getSubjectsToCourse());
                     dispatch(getColleges());
+                    if(!r.data.is_staff){
+                        dispatch(getTutor());
+                        dispatch(getFiles());
+                        dispatch(getSubjectsToCourse());
+                    }
                     // TODO Crear modelo de subjects to course en backend
                     //dispatch(getSubjectsToCurse());
                     dispatch(fetchedSuccess());

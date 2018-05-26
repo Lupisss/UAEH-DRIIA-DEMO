@@ -10,10 +10,10 @@ export const PuOptions = ({index, dataSource, option: {college,country,academicP
         <div className="Options">
             {/*<p style={{color:'gray'}}>{index}</p>*/}
             {/*<AutoComplete*/}
-            {/*floatingLabelText="Universidad"*/}
-            {/*filter={AutoComplete.fuzzyFilter}*/}
-            {/*dataSource={dataSource}*/}
-            {/*maxSearchResults={10}*/}
+                {/*floatingLabelText="Universidad"*/}
+                {/*filter={AutoComplete.fuzzyFilter}*/}
+                {/*dataSource={dataSource}*/}
+                {/*maxSearchResults={10}*/}
             {/*/>*/}
             <SelectField
                 autoWidth
@@ -21,12 +21,13 @@ export const PuOptions = ({index, dataSource, option: {college,country,academicP
                 maxHeight={400}
                 value={college}
                 onChange={handleCollegeOptionChange(optionName)}
+                disabled
             >
                 {collegesOptions}
             </SelectField>
             <TextField
                 floatingLabelText="Código de país"
-                disabled={true}
+                disabled
                 value={country}
             />
             <TextField
@@ -34,7 +35,9 @@ export const PuOptions = ({index, dataSource, option: {college,country,academicP
                 value={academicProgram}
                 name={"academicProgram"}
                 onChange={handleOptionChange(optionName)}
+                disabled
             />
         </div>
     );
 };
+
