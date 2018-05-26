@@ -248,7 +248,39 @@ class TakePartPage extends Component {
 
     handleSubmit2 = e => {
         e.preventDefault();
-        alert("2");
+        let homo2 = JSON.parse(JSON.stringify(this.state.homo2));
+        let homo5 = JSON.parse(JSON.stringify(this.state.homo5));
+        let homo8 = JSON.parse(JSON.stringify(this.state.homo8));
+        let homo11 = JSON.parse(JSON.stringify(this.state.homo11));
+        let subject1 = JSON.parse(JSON.stringify(this.state.subjectUAEHFirst));
+        let subject2 = JSON.parse(JSON.stringify(this.state.subjectUAEHSecond));
+        let subject3 = JSON.parse(JSON.stringify(this.state.subjectUAEHThird));
+        let subject4 = JSON.parse(JSON.stringify(this.state.subjectUAEHForth));
+        let subjects = [subject1,subject2, subject3, subject4];
+        let subjectsToUpdate = subjects.map( subject => {
+            return SubjectApi.updateSubjectToCourse(subject)
+        });
+        let homos = [homo2,homo5,homo8,homo11];
+        let homosToUpdate = homos.map( homo => {
+            homo.academic_program = this.state.optionTwo.academicProgram;
+            homo.college = this.state.optionTwo.college;
+            return HomolaacionApi.updateHomologacion(homo)
+        });
+        Promise.all(subjectsToUpdate)
+            .then(subjects => {
+                console.log(subjects);
+                Promise.all(homosToUpdate)
+                    .then(values => {
+                        console.log(values);
+                        this.props.getSubjectsToCourse();
+                        toastr.success("Materias actualizadas");
+                    }).catch( e => {
+                    toastr.error("Oops algo salió mal");
+                    console.log(e)
+                });// End promise All homos to update
+            }).catch(e => {
+            toastr.error("Oops algo salió mal");
+        });// End promise All subjects
     };
 
     handleSubmit3 = e => {
