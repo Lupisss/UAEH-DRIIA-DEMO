@@ -1,9 +1,11 @@
 import React, {Component, Fragment} from 'react';
 import '../takepart/TakePartStylesheet.css';
-import {Paper, RaisedButton, Tab, Tabs} from 'material-ui';
+import {IconButton, Paper, RaisedButton, Tab, Tabs} from 'material-ui';
 import {PuOptions} from "./PuOptions";
 import {PuSubjectToStudy} from "./PuSubjectToStudy";
 import {MainLoader} from '../loader/Loader';
+import Icon from 'material-ui/svg-icons/navigation/arrow-back';
+import {Link} from "react-router-dom";
 import {connect} from 'react-redux';
 
 class SubjectUAEH {
@@ -210,6 +212,14 @@ class PuTakePartPage extends Component {
             <Fragment>
                 {!fetched ? <MainLoader/> :
                     <div className="Main-takepart">
+                        {/*<IconButton*/}
+                            {/*containerElement={<Link to={`/public/${this.props.match.params.id}`}/>}*/}
+                            {/*tooltip={"Regresar a perfil público"}*/}
+                            {/*style={{position: 'absolute', top: 10, left: 10, width:96, height: 96, padding:24}}*/}
+                            {/*iconStyle={{width:48,height:48}}*/}
+                        {/*>*/}
+                            {/*<Icon/>*/}
+                        {/*</IconButton>*/}
                         <Paper className="Main-form-tp" zDepth={3}>
                             <Tabs>
                                 <Tab label="1ra opción">
@@ -256,6 +266,7 @@ class PuTakePartPage extends Component {
                                             homo={homo10}
                                         />
                                         <Title>Primera opción</Title>
+                                        <BackButton profileId={this.props.match.params.id}/>
                                     </form>
                                 </Tab>
                                 <Tab label="2da opción">
@@ -301,6 +312,7 @@ class PuTakePartPage extends Component {
                                             homoName={"homo11"}
                                             homo={homo11}
                                         />
+                                        <BackButton profileId={this.props.match.params.id}/>
                                     </form>
                                 </Tab>
                                 <Tab label="3ra opción">
@@ -346,6 +358,7 @@ class PuTakePartPage extends Component {
                                             homoName={"homo12"}
                                             homo={homo12}
                                         />
+                                        <BackButton profileId={this.props.match.params.id}/>
                                     </form>
                                 </Tab>
                             </Tabs>
@@ -364,8 +377,13 @@ const Title = (props) => (
     </div>
 );
 
-const SubmitButton = ({...props}) => (
-    <RaisedButton className={"submitButton"} type={"submit"} primary label={"Guardar"}/>
+const BackButton = ({...props,profileId}) => (
+    <RaisedButton
+        className={"submitButton"}
+        primary
+        label={"Regresar al perfil"}
+        containerElement={<Link to={`/public/${profileId}`}/>}
+    />
 );
 
 const mapStateToProps = (state, ownProps) => {

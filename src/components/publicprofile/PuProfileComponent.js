@@ -4,6 +4,8 @@ import {
     TextField
 } from "material-ui";
 import './PuPublicStylesheet.css';
+import {IconButton} from 'material-ui';
+import Icon from 'material-ui/svg-icons/navigation/arrow-back';
 import {Link} from "react-router-dom";
 
 
@@ -55,8 +57,15 @@ export const PuProfileComponent = ({profile, user, tutor}) => {
                 </div>
                 {/*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*/}
 
-
                 <div className="Profile-form ">
+                    <IconButton
+                        containerElement={<Link to={"/admin/students/"}/>}
+                        tooltip={"Regresar a administrador"}
+                        style={{position: 'absolute', top: 10, left: 10, width:96, height: 96, padding:24}}
+                        iconStyle={{width:48,height:48}}
+                    >
+                        <Icon/>
+                    </IconButton>
                     <h1> {profile.surname} {profile.given_name} </h1>
                     {profile.nationality === 'Mexicana' || "mexicana" ? <h2>México</h2> :
                         profile.nationality === 'Española' || 'española' ? <h2>España</h2> :

@@ -12,6 +12,7 @@
     align-items: center;
     background-image: url("https://images.pexels.com/photos/12064/pexels-photo-12064.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260");
     background-size: cover;
+    position: relative;
 }
 
 .Container-Load-Files {
