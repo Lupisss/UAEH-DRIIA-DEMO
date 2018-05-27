@@ -34,6 +34,8 @@ export const NavBarComponent = ({logOut,user,userLogged}) => {
         if ( user.profile )  {
             userText = `${user.profile.given_name} ${user.profile.surname}`;
             srcImg = user.profile.profilePicture ? user.profile.profilePicture : defaultImg;
+        }if( user.is_staff ){
+            userText = `${user.username}`;
         }
     }
     return (
