@@ -207,8 +207,8 @@ class ProfilePage extends Component {
         let profile = {...this.state.profile};
         let profilePicture = {...this.state.profilePicture};
         let wallPicture = {...this.state.wallPicture};
-        if (profilePicture.src === "") delete profile.profilePicture;
-        if (wallPicture.src === "") delete profile.wallPicture;
+        delete profile.profilePicture;
+        delete profile.wallPicture;
         console.log('El perfil',profile);
         console.log('Perfil antes de guardar: ',profile);
         this.props.updateProfile(profile)
@@ -227,6 +227,7 @@ class ProfilePage extends Component {
                 console.log(e);
         });
     };
+
     handleSubmitTutor = e => {
         e.preventDefault();
         let tutor = {...this.state.tutor};
@@ -270,7 +271,7 @@ class ProfilePage extends Component {
                     [name] : img,
                     id : profile.id
                 };
-                ProfileApi.updateProfile(profileToSend)
+                this.props.updateProfile(profileToSend)
                     .then( p => {
                         profile[name] = img;
                         this.setState({profile, [name]: pictureToChange});

@@ -318,9 +318,9 @@ export const updateProfileSuccess = profile => ({
 export const updateProfile = profile => (dispatch, getState) => {
     let copyProfile = JSON.parse(JSON.stringify(profile));
     let copyProfile2 = JSON.parse(JSON.stringify(profile));
-    copyProfile.user = getState().user.info.id;
-    copyProfile.tutor = copyProfile.tutor.id;
-    copyProfile.academic_program = profile.academic_program.id;
+    if(copyProfile.user) copyProfile.user = getState().user.info.id;
+    if(copyProfile.tutor) copyProfile.tutor = copyProfile.tutor.id;
+    if(copyProfile.academic_program) copyProfile.academic_program = profile.academic_program.id;
     console.log("Esta es la copia delp erfil que se debe mandar: ", copyProfile);
     return ProfileApi.updateProfile(copyProfile)
         .then(p => {
@@ -332,7 +332,8 @@ export const updateProfile = profile => (dispatch, getState) => {
             copyProfile2.profilePicture = p['profilePicture'];
             copyProfile2.wallPicture = p['wallPicture'];
             console.log('Esto envio: ', copyProfile2);
-            dispatch(updateProfileSuccess(copyProfile2));
+            //dispatch(updateProfileSuccess(copyProfile2));
+            dispatch(comprobarUsuario());
             return Promise.resolve(copyProfile2);
         }).catch(e => {
             console.log(e);
@@ -354,7 +355,8 @@ export const addNewAddressToProfileSuccess = address => ({
 export const addNewAddressToProfile = address => (dispatch, getState) => {
     return AddressApi.newAddress(address)
         .then(r => {
-            dispatch(addNewAddressToProfileSuccess(r))
+            // dispatch(addNewAddressToProfileSuccess(r))
+            dispatch(comprobarUsuario())
         }).catch(e => {
             console.log(e);
         });
@@ -373,7 +375,8 @@ export const updateAddressToProfile = address => (dispatch, getState) => {
     return AddressApi.updateAddress(address)
         .then(r => {
             console.log(r);
-            dispatch(updateAddressToProfileSuccess(r))
+            // dispatch(updateAddressToProfileSuccess(r))
+            dispatch(comprobarUsuario())
         }).catch(e => {
             console.log(e);
         });
@@ -393,7 +396,8 @@ export const deleteAddressToProfile = idAddress => (dispatch, getState) => {
     return AddressApi.deleteAddress(idAddress)
         .then(r => {
             console.log(r);
-            dispatch(deleteAddressToProfileSuccess(idAddress))
+            // dispatch(deleteAddressToProfileSuccess(idAddress))
+            dispatch(comprobarUsuario())
         }).catch(e => {
             console.log(e);
         });
@@ -416,7 +420,8 @@ export const addNewCertificationToProfileSuccess = certification => ({
 export const addNewCertificationToProfile = certification => (dispatch, getState) => {
     return CertificationApi.newCertification(certification)
         .then(r => {
-            dispatch(addNewCertificationToProfileSuccess(r))
+            // dispatch(addNewCertificationToProfileSuccess(r))
+            dispatch(comprobarUsuario())
         }).catch(e => {
             console.log(e);
         });
@@ -435,7 +440,8 @@ export const updateCertificationToProfile = certification => (dispatch, getState
     return CertificationApi.updateCertification(certification)
         .then(r => {
             console.log(r);
-            dispatch(updateCertificationToProfileSuccess(r))
+            // dispatch(updateCertificationToProfileSuccess(r))
+            dispatch(comprobarUsuario())
         }).catch(e => {
             console.log(e);
         });
@@ -455,7 +461,8 @@ export const deleteCertificationToProfile = certificationId => (dispatch, getSta
     return CertificationApi.deleteCertification(certificationId)
         .then(r => {
             console.log(r);
-            dispatch(deleteCertificationToProfileSuccess(certificationId))
+            dispatch(comprobarUsuario())
+            // dispatch(deleteCertificationToProfileSuccess(certificationId))
         }).catch(e => {
             console.log(e);
         });
