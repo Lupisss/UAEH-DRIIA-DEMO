@@ -40,20 +40,21 @@ export const newAcademicProgramSuccess = academicProgram => ({
 export const newAcademicProgram = academicProgram => (dispatch, getState) => {
     return AcademicProgramApi.newAcademicProgram(academicProgram)
         .then(r => {
-            let academicP =  JSON.parse(JSON.stringify(r));
-            let department = [...getState().departments.list.filter( department =>
-                academicP.department == department.id
-            )];
-            department = department[0];
-            let depa = {
-                id: department.id,
-                name: department.name,
-                college: department.college.id
-            };
-            academicP.department = depa;
-            console.log(academicP);
-            dispatch(newAcademicProgramSuccess(academicP));
-            return Promise.resolve(academicP);
+            // let academicP =  JSON.parse(JSON.stringify(r));
+            // let department = [...getState().departments.list.filter( department =>
+            //     academicP.department == department.id
+            // )];
+            // department = department[0];
+            // let depa = {
+            //     id: department.id,
+            //     name: department.name,
+            //     college: department.college.id
+            // };
+            // academicP.department = depa;
+            // console.log(academicP);
+            // dispatch(newAcademicProgramSuccess(academicP));
+            dispatch(getAcademicPrograms());
+            return Promise.resolve(r);
         }).catch(e => {
             return Promise.reject(e)
         });
@@ -70,20 +71,21 @@ export const updateAcademicProgramSuccess = academicProgram => ({
 export const updateAcademicProgram = academicProgram => (dispatch, getState) => {
     return AcademicProgramApi.updateAcademicProgram(academicProgram)
         .then(r => {
-            let academicP =  JSON.parse(JSON.stringify(r));
-            let department = [...getState().departments.list.filter( department =>
-                academicP.department == department.id
-            )];
-            department = department[0];
-            let depa = {
-                id: department.id,
-                name: department.name,
-                college: department.college.id
-            };
-            academicP.department = depa;
-            console.log(academicP);
-            dispatch(updateAcademicProgramSuccess(academicP));
-            return Promise.resolve(academicP);
+            // let academicP =  JSON.parse(JSON.stringify(r));
+            // let department = [...getState().departments.list.filter( department =>
+            //     academicP.department == department.id
+            // )];
+            // department = department[0];
+            // let depa = {
+            //     id: department.id,
+            //     name: department.name,
+            //     college: department.college.id
+            // };
+            // academicP.department = depa;
+            // console.log(academicP);
+            // dispatch(updateAcademicProgramSuccess(academicP));
+            dispatch(getAcademicPrograms());
+            return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
             return Promise.reject(e)

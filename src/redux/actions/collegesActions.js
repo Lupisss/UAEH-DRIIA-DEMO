@@ -1,4 +1,5 @@
 import {CollegeApi} from '../../api/repos';
+import {getDepartments} from "./departmentsActions";
 
 //FETCHED
 // Determine if colleges have fetched from server
@@ -41,7 +42,9 @@ export const newCollege = college => (dispatch, getState) => {
     return CollegeApi.newCollege(college)
         .then(r => {
             console.log(r);
-            dispatch(newCollegeSuccess(r));
+            //dispatch(newCollegeSuccess(r));
+            dispatch(getColleges());
+            dispatch(getDepartments());
             return Promise.resolve(r);
         }).catch(e => {
             return Promise.reject(e)
@@ -59,8 +62,10 @@ export const updateCollegeSuccess = college => ({
 export const updateCollege = college => (dispatch, getState) => {
     return CollegeApi.updateCollege(college)
         .then(r => {
-            dispatch(updateCollegeSuccess(r));
-            Promise.resolve(r);
+            //dispatch(updateCollegeSuccess(r));
+            dispatch(getColleges());
+            dispatch(getDepartments());
+            return Promise.resolve(r);
         }).catch(e => {
             console.log(e);
             Promise.reject(e)

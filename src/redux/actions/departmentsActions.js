@@ -1,4 +1,5 @@
 import {DepartmentApi} from '../../api/repos';
+import {getColleges} from "./collegesActions";
 
 //FETCHED
 // Determine if departments have fetched from server
@@ -40,12 +41,14 @@ export const newDepartmentSuccess = department => ({
 export const newDepartment = department => (dispatch, getState) => {
     return DepartmentApi.newDepartment(department)
         .then(r => {
-            let department = {...r};
-            department.college = getState().colleges.list.filter( college =>
-                college.id == r.college
-            )[0];
-            console.log(department);
-            dispatch(newDepartmentSuccess(department));
+            // let department = {...r};
+            // department.college = getState().colleges.list.filter( college =>
+            //     college.id == r.college
+            // )[0];
+            // console.log(department);
+            // dispatch(newDepartmentSuccess(department));
+            dispatch(getDepartments());
+            dispatch(getColleges());
             return Promise.resolve(r);
         }).catch(e => {
             return Promise.reject(e)
@@ -63,11 +66,13 @@ export const updateDepartmentSuccess = department => ({
 export const updateDepartment = department => (dispatch, getState) => {
     return DepartmentApi.updateDepartment(department)
         .then(r => {
-            let department = {...r};
-            department.college = getState().colleges.list.filter( college =>
-                college.id == r.college
-            )[0];
-            dispatch(updateDepartmentSuccess(department));
+            // let department = {...r};
+            // department.college = getState().colleges.list.filter( college =>
+            //     college.id == r.college
+            // )[0];
+            // dispatch(updateDepartmentSuccess(department));
+            dispatch(getDepartments());
+            dispatch(getColleges());
             return Promise.resolve(r);
         }).catch(e => {
             console.log(e);

@@ -129,6 +129,7 @@ class AddAcademicProgramContainer extends Component {
         const copyDepartments = departments.filter( department =>
             academicProgram.college == department.college.id
         );
+        console.log('Los colegios',colleges);
         const copyColleges = colleges.filter( college =>
             college.departments.length > 0
         );
