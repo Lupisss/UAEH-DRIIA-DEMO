@@ -386,6 +386,7 @@ class ProfilePage extends Component {
             />
         );
         const {fetched, history, academicPrograms} = this.props;
+        const academicProgramsUAEH = academicPrograms.filter( aP => aP.department.college == 1);
         const {user = {}, profile = {}, tutor = {}, tutorAddress, isSearched, currentColonia, birth_date, ssn_expiry_date, loadingPictures} = this.state;
         console.log(loadingPictures);
         console.log('Este es el perfil : ',profile);
@@ -445,7 +446,7 @@ class ProfilePage extends Component {
                                 />
                                 <AcademicInfo
                                     profile={profile}
-                                    academicPrograms={academicPrograms}
+                                    academicPrograms={academicProgramsUAEH}
                                     handleProfileChange={this.handleProfileChange}
                                     handleDropDownChange={this.handleDropDownChange}
                                     onSubmit={this.handleSubmitProfile}
